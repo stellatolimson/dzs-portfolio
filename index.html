@@ -810,6 +810,27 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
   letter-spacing: 0.06em;
 }
 
+/* Mobile contact bar - placed AFTER general CSS to guarantee override */
+@media(max-width:480px){
+  .folder-contact-bar{
+    padding:0 8px!important;
+    font-size:6px!important;
+    font-weight:300!important;
+    white-space:nowrap!important;
+    letter-spacing:0!important;
+    gap:4px!important;
+    -webkit-text-size-adjust:none!important;
+    max-width:100vw!important;
+    overflow:visible!important;
+  }
+  .folder-contact-bar span{
+    -webkit-text-size-adjust:none!important;
+    white-space:nowrap!important;
+    flex-shrink:0!important;
+    min-width:0!important;
+  }
+}
+
 .folder-home-page {
   position: relative;
   display: grid;
