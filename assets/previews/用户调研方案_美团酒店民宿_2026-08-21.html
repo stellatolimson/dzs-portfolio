@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美团酒店民宿使用者 · 用户调研方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Noto+Sans+SC:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fafaf8; --ink:#0a0a0a; --grey-1:#f0f0ee; --grey-2:#d4d4d2; --grey-3:#737373;
+  --accent:#002FA7; --accent-rgb:0,47,167;
+  --text-primary:#0a0a0a; --text-secondary:#525252; --text-helper:#737373;
+  --border-subtle:#e0e0e0; --border-strong:#a3a3a3;
+  --sans:"Inter","Helvetica Neue",system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+  --sans-zh:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"JetBrains Mono","Consolas",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans),var(--sans-zh);-webkit-font-smoothing:antialiased;line-height:1.5}
+.report{max-width:1080px;margin:0 auto;padding:72px 48px 96px}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:.8em;margin-bottom:14px}
+.kicker::before{content:"";width:24px;height:1px;background:var(--accent)}
+.hero{padding-bottom:40px;border-bottom:2px solid var(--ink);margin-bottom:8px}
+.hero h1{font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:clamp(36px,5vw,64px);line-height:1.02;letter-spacing:-.025em;margin:8px 0 20px}
+.hero h1 .it{font-style:italic;font-weight:300}
+.lead{font-size:17px;color:var(--text-secondary);max-width:64ch;line-height:1.65}
+.meta{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--text-helper);margin-top:22px;display:flex;gap:24px;flex-wrap:wrap}
+.step{margin-top:48px;padding-top:32px;border-top:1px solid var(--border-subtle)}
+.step-head{display:flex;gap:20px;align-items:flex-start;margin-bottom:22px}
+.step-num{font-family:var(--sans);font-weight:200;font-size:46px;line-height:.9;color:var(--accent);letter-spacing:-.02em;min-width:58px}
+.step-head .txt .kicker{margin-bottom:6px}
+.step-head h2{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:clamp(21px,2.3vw,29px);letter-spacing:-.02em}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--grey-1);padding:18px 20px;border-radius:3px}
+.card.accent{background:var(--accent);color:#fff}
+.card .ttl{font-weight:500;font-size:14px;letter-spacing:.02em;margin-bottom:7px;font-family:var(--sans),var(--sans-zh)}
+.card .desc{font-size:13.5px;color:var(--text-secondary);line-height:1.55}
+.card.accent .desc{color:rgba(255,255,255,.86)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border-subtle);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-helper);font-weight:500;border-bottom:1px solid var(--ink)}
+td.h{font-family:var(--mono);color:var(--accent);font-weight:600;white-space:nowrap}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;opacity:.8;border-radius:2px}
+.tag.solid{background:var(--accent);color:#fff;border-color:transparent}
+.gantt{margin-top:6px}
+.gantt-head{display:grid;grid-template-columns:minmax(120px,10vw) 1fr;align-items:end;margin-bottom:10px}
+.gantt-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-helper)}
+.gantt-head .weeks{display:grid;grid-template-columns:repeat(4,1fr);font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--text-helper);text-transform:uppercase;border-bottom:1px solid var(--border-strong);padding-bottom:6px}
+.gantt-row{display:grid;grid-template-columns:minmax(120px,10vw) 1fr;align-items:center;border-bottom:1px solid var(--border-subtle);padding:9px 0}
+.gantt-label{font-weight:500;font-size:13.5px;padding-right:12px}
+.gantt-track{position:relative;height:22px;border-left:1px solid var(--border-subtle)}
+.gantt-bar{position:absolute;top:0;height:100%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;border-radius:2px;left:calc(var(--s) / 4 * 100%);width:calc((var(--e) - var(--s)) / 4 * 100%)}
+.gantt-bar.light{background:var(--grey-2);color:var(--ink)}
+.gantt-bar.dark{background:var(--ink);color:#fff}
+.gantt-bar.mile{background:transparent;color:var(--accent);font-weight:600;justify-content:flex-start;padding-left:6px;font-family:var(--mono);font-size:11px}
+.gantt-bar.mile::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:10px;height:10px;background:var(--accent);border-radius:50%;margin-left:-5px}
+.gantt-note{font-size:12px;color:var(--text-helper);margin-top:12px;font-family:var(--mono);letter-spacing:.04em}
+.insight{border-top:3px solid var(--accent);background:var(--grey-1);padding:16px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:6px}
+.insight .col .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-helper);margin-bottom:6px}
+.insight .col .val{font-size:13.5px;line-height:1.55}
+.insight .val.find{font-weight:500}
+.action{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:12px;font-size:13.5px;margin-top:6px}
+.action .ah{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-helper);border-bottom:1px solid var(--ink);padding-bottom:8px}
+.action .cell{padding:10px 0;border-bottom:1px solid var(--border-subtle)}
+.note-pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:2px;padding:2px 7px;margin-left:8px;opacity:.85}
+.footer{margin-top:64px;padding-top:22px;border-top:2px solid var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--text-helper);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media(max-width:760px){.grid-2,.grid-3,.grid-4,.insight,.action{grid-template-columns:1fr}.report{padding:48px 24px 72px}}
+</style>
+</head>
+<body>
+<div class="report">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="kicker">USER RESEARCH PLAN</div>
+    <h1>用户调研方案 · <span class="it">美团酒店 / 民宿使用者</span></h1>
+    <p class="lead">聚焦美团平台酒店与民宿预订场景下的 C 端使用者，挖掘「行前决策—入住—售后」全链路的未满足需求，为新功能立项提供可量化依据。</p>
+    <div class="meta"><span>负责人 Stella</span><span>2026-08-21</span><span>交付 2026-09-21</span><span>周期 4 周（1 个月）</span></div>
+  </header>
+
+  <!-- STEP 1 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">01</div><div class="txt"><div class="kicker">GOAL</div><h2>明确目标</h2></div></div>
+    <div class="grid-2">
+      <div class="card"><div class="ttl">核心问题</div><div class="desc">美团平台酒店/民宿使用者在「行前决策—入住—售后」全链路中，最突出的未满足需求是什么？哪些可转化为高优先级新功能？</div></div>
+      <div class="card"><div class="ttl">决策背景</div><div class="desc">新功能立项：为美团酒旅业务探索高价值新功能（智能决策助手 / 真实评价聚合 / 售后保障升级 / 会员权益），并确定 MVP 优先级。</div></div>
+      <div class="card"><div class="ttl">受众</div><div class="desc">美团酒旅产品经理、设计、业务负责人；结论直接驱动需求评审。</div></div>
+      <div class="card accent"><div class="ttl">验收标准</div><div class="desc">① 识别 ≥3 个高优先级未满足需求并量化规模；② 每个需求给出功能方向 + 优先级 + 预期影响；③ 输出 MVP 范围建议与落地排期。</div></div>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">02</div><div class="txt"><div class="kicker">HYPOTHESIS</div><h2>假设先行</h2></div></div>
+    <table>
+      <thead><tr><th>编号</th><th>假设内容</th><th>支撑理由</th><th>验证方式</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="h">H1</td><td>用户在「行前比价 + 甄别真实评价」环节耗时过长，需要更智能的决策聚合/筛选</td><td>酒店民宿信息分散、刷评普遍，决策成本高</td><td>访谈追问 + 问卷「决策耗时自评」</td><td><span class="tag">待验证</span></td></tr>
+        <tr><td class="h">H2</td><td>民宿用户比酒店用户更看重「房东沟通顺畅 / 真实图片 / 特色体验」，现有展示对民宿不充分</td><td>民宿为非标品，信任建立更依赖人与实景</td><td>酒店 vs 民宿分组对比题 + 访谈</td><td><span class="tag">待验证</span></td></tr>
+        <tr><td class="h">H3</td><td>售后（入住不符 / 临时退改）流程复杂、平台介入被动，用户希望更主动的保障</td><td>非标住宿描述与实物落差高发，纠纷多</td><td>问卷售后满意度 + 访谈痛点回溯</td><td><span class="tag">待验证</span></td></tr>
+        <tr><td class="h">H4</td><td>年轻用户（95后/00后）更愿为「确定性保障 + 会员权益」付费，价格敏感度相对低</td><td>体验消费趋势，确定性溢价被验证</td><td>年龄 × 付费意愿 交叉分析</td><td><span class="tag">待验证</span></td></tr>
+        <tr><td class="h">H5</td><td>用户做酒店 vs 民宿抉择时，排序/推荐未充分体现「出行目的（商务/休闲/亲子）」差异，导致错配</td><td>当前推荐偏价格/位置，弱场景化</td><td>访谈决策路径 + 问卷偏好排序</td><td><span class="tag">待验证</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">03</div><div class="txt"><div class="kicker">DESIGN</div><h2>调研设计方案</h2></div></div>
+    <div class="grid-3">
+      <div class="card"><div class="ttl">调研对象</div><div class="desc">近 3 个月在美团预订过酒店或民宿的 22-40 岁用户，覆盖一线+新一线；酒店组/民宿组各半，含商务/休闲不同出行目的。准入：近3月≥1单；排除：平台员工、竞品从业者、近1月参与过同类调研者。</div></div>
+      <div class="card"><div class="ttl">样本量</div><div class="desc">定性深度访谈 12 人（酒店6+民宿6，男女/商务休闲均衡）；定量问卷 320 份（酒店160+民宿160，95% 置信 ±5%）。</div></div>
+      <div class="card"><div class="ttl">调研方式</div><div class="desc">混合：深度访谈（挖动机/痛点）+ 线上问卷（验证规模占比），两者并行以压缩周期。</div></div>
+      <div class="card"><div class="ttl">时间安排</div><div class="desc">启动1周（目标+假设+设计+招募）→ 预调研+执行约2周（访谈+问卷）→ 整理1周 → Insight+复盘+交付1周。总周期 4 周。</div></div>
+      <div class="card"><div class="ttl">预算与资源</div><div class="desc">招募 via 美团用户社群/问卷平台+红包激励；访谈¥120/人、问卷抽奖；工具：美团问卷/腾讯问卷 + 转写（飞书妙记）；分析用亲和图+Excel。</div></div>
+      <div class="card accent"><div class="ttl">核心约束</div><div class="desc">按 1 个月 deadline 反排任务；访谈与问卷并行以保周期；时间紧张优先压缩缓冲，不砍关键样本。</div></div>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">04</div><div class="txt"><div class="kicker">EXECUTE</div><h2>组织实施（访谈提纲节选）</h2></div></div>
+    <div class="grid-2">
+      <div class="card"><div class="ttl">开场与暖场</div><div class="desc">「感谢参与，约 45–60 分钟，会录音用于内部分析、内容保密。没有标准答案，按真实想法说就好。」<br>暖场：最近一次在美团订酒店/民宿是什么场景？顺利吗？</div></div>
+      <div class="card"><div class="ttl">核心问题（按假设）</div><div class="desc">H1 订之前一般比几家、看多久？最费劲的是哪一步？ → H2（民宿用户）最怕订到什么样的民宿？怎么判断靠不靠谱？ → H3 有无遇到入住不符/要退改？平台怎么处理的，你满意吗？ → H4（年轻用户）若有「入住无忧保障」或会员权益，愿多付多少？ → H5 这次是商务还是玩？美团推荐的跟你想的是一回事吗？</div></div>
+    </div>
+    <div class="card accent" style="margin-top:14px"><div class="ttl">避坑清单</div><div class="desc">不引导、不评价、追细节（「具体哪一步」）、单场 ≤60min、务必取得录制同意；问卷预调研 ≥8 人含非目标用户挑刺。</div></div>
+  </section>
+
+  <!-- STEP 5 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">05</div><div class="txt"><div class="kicker">SYNTHESIS</div><h2>信息整理</h2></div></div>
+    <div class="grid-3">
+      <div class="card"><div class="ttl">定性</div><div class="desc">录音转文字（标时间戳）→ 编码打标签 → 亲和图归类 → 回扣假设 H1-H5，提炼动机与痛点。</div></div>
+      <div class="card"><div class="ttl">定量</div><div class="desc">清洗乱填样本 → 建表（每行 1 受访者）→ 描述统计 → 酒店/民宿、年龄、出行目的交叉 → 显著性检验（p 值）。</div></div>
+      <div class="card"><div class="ttl">归档</div><div class="desc">原始录音 / 转写稿 / 编码表 / 问卷数据集 统一目录，确保每条结论可回溯到证据。</div></div>
+    </div>
+  </section>
+
+  <!-- STEP 6 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">06</div><div class="txt"><div class="kicker">INSIGHT</div><h2>核心洞察（输出框架 · 执行后填充）<span class="note-pill">候选 / 待数据验证</span></h2></div></div>
+    <div class="insight">
+      <div class="col"><div class="lab">发现</div><div class="val find">「信息过载 + 刷评难辨」是行前决策最大痛点，用户渴望一键对比与可信评价</div></div>
+      <div class="col"><div class="lab">证据</div><div class="val">待访谈/问卷（决策耗时、评价信任度题项），回扣 H1</div></div>
+      <div class="col"><div class="lab">业务建议</div><div class="val">做「真实评价加权 + 一键对比」功能，作为决策环节转化抓手 · 验证 H1</div></div>
+    </div>
+    <div class="insight" style="border-top:1px solid var(--border-subtle);margin-top:0">
+      <div class="col"><div class="lab">发现</div><div class="val find">民宿信任靠「房东响应 + 实拍」，当前详情展示对民宿不充分</div></div>
+      <div class="col"><div class="lab">证据</div><div class="val">待酒店 vs 民宿分组对比，回扣 H2</div></div>
+      <div class="col"><div class="lab">业务建议</div><div class="val">民宿详情强化房东实时沟通入口与实拍核验 · 验证 H2</div></div>
+    </div>
+    <div class="insight" style="border-top:1px solid var(--border-subtle);margin-top:0">
+      <div class="col"><div class="lab">发现</div><div class="val find">售后保障是转化与复购关键，用户要平台更主动介入</div></div>
+      <div class="col"><div class="lab">证据</div><div class="val">待售后满意度题 + 痛点回溯，回扣 H3</div></div>
+      <div class="col"><div class="lab">业务建议</div><div class="val">推「入住无忧」保障 + 主动介入流程 · 验证 H3</div></div>
+    </div>
+  </section>
+
+  <!-- GANTT -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">⏱</div><div class="txt"><div class="kicker">TIMELINE</div><h2>调研排期甘特图（4 周 · 08-21 → 09-21）</h2></div></div>
+    <div class="gantt">
+      <div class="gantt-head">
+        <div class="lbl">任务</div>
+        <div class="weeks"><span>W1 08-21</span><span>W2 08-28</span><span>W3 09-04</span><span>W4 09-11</span></div>
+      </div>
+      <div class="gantt-row"><div class="gantt-label">1. 明确目标 + 假设</div><div class="gantt-track"><div class="gantt-bar" style="--s:0;--e:.5">2-3d</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">2-3. 设计 + 招募</div><div class="gantt-track"><div class="gantt-bar light" style="--s:.3;--e:1">4-5d</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">4. 访谈执行</div><div class="gantt-track"><div class="gantt-bar dark" style="--s:1;--e:2.4">12人</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">4. 问卷发放回收</div><div class="gantt-track"><div class="gantt-bar" style="--s:.9;--e:2.6">320份</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">5. 信息整理</div><div class="gantt-track"><div class="gantt-bar light" style="--s:2.5;--e:3.3">4-5d</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">6. 输出 Insight</div><div class="gantt-track"><div class="gantt-bar dark" style="--s:2.8;--e:3.6">4d</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">7. 同步复盘 + 交付</div><div class="gantt-track"><div class="gantt-bar" style="--s:3.2;--e:3.95">3d</div></div></div>
+      <div class="gantt-row"><div class="gantt-label">里程碑</div><div class="gantt-track"><div class="gantt-bar mile" style="--s:2.35;--e:2.35">访谈完成</div><div class="gantt-bar mile" style="--s:2.55;--e:2.55">问卷回收</div><div class="gantt-bar mile" style="--s:3.9;--e:3.9">方案交付</div></div></div>
+    </div>
+    <div class="gantt-note">* 甘特图按用户给定总时长（1 个月）反排；访谈与问卷并行压缩执行周期，W4 末留 09-18~09-21 缓冲应对延迟。</div>
+  </section>
+
+  <!-- STEP 7 -->
+  <section class="step">
+    <div class="step-head"><div class="step-num">07</div><div class="txt"><div class="kicker">REVIEW</div><h2>同步复盘</h2></div></div>
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="card"><div class="ttl">结论摘要（待填充）</div><div class="desc">执行后交付：① ≥3 个高优先级需求及规模量化；② 各需求功能方向+优先级+预期影响；③ MVP 范围建议。</div></div>
+      <div class="card"><div class="ttl">方法论沉淀</div><div class="desc">预调研 ≥8 人且含非目标用户挑刺，避免题项歧义；酒店/民宿分组对比避免需求混淆；结论全部回溯到原始证据。</div></div>
+    </div>
+    <div class="action">
+      <div class="ah">行动项</div><div class="ah">负责人</div><div class="ah">截止</div>
+      <div class="cell">产出需求优先级矩阵与 MVP 功能清单</div><div class="cell">产品-A</div><div class="cell">09-15</div>
+      <div class="cell">真实评价加权 / 一键对比 算法预研</div><div class="cell">算法-B</div><div class="cell">09-18</div>
+      <div class="cell">民宿实拍核验 + 房东沟通入口流程草案</div><div class="cell">运营-C</div><div class="cell">09-20</div>
+      <div class="cell">「入住无忧」保障方案与成本测算</div><div class="cell">业务-D</div><div class="cell">09-20</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>USER RESEARCH PLAN · 美团酒店/民宿使用者</span>
+    <span>由 user-research-guide skill 生成 · 2026-08-21</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>子珊 · 个人作品集 | BLAKN BAGEL PORTFOLIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Ma+Shan+Zheng&amp;family=Noto+Sans+SC:wght@300;400;500;700&amp;family=ZCOOL+KuaiLe&amp;display=swap" rel="stylesheet" media="all" onload="this.media='all'">
+<style>
+/* ========== Reset & Base ========== */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:auto;min-height:100%}
+body{
+  font-family:'Noto Sans SC','Inter',-apple-system,sans-serif;
+  background:#fff;
+  color:#3a3a3a;
+  -webkit-user-select:none;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;cursor:pointer;background:none;color:inherit}
+
+:root{
+  --card-radius:18px;
+  --drawer-width:580px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --ease-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-bounce:cubic-bezier(0.34,1.56,0.64,1);
+  --font-zh-hand:'ZCOOL KuaiLe','Ma Shan Zheng',cursive;
+  --font-zh-body:'Noto Sans SC',sans-serif;
+  --font-en-hand:'Caveat',cursive;
+  --font-en-body:'Inter',sans-serif;
+  --ink:#4a4a4a;
+  --ink-light:#8a8a8a;
+  --ink-faint:#b8b8b8;
+}
+
+/* ========== Floating Feathers ========== */
+.bg-decorations{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.feather{position:absolute;top:-60px;opacity:0;will-change:transform,opacity}
+.feather svg{display:block;width:100%;height:100%}
+@keyframes featherFall{
+  0%{transform:translateY(-60px) translateX(0) rotate(0deg);opacity:0}
+  8%{opacity:0.55}
+  25%{transform:translateY(25vh) translateX(30px) rotate(90deg)}
+  50%{transform:translateY(50vh) translateX(-20px) rotate(200deg)}
+  75%{transform:translateY(75vh) translateX(25px) rotate(300deg)}
+  92%{opacity:0.45}
+  100%{transform:translateY(105vh) translateX(-15px) rotate(380deg);opacity:0}
+}
+
+/* ========== Top Bar ========== */
+.top-bar{
+  position:absolute;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.7),transparent);
+}
+.brand{font-family:var(--font-en-body);font-size:9px;font-weight:600;letter-spacing:0.28em;color:var(--ink-faint)}
+.panel-name{font-family:var(--font-zh-hand);font-size:18px;color:var(--ink);transition:opacity 0.3s}
+.panel-counter{font-family:var(--font-en-body);font-size:12px;color:var(--ink-faint);letter-spacing:0.15em}
+.panel-counter span{color:var(--ink);font-weight:600;font-size:14px}
+
+/* ========== Nav Arrows ========== */
+.nav-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:100;
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(0,0,0,0.08);background:rgba(255,255,255,0.5);
+  color:rgba(0,0,0,0.35);font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+  transition:all 0.3s var(--ease);
+}
+.nav-arrow:hover{background:rgba(255,255,255,0.8);color:var(--ink);border-color:rgba(0,0,0,0.15);transform:translateY(-50%) scale(1.1)}
+.nav-arrow:disabled{opacity:0.15;cursor:default;transform:translateY(-50%) scale(1)}
+.nav-prev{left:24px}
+.nav-next{right:24px}
+
+/* ========== 3D Carousel Stage ========== */
+.carousel-stage{
+  position:absolute;inset:0;z-index:10;
+  perspective:1300px;
+  perspective-origin:50% 42%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:grab;
+}
+.carousel-stage.dragging{cursor:grabbing}
+.carousel-orbit{
+  position:relative;width:300px;height:420px;
+  transform-style:preserve-3d;
+  transition:transform 0.6s var(--ease-expo);
+  will-change:transform;
+}
+.carousel-orbit.dragging{transition:none}
+
+.carousel-card{
+  position:absolute;top:0;left:0;
+  width:300px;height:420px;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  transition:transform 0.6s var(--ease-expo),opacity 0.5s var(--ease),box-shadow 0.5s var(--ease);
+  will-change:transform,opacity;
+  box-shadow:0 8px 30px rgba(0,0,0,0.12);
+  cursor:pointer;
+}
+.card-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform 0.6s var(--ease);
+}
+.card-glow{
+  position:absolute;inset:0;border-radius:var(--card-radius);
+  box-shadow:0 0 0 0 rgba(255,255,255,0);
+  transition:box-shadow 0.5s var(--ease);
+  pointer-events:none;
+}
+.card-label{
+  position:absolute;bottom:16px;left:0;right:0;
+  text-align:center;font-size:11px;
+  letter-spacing:0.2em;color:#fff;
+  opacity:0;transition:opacity 0.4s;
+  text-shadow:0 2px 8px rgba(0,0,0,0.4);
+}
+.card-hover-hint{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.15);
+  opacity:0;transition:opacity 0.35s;
+  border-radius:var(--card-radius);
+}
+.card-hover-hint span{
+  font-size:11px;color:#fff;letter-spacing:0.2em;
+  padding:7px 20px;border:1px solid rgba(255,255,255,0.5);
+  border-radius:20px;backdrop-filter:blur(4px);
+}
+
+/* Active card styling */
+.carousel-card[data-active="true"]{
+  box-shadow:0 20px 60px rgba(0,0,0,0.22),0 0 0 1px rgba(255,255,255,0.3);
+}
+.carousel-card[data-active="true"] .card-glow{
+  box-shadow:0 0 40px 8px rgba(255,255,255,0.25);
+}
+.carousel-card[data-active="true"] .card-label{opacity:1}
+.carousel-card[data-active="true"]:hover .card-hover-hint{opacity:1}
+.carousel-card[data-active="true"]:hover .card-bg{transform:scale(1.04)}
+
+/* Non-active clickable side cards */
+.carousel-card[data-active="false"]:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,0.18);
+}
+
+/* ========== Bottom Bar ========== */
+.bottom-bar{
+  position:absolute;bottom:0;left:0;right:0;z-index:100;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding:18px;
+  background:linear-gradient(to top,rgba(245,247,250,0.5),transparent);
+}
+.nav-dots{display:flex;gap:10px}
+.nav-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(0,0,0,0.15);transition:all 0.35s var(--ease);padding:0;
+}
+.nav-dot.active{background:var(--ink);width:28px;border-radius:4px}
+.bottom-hint{
+  font-size:11px;color:var(--ink-light);letter-spacing:0.2em;
+  display:flex;gap:16px;align-items:center;
+}
+.bottom-hint .sep{color:var(--ink-faint)}
+
+/* ========== Drawer System ========== */
+.drawer-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.35);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity 0.45s var(--ease);
+  z-index:1000;
+}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;
+  width:var(--drawer-width);max-width:100vw;height:100vh;
+  background:#fff;
+  transform:translateX(100%);
+  transition:transform 0.5s var(--ease-expo);
+  z-index:1001;
+  box-shadow:-10px 0 50px rgba(0,0,0,0.15);
+  overflow:hidden;
+}
+.drawer.open{transform:translateX(0)}
+.drawer-close{
+  position:fixed;top:14px;right:14px;z-index:10;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,0.85);font-size:20px;color:#333;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s;box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+.drawer-close:hover{background:#fff;transform:rotate(90deg)}
+.drawer-body{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.drawer-body::-webkit-scrollbar{width:5px}
+.drawer-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:3px}
+.detail-section{display:none}
+.detail-section.active{display:block;animation:detailFadeIn 0.5s var(--ease)}
+@keyframes detailFadeIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* ========== Detail: 自我介绍 (Collage Style) ========== */
+.detail-intro{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-image:url('assets/backgrounds/paper-texture.jpg'),linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  min-height:100%;
+  padding:58px 28px 40px;
+  color:#3a3a3a;
+  position:relative;
+  overflow:hidden;
+}
+.detail-intro::before{
+  content:'';position:absolute;inset:0;
+  background:transparent;
+  z-index:0;pointer-events:none;
+}
+.detail-intro > h2,.detail-intro > .sub-title,.detail-intro > .intro-pages,.detail-intro > .intro-nav{position:relative;z-index:1}
+.detail-intro h2{font-family:var(--font-zh-hand);font-size:28px;margin-bottom:6px;text-align:center;color:#5D4037;text-shadow:0 1px 2px rgba(255,255,255,0.5)}
+.detail-intro .sub-title{text-align:center;font-family:var(--font-en-hand);font-size:18px;color:rgba(93,64,55,0.5);margin-bottom:30px}
+
+/* Rope + button timeline */
+.rope-container{position:relative;padding-left:48px;z-index:1}
+.rope-line{
+  position:absolute;left:22px;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,rgba(160,140,110,0.5),rgba(180,160,130,0.3),rgba(160,140,110,0.5));
+  border-radius:2px;
+}
+.rope-knot{
+  position:absolute;left:14px;
+  width:20px;height:20px;
+  background:url('assets/backgrounds/rope-button.png') no-repeat center / contain;
+  z-index:2;
+}
+
+/* Intro cards - white paper with pushpin */
+.intro-card{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:6px;
+  padding:28px 22px 18px;
+  margin-bottom:22px;
+  margin-top:18px;
+  position:relative;
+  box-shadow:0 3px 12px rgba(0,0,0,0.07),0 1px 3px rgba(0,0,0,0.04);
+  transition:all 0.3s var(--ease);
+}
+.intro-card:hover{
+  box-shadow:0 6px 20px rgba(0,0,0,0.1),0 2px 6px rgba(0,0,0,0.05);
+  transform:translateY(-2px);
+}
+/* Ivory pushpin on each card */
+.intro-card::before{
+  content:'';
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:28px;height:28px;
+  background:url('assets/backgrounds/pushpin-ivory.png') no-repeat center / contain;
+  z-index:2;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+.intro-card h3{font-family:var(--font-zh-hand);font-size:17px;color:#5D4037;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.intro-card h3::before{content:'';width:4px;height:16px;background:#8D6E63;border-radius:2px}
+.edu-item{padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.edu-item:last-child{border-bottom:none}
+.edu-school{font-size:14px;font-weight:700;color:#3a3a3a;margin-bottom:4px}
+.edu-meta{font-size:12px;color:#6D4C41;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.edu-tag{background:rgba(141,110,99,0.1);color:#6D4C41;padding:2px 8px;border-radius:4px;font-size:11px;border:1px solid rgba(141,110,99,0.15)}
+.edu-time{font-family:var(--font-en-body);color:#999}
+.advantage-text{font-size:13px;line-height:1.85;color:#444}
+.advantage-text strong{color:#5D4037;font-weight:700}
+
+/* Intro pages - paginated */
+.intro-pages{position:relative;perspective:1500px;padding:0 8px}
+.intro-page{
+  background:#fff;
+  border-radius:6px;
+  border:1px solid rgba(0,0,0,0.06);
+  box-shadow:0 3px 12px rgba(0,0,0,0.07),0 1px 3px rgba(0,0,0,0.04);
+  transform-origin:left center;
+  transition:transform 0.6s var(--ease),opacity 0.6s var(--ease);
+  overflow-y:auto;
+  max-height:calc(100vh - 220px);
+  padding:46px 24px 24px;
+  margin-bottom:20px;
+  margin-top:20px;
+  position:relative;
+}
+/* Top pushpin - fully visible inside content */
+.intro-page::before{
+  content:'';
+  position:absolute;
+  top:4px;
+  left:50%;
+  transform:translateX(-50%);
+  width:30px;height:30px;
+  background:url('assets/backgrounds/pushpin-ivory.png') no-repeat center / contain;
+  z-index:3;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+.intro-page.hidden{transform:rotateY(-90deg);opacity:0;pointer-events:none;position:absolute;top:0;left:8px;right:8px}
+.intro-page.active{transform:rotateY(0);opacity:1}
+/* Card sections with warm white gradient */
+.intro-card-section{
+  margin-bottom:0;position:relative;
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border:1px solid rgba(141,110,99,0.1);
+  border-radius:8px;
+  padding:24px 20px 16px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05),0 1px 2px rgba(0,0,0,0.03);
+}
+.intro-card-section h3{font-family:var(--font-zh-hand);font-size:17px;color:#5D4037;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.intro-card-section h3::before{content:'';width:4px;height:16px;background:#8D6E63;border-radius:2px}
+.intro-personal-text{font-size:13px;line-height:2.0;color:#444}
+.intro-personal-text strong{color:#5D4037;font-weight:700}
+/* Rope divider between sections */
+.rope-divider{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin:6px 0 18px;
+  position:relative;
+}
+.rope-divider::before{
+  content:'';
+  width:2px;height:18px;
+  background:linear-gradient(to bottom,rgba(160,140,110,0.4),rgba(180,160,130,0.2));
+  border-radius:2px;
+}
+.rope-divider::after{
+  content:'';
+  width:16px;height:16px;
+  background:url('assets/backgrounds/rope-button.png') no-repeat center / contain;
+  opacity:0.85;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+}
+/* Bottom knot decoration */
+.intro-bottom-knot{
+  display:flex;
+  justify-content:center;
+  margin-top:14px;
+}
+.intro-bottom-knot::before{
+  content:'';
+  display:block;
+  width:2px;height:14px;
+  background:linear-gradient(to bottom,rgba(180,160,130,0.2),rgba(160,140,110,0.35));
+  border-radius:2px;
+}
+.intro-bottom-knot::after{
+  content:'';
+  display:block;
+  width:20px;height:20px;
+  background:url('assets/backgrounds/rope-button.png') no-repeat center / contain;
+  margin-top:-2px;
+  opacity:0.75;
+}
+/* Skill groups with colored label chips */
+.skill-group{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed rgba(141,110,99,0.18);align-items:flex-start}
+.skill-group:last-child{border-bottom:none}
+.skill-label{
+  flex-shrink:0;
+  min-width:76px;
+  font-size:12px;
+  font-weight:700;
+  color:#5D4037;
+  background:rgba(141,110,99,0.18);
+  padding:5px 12px;
+  border-radius:6px;
+  text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  letter-spacing:0.05em;
+  line-height:1.4;
+  border:1px solid rgba(141,110,99,0.2);
+}
+.skill-items{font-size:12px;line-height:1.7;color:#555;flex:1}
+.intro-awards{list-style:none;margin:8px 0 0}
+.intro-awards li{font-size:13px;line-height:1.9;color:#555;padding:6px 0 6px 22px;position:relative}
+.intro-awards li::before{content:'★';position:absolute;left:0;color:#B8860B;font-size:11px;top:8px}
+.intro-awards strong{color:#5D4037;font-weight:700}
+.intro-nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px;margin-top:12px;position:relative;z-index:1}
+
+/* ========== Detail: 项目经历 (Collage Style) ========== */
+.detail-project{
+  background:url('assets/backgrounds/project-bg.jpg') no-repeat center top / cover;
+  min-height:100%;
+  padding:54px 0 40px;
+  color:#2a2a2a;
+  position:relative;
+  overflow:hidden;
+}
+/* Paint brushes decoration - top right */
+.detail-project::after{
+  content:'';
+  position:absolute;
+  top:-10px;right:-30px;
+  width:200px;height:120px;
+  background:url('assets/backgrounds/paint-brushes.png') no-repeat center / contain;
+  z-index:0;
+  pointer-events:none;
+  opacity:0.85;
+  transform:rotate(15deg);
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+}
+.detail-project > h2,.detail-project > .sub-title,.detail-project > .book-container,.detail-project > .book-nav{
+  position:relative;z-index:1;
+}
+.detail-project h2{font-family:var(--font-zh-hand);font-size:26px;text-align:center;color:#5D4037;margin-bottom:4px;padding:0 28px}
+.detail-project .sub-title{text-align:center;font-family:var(--font-en-hand);font-size:16px;color:rgba(93,64,55,0.5);margin-bottom:20px}
+.book-container{position:relative;perspective:1500px;padding:0 20px}
+.book-page{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border-radius:6px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
+  transform-origin:left center;
+  transition:transform 0.6s var(--ease),opacity 0.6s var(--ease);
+  overflow-y:auto;
+  max-height:calc(100vh - 220px);
+  padding:28px 22px 24px;
+  margin-bottom:16px;
+  margin-top:20px;
+  position:relative;
+  border:1px solid rgba(0,0,0,0.05);
+}
+/* Transparent clip on top of page */
+.book-page::before{
+  content:'';
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:46px;height:36px;
+  background:url('assets/backgrounds/clip-transparent-new.png') no-repeat center / contain;
+  z-index:3;
+  pointer-events:none;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,0.1));
+}
+.book-page.hidden{transform:rotateY(-90deg);opacity:0;pointer-events:none;position:absolute;top:0;left:20px;right:20px}
+.book-page h3{font-family:var(--font-zh-body);font-size:15px;font-weight:700;color:#5D4037;margin-bottom:8px;line-height:1.5}
+.book-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#8D6E63;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #E8DCC8}
+.book-meta-item{display:flex;align-items:center;gap:4px}
+.book-meta-label{color:#A1887F}
+.book-meta-value{font-weight:600;color:#5D4037}
+.book-section-title{font-size:13px;font-weight:700;color:#795548;margin:14px 0 8px;padding-left:10px;border-left:3px solid #795548}
+.book-text{font-size:13px;line-height:1.8;color:#555;margin-bottom:10px}
+.book-list{list-style:none;margin:8px 0 12px}
+.book-list li{font-size:13px;line-height:1.7;color:#555;padding:4px 0 4px 16px;position:relative}
+.book-list li::before{content:'·';position:absolute;left:4px;color:#795548;font-weight:700}
+.book-sub-title{font-size:13px;font-weight:700;color:#5D4037;margin:10px 0 6px}
+.book-keywords{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px dashed #D7C8AE}
+.book-keyword{font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(93,64,55,0.08);color:#795548;border:1px solid rgba(93,64,55,0.15)}
+.book-nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px;margin-top:12px;position:relative;z-index:1}
+.book-nav-btn{padding:8px 18px;border-radius:8px;background:#795548;color:#fff;font-size:12px;transition:all 0.25s}
+.book-nav-btn:hover{background:#5D4037;transform:translateY(-1px)}
+.book-nav-btn:disabled{opacity:0.3}
+.book-indicator{font-family:var(--font-en-body);font-size:12px;color:#8D6E63}
+
+/* ========== Detail: AI Works (Collage Style) ========== */
+.detail-ai{
+  background:url('assets/backgrounds/project-bg.jpg') no-repeat center top / cover;
+  min-height:100%;
+  padding:54px 0 40px;
+  color:#2a2a2a;
+  position:relative;
+  overflow:hidden;
+}
+/* Gold flower pin decoration - top right */
+.detail-ai::after{
+  content:'';
+  position:absolute;
+  top:-5px;right:-15px;
+  width:100px;height:100px;
+  background:url('assets/backgrounds/gold-flower-pin.png') no-repeat center / contain;
+  z-index:0;
+  pointer-events:none;
+  opacity:0.9;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+}
+.detail-ai > h2,.detail-ai > .sub-title,.detail-ai > .ai-tabs,.detail-ai > .ai-work-wrapper{
+  position:relative;z-index:1;
+}
+.detail-ai h2{font-family:var(--font-zh-hand);font-size:26px;text-align:center;color:#5D4037;margin-bottom:4px;padding:0 28px}
+.detail-ai .sub-title{text-align:center;font-family:var(--font-en-hand);font-size:16px;color:rgba(93,64,55,0.5);margin-bottom:20px}
+.ai-tabs{display:flex;gap:8px;padding:0 20px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ai-tabs::-webkit-scrollbar{height:3px}
+.ai-tabs::-webkit-scrollbar-thumb{background:rgba(93,64,55,0.2);border-radius:2px}
+.ai-tab{flex-shrink:0;padding:8px 16px;border-radius:20px;background:rgba(93,64,55,0.06);color:#5D4037;font-size:13px;border:1px solid rgba(93,64,55,0.15);transition:all 0.25s;white-space:nowrap}
+.ai-tab.active{background:#5D4037;color:#fff;border-color:#5D4037}
+
+/* AI work card - white paper */
+.ai-work{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border-radius:8px;
+  margin:0 20px;
+  padding:22px 18px 18px;
+  box-shadow:0 3px 14px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04);
+  border:1px solid rgba(0,0,0,0.05);
+  position:relative;
+  display:none;
+}
+/* Ivory pushpin on card */
+.ai-work::before{
+  content:'';
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:26px;height:26px;
+  background:url('assets/backgrounds/pushpin-ivory.png') no-repeat center / contain;
+  z-index:2;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+.ai-work.active{display:block;animation:detailFadeIn 0.4s var(--ease)}
+.ai-work h3{font-family:var(--font-zh-body);font-size:17px;font-weight:700;color:#5D4037;margin-bottom:8px}
+.ai-work-desc{font-size:13px;line-height:1.75;color:#555;margin-bottom:14px;padding:12px 14px;background:rgba(93,64,55,0.04);border-radius:8px;border-left:3px solid #795548}
+.ai-work-actions{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.ai-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:600;transition:all 0.25s}
+.ai-btn-download{background:#795548;color:#fff}
+.ai-btn-download:hover{background:#5D4037;transform:translateY(-1px);box-shadow:0 4px 12px rgba(93,64,55,0.3)}
+.ai-btn-external{background:#fff;color:#795548;border:1px solid rgba(93,64,55,0.3)}
+.ai-btn-external:hover{background:rgba(93,64,55,0.06)}
+.ai-btn-preview{background:#fff;color:#795548;border:1px solid rgba(93,64,55,0.3)}
+.ai-btn-preview:hover{background:rgba(93,64,55,0.06)}
+.ai-btn-preview.active{background:#795548;color:#fff;border-color:#795548}
+.ai-preview{border-radius:8px;overflow:hidden;border:1px solid #e0d8c8;background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);display:none;animation:detailFadeIn 0.4s var(--ease)}
+.ai-preview.show{display:block}
+.ai-preview iframe{width:100%;height:420px;border:none;display:block}
+.ai-preview-link{display:flex;align-items:center;justify-content:center;height:120px;background:rgba(58,107,42,0.04);border:1px dashed rgba(58,107,42,0.2);border-radius:10px;font-size:13px;color:#3a6b2a;display:none}
+.ai-preview-link.show{display:flex}
+
+/* ========== Detail: 学校经历 (Collage Style) ========== */
+.detail-school{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-image:url('assets/backgrounds/paper-texture.jpg'),linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  min-height:100%;
+  padding:58px 28px 40px;
+  color:#3a3a3a;
+  position:relative;
+  overflow:hidden;
+}
+/* Graduation card decoration - bottom right */
+.detail-school::after{
+  content:'';
+  position:absolute;
+  bottom:-10px;right:-20px;
+  width:300px;height:220px;
+  background:url('assets/backgrounds/graduation-card.png') no-repeat center / contain;
+  z-index:0;
+  pointer-events:none;
+  opacity:0.95;
+  transform:rotate(-8deg);
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,0.18));
+}
+.detail-school::before{
+  content:'';position:absolute;inset:0;
+  background:transparent;
+  z-index:0;pointer-events:none;
+}
+.detail-school > h2,.detail-school > .sub-title,.detail-school > .sticker{
+  position:relative;z-index:1;
+}
+.detail-school h2{font-family:var(--font-zh-hand);font-size:26px;text-align:center;color:#5D4037;margin-bottom:4px;text-shadow:0 1px 2px rgba(255,255,255,0.5)}
+.detail-school .sub-title{text-align:center;font-family:var(--font-en-hand);font-size:16px;color:rgba(93,64,55,0.5);margin-bottom:28px;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
+
+/* Sticker cards - index tab style */
+.sticker{
+  position:relative;
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius:6px;
+  box-shadow:0 3px 14px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04);
+  margin-bottom:22px;
+  margin-top:28px;
+  padding:22px 20px 18px;
+  transition:all 0.3s var(--ease);
+}
+.sticker:hover{
+  box-shadow:0 6px 20px rgba(0,0,0,0.1),0 2px 6px rgba(0,0,0,0.05);
+  transform:translateY(-2px);
+}
+/* Ivory pushpin on each sticker */
+.sticker::before{
+  content:'';
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:26px;height:26px;
+  background:url('assets/backgrounds/pushpin-ivory.png') no-repeat center / contain;
+  z-index:2;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+.sticker-tab{position:absolute;top:-20px;left:24px;padding:5px 16px;border-radius:6px 6px 0 0;font-size:12px;font-weight:600;color:#fff;box-shadow:0 -2px 6px rgba(0,0,0,0.1)}
+.sticker-tab.warm1{background:linear-gradient(135deg,#A1887F,#6D4C41)}
+.sticker-tab.warm2{background:linear-gradient(135deg,#BCAAA4,#795548)}
+.sticker-title{font-size:15px;font-weight:700;color:#3a3a3a;margin-bottom:4px}
+.sticker-role{font-size:12px;color:#8D6E63;margin-bottom:12px}
+.sticker-section-title{font-size:13px;font-weight:700;color:#795548;margin:10px 0 6px;display:flex;align-items:center;gap:6px}
+.sticker-section-title::before{content:'';width:3px;height:14px;background:#795548;border-radius:2px}
+.sticker-section-title.warm{color:#5D4037}
+.sticker-section-title.warm::before{background:#5D4037}
+.sticker-text{font-size:13px;line-height:1.75;color:#555;margin-bottom:8px}
+.sticker-highlight{background:rgba(121,85,72,0.08);padding:1px 4px;border-radius:3px;font-weight:600;color:#5D4037}
+.sticker-highlight.warm{background:rgba(93,64,55,0.08);color:#5D4037}
+/* Chip-style section labels - light brown gradient, semi-transparent */
+.sticker-chip{
+  display:inline-block;
+  font-size:12px;
+  font-weight:700;
+  color:#5D4037;
+  background:linear-gradient(135deg,rgba(141,110,99,0.22),rgba(121,85,72,0.16));
+  padding:4px 14px;
+  border-radius:6px;
+  letter-spacing:0.05em;
+  border:1px solid rgba(141,110,99,0.2);
+  box-shadow:0 1px 3px rgba(0,0,0,0.05);
+  margin:12px 0 6px;
+}
+
+/* ========== Detail: 实习经历 (Collage: Lined Paper + Brass Clips) ========== */
+.detail-internship{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-image:url('assets/backgrounds/paper-texture.jpg'),linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  min-height:100%;
+  padding:58px 28px 40px;
+  color:#3a3a3a;
+  position:relative;
+  overflow:hidden;
+}
+/* Warm overlay to unify tone */
+.detail-internship::before{
+  content:'';position:absolute;inset:0;
+  background:transparent;
+  z-index:0;pointer-events:none;
+}
+.detail-internship > h2,.detail-internship > .sub-title,.detail-internship > .internship-card{
+  position:relative;z-index:1;
+}
+.detail-internship h2{font-family:var(--font-zh-hand);font-size:26px;text-align:center;color:#5D4037;margin-bottom:4px;text-shadow:0 1px 2px rgba(255,255,255,0.5)}
+.detail-internship .sub-title{text-align:center;font-family:var(--font-en-hand);font-size:16px;color:rgba(93,64,55,0.5);margin-bottom:28px;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
+
+/* Internship card = white paper pinned by brass clip */
+.internship-card{
+  background:linear-gradient(160deg,#FFFCF7 0%,#FFF9F0 40%,#FFF6E8 100%);
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:6px;
+  padding:28px 22px 18px;
+  margin-bottom:22px;
+  margin-top:18px;
+  transition:all 0.3s var(--ease);
+  position:relative;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08),0 1px 3px rgba(0,0,0,0.04);
+}
+.internship-card:hover{
+  box-shadow:0 6px 20px rgba(0,0,0,0.12),0 2px 6px rgba(0,0,0,0.06);
+  transform:translateY(-2px);
+}
+/* Brass paper clip on each card */
+.internship-card::before{
+  content:'';
+  position:absolute;
+  top:-18px;
+  right:24px;
+  width:28px;
+  height:52px;
+  background:url('assets/backgrounds/brass-clip.png') no-repeat center / contain;
+  z-index:2;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+/* Transparent clip on alternating cards */
+.internship-card:nth-child(odd)::after{
+  content:'';
+  position:absolute;
+  top:-12px;
+  left:20px;
+  width:40px;
+  height:30px;
+  background:url('assets/backgrounds/clip-transparent.png') no-repeat center / contain;
+  z-index:2;
+  pointer-events:none;
+  opacity:0.85;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+.internship-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.internship-company{font-size:15px;font-weight:700;color:#3a3a3a;line-height:1.4}
+.internship-time{font-family:var(--font-en-body);font-size:12px;color:#8D6E63;white-space:nowrap}
+.internship-keywords{display:flex;gap:6px;flex-wrap:wrap}
+.internship-keyword{font-size:11px;padding:3px 10px;border-radius:4px;background:rgba(93,64,55,0.06);color:#795548;border:1px solid rgba(93,64,55,0.12)}
+
+/* ========== Responsive ========== */
+@media(max-width:480px){
+  :root{--drawer-width:100vw}
+  .carousel-orbit{width:240px;height:340px}
+  .carousel-card{width:240px;height:340px}
+  .nav-arrow{display:none}
+  .top-bar{padding:12px 16px}
+  .brand{font-size:8px}
+  .panel-name{font-size:16px}
+  .panel-counter{font-size:10px}
+  .bottom-bar{padding:14px}
+  .bottom-hint{font-size:10px}
+  .detail-intro,.detail-project,.detail-ai,.detail-school,.detail-internship{padding-top:48px;padding-left:18px;padding-right:18px}
+  .ai-preview iframe{height:300px}
+}
+
+/* ===== folder-home (integrated) ===== */
+#folder-root {
+  background: transparent;
+}
+
+.folder-home-page {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  padding: 96px 56px 56px;
+  color: #111111;
+  background: transparent;
+  isolation: isolate;
+}
+
+.folder-background-word {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  z-index: 0;
+  width: clamp(620px, 92vw, 1400px);
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.folder-project-room {
+  background: #fff;
+}
+
+.folder-home-page::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: none;
+  content: "";
+  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.08) 0 1.2px, transparent 1.4px);
+  background-position: center;
+  background-size: 26px 26px;
+}
+
+.folder-stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(1160px, calc(100vw - 112px));
+  height: min(720px, calc(100vh - 152px));
+  min-height: 600px;
+  place-items: center;
+  perspective: 1400px;
+}
+
+.portfolio-folder {
+  --folder-shift-y: clamp(30px, 5vh, 58px);
+  --folder-radius: 34px;
+  --cards-open-drop: -74px;
+  --folder-front-rest: translateX(-50%) translateY(0) rotateX(0deg) scale(0.96);
+  --folder-front-open: translateX(-50%) translateY(30px) rotateX(-7deg) scale(0.9);
+  --folder-back-rest: translateX(-50%) translateY(0) scale(0.96);
+  --folder-back-open: translateX(-50%) translateY(30px) scale(0.9);
+  position: relative;
+  width: 520px;
+  height: 390px;
+  isolation: isolate;
+  outline: 0;
+  transform: translateY(var(--folder-shift-y));
+  transform-style: preserve-3d;
+}
+
+.portfolio-folder::after {
+  position: absolute;
+  right: 128px;
+  bottom: -18px;
+  left: 128px;
+  z-index: 1;
+  height: 38px;
+  border-radius: 999px;
+  content: "";
+  background:
+    radial-gradient(ellipse at center, rgba(3, 105, 144, 0.64) 0%, rgba(3, 105, 144, 0.36) 34%, rgba(3, 105, 144, 0.12) 66%, transparent 84%),
+    radial-gradient(ellipse at center, rgba(45, 196, 235, 0.28) 0%, transparent 70%);
+  filter: blur(14px);
+  opacity: 0.76;
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: folder-shadow-float 2600ms ease-in-out infinite;
+}
+
+.portfolio-folder:focus-visible {
+  outline: 0;
+}
+
+.folder-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform-style: preserve-3d;
+  animation: folder-shell-float 2600ms ease-in-out infinite;
+}
+
+.folder-card-stack,
+.folder-back,
+.folder-front {
+  position: absolute;
+  left: 50%;
+  transform-style: preserve-3d;
+}
+
+.folder-card-stack {
+  bottom: 186px;
+  z-index: 12;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.folder-card {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: var(--card-z);
+  display: block;
+  width: var(--card-w);
+  height: var(--card-h);
+  overflow: visible;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(calc(-50% + var(--peek-x)), calc(var(--peek-y) + 70px)) rotate(var(--peek-r)) scale(0.76);
+  transform-origin: center bottom;
+  transition:
+    opacity 260ms ease var(--card-delay),
+    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--card-delay),
+    box-shadow 420ms ease var(--card-delay),
+    filter 240ms ease;
+}
+
+.folder-card-surface {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  background: var(--card-color);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.9);
+}
+
+.folder-card-surface img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.folder-card-surface::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%);
+  pointer-events: none;
+}
+
+.folder-card-badge {
+  position: absolute;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid rgba(18, 26, 38, 0.08);
+  border-radius: 999px;
+  color: rgba(17, 17, 17, 0.62);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 9px 24px rgba(12, 31, 52, 0.1);
+  font-family: SFMono-Regular, Roboto Mono, Cascadia Mono, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: lowercase;
+  backdrop-filter: blur(12px);
+}
+
+.folder-card-text {
+  position: absolute;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 20px;
+  font-weight: 760;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.folder-card-photo .folder-card-badge {
+  top: -28px;
+  left: -58px;
+  transform: rotate(-8deg);
+}
+
+.folder-card-photo .folder-card-surface {
+  border-radius: 24px;
+  background: #76c7f0;
+}
+
+.folder-card-photo .folder-card-text {
+  display: none;
+}
+
+.folder-card-blue .folder-card-badge {
+  display: none;
+}
+
+.folder-card-blue .folder-card-surface {
+  border-radius: 18px;
+  background: #3188df;
+  box-shadow: none;
+}
+
+.folder-card-blue .folder-card-surface::after {
+  display: none;
+}
+
+.folder-card-blue img {
+  opacity: 1;
+  filter: none;
+}
+
+.folder-card-blue .folder-card-text {
+  display: none;
+}
+
+.folder-card-polaroid .folder-card-badge {
+  display: none;
+}
+
+.folder-card-polaroid .folder-card-surface {
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(19, 31, 46, 0.04);
+}
+
+.folder-card-polaroid img {
+  inset: 10px 10px 46px;
+  width: calc(100% - 20px);
+  height: calc(100% - 56px);
+  border-radius: 12px;
+}
+
+.folder-card-polaroid .folder-card-text {
+  bottom: 18px;
+  left: 18px;
+  color: rgba(17, 17, 17, 0.52);
+  font-family: SFMono-Regular, Roboto Mono, Cascadia Mono, Consolas, monospace;
+  font-size: 13px;
+}
+
+.folder-card-note .folder-card-badge {
+  display: none;
+}
+
+.folder-card-note .folder-card-surface {
+  border: 0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.folder-card-note .folder-card-surface::after {
+  display: none;
+}
+
+.folder-card-note img {
+  opacity: 1;
+  filter: none;
+}
+
+.folder-card-note .folder-card-text {
+  display: none;
+}
+
+.folder-card-youth .folder-card-badge {
+  display: none;
+}
+
+.folder-card-youth .folder-card-surface {
+  border-radius: 22px;
+  background: #a6dc39;
+  box-shadow: none;
+}
+
+.folder-card-youth img {
+  object-position: 42% center;
+  transform: scale(1.03);
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.folder-card-youth .folder-card-surface::after {
+  display: block;
+  background: linear-gradient(110deg, transparent 0 40%, rgba(255, 255, 255, 0.28) 49%, transparent 58%);
+  opacity: 0;
+  transform: translateX(-130%);
+  transition:
+    opacity 180ms ease,
+    transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card-youth:hover img,
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card-youth:focus-visible img {
+  transform: scale(1.08);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card-youth:hover .folder-card-surface::after,
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card-youth:focus-visible .folder-card-surface::after {
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+.folder-card-comment .folder-card-badge {
+  top: -22px;
+  right: -52px;
+}
+
+.folder-card-comment .folder-card-surface {
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.folder-card-comment img {
+  opacity: 0.75;
+}
+
+.folder-card-comment .folder-card-text {
+  display: none;
+}
+
+.folder-back {
+  bottom: 72px;
+  z-index: 6;
+  width: 372px;
+  height: 276px;
+  border: 0;
+  border-radius: var(--folder-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 50%),
+    #20bfeb;
+  clip-path: polygon(0 0, 33% 0, 45% 24%, 100% 24%, 100% 100%, 0 100%);
+  clip-path: path("M 30 0 H 124 C 140 0 151 6 162 18 L 188 47 C 199 59 213 66 232 66 H 342 C 361 66 372 78 372 97 V 246 C 372 264 360 276 342 276 H 30 C 12 276 0 264 0 246 V 30 C 0 12 12 0 30 0 Z");
+  box-shadow:
+    0 18px 30px rgba(24, 168, 218, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  transform: var(--folder-back-rest);
+  transition:
+    opacity 320ms ease,
+    transform 580ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.folder-back::before {
+  display: none;
+}
+
+.folder-front {
+  bottom: 48px;
+  z-index: 16;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  width: 384px;
+  height: 218px;
+  overflow: hidden;
+  padding: 0 28px 28px;
+  border: 0;
+  border-radius: 36px;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.2) 0 16%, rgba(255, 255, 255, 0.05) 44%, rgba(255, 255, 255, 0.12) 100%),
+    rgba(38, 196, 235, 0.5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.42);
+  backdrop-filter: blur(10px) saturate(1.42);
+  filter: drop-shadow(0 10px 16px rgba(32, 177, 224, 0.12));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -15px 30px rgba(255, 255, 255, 0.14),
+    inset 0 0 22px rgba(255, 255, 255, 0.08),
+    0 14px 24px rgba(16, 161, 215, 0.13);
+  pointer-events: none;
+  transform: var(--folder-front-rest);
+  transform-origin: 50% 100%;
+  transition:
+    filter 320ms ease,
+    opacity 320ms ease,
+    transform 580ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 360ms ease;
+}
+
+.folder-front::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.12) 0 15%, rgba(255, 255, 255, 0.03) 38%, transparent 56%),
+    radial-gradient(circle at 48% 56%, rgba(255, 255, 255, 0.06), transparent 34%);
+  pointer-events: none;
+}
+
+.folder-sticker {
+  position: absolute;
+  z-index: 3;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.98;
+  filter:
+    drop-shadow(1.5px 0 0 #ffffff)
+    drop-shadow(-1.5px 0 0 #ffffff)
+    drop-shadow(0 1.5px 0 #ffffff)
+    drop-shadow(0 -1.5px 0 #ffffff)
+    drop-shadow(1px 1px 0 #ffffff)
+    drop-shadow(-1px 1px 0 #ffffff)
+    drop-shadow(1px -1px 0 #ffffff)
+    drop-shadow(-1px -1px 0 #ffffff)
+    drop-shadow(2px 3px 0 rgba(15, 23, 42, 0.08));
+  transform: rotate(var(--sticker-rotate));
+  transform-origin: center;
+  transition:
+    filter 320ms ease,
+    opacity 320ms ease,
+    transform 580ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.folder-sticker-eye {
+  top: 18px;
+  left: 62px;
+  width: 92px;
+  --sticker-rotate: -12deg;
+}
+
+.folder-eye-sticker {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  overflow: visible;
+  filter: none;
+}
+
+.folder-eye-sticker::before {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  border-radius: 50%;
+  content: "";
+  background: #ffffff;
+  box-shadow: 2px 3px 0 rgba(15, 23, 42, 0.08);
+}
+
+.folder-eye-art {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.folder-googly-eye {
+  position: absolute;
+  top: 38.7%;
+  z-index: 4;
+  width: 23.8%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 31% 25%, rgba(255, 255, 255, 0.98) 0 18%, rgba(255, 255, 255, 0) 19%),
+    radial-gradient(circle at 52% 52%, #ffffff 0 45%, #f8f8f4 66%, #e5e0d2 100%);
+  box-shadow:
+    inset 0 -0.8px 1.6px rgba(15, 23, 42, 0.16),
+    0 1px 2px rgba(15, 23, 42, 0.18);
+}
+
+.folder-googly-eye-left {
+  left: 24.9%;
+}
+
+.folder-googly-eye-right {
+  left: 51.3%;
+}
+
+.folder-googly-pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 27%, rgba(255, 255, 255, 0.94) 0 16%, rgba(255, 255, 255, 0) 17%),
+    radial-gradient(circle at 62% 68%, #020202 0 56%, #171717 100%);
+  box-shadow:
+    inset -1px -1.5px 2px rgba(255, 255, 255, 0.14),
+    inset 1px 1.5px 2px rgba(0, 0, 0, 0.42);
+  transform: translate(calc(-50% + var(--eye-x)), calc(-50% + var(--eye-y)));
+  transition: transform 70ms linear;
+}
+
+.folder-googly-pupil::after {
+  position: absolute;
+  right: 17%;
+  bottom: 21%;
+  width: 17%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  content: "";
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.folder-sticker-idea {
+  top: 68px;
+  right: 94px;
+  width: 66px;
+  --sticker-rotate: 13deg;
+}
+
+.folder-title {
+  position: relative;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 30px;
+  font-weight: 720;
+  line-height: 1;
+  text-transform: none;
+  text-shadow: 0 2px 10px rgba(0, 116, 160, 0.18);
+}
+
+.folder-action-bubble {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  margin-right: -4px;
+  margin-bottom: 13px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.94), rgba(236, 252, 255, 0.7) 45%, rgba(218, 244, 248, 0.68)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.88),
+    inset 0 -7px 14px rgba(12, 132, 180, 0.09),
+    0 8px 18px rgba(20, 78, 112, 0.14);
+}
+
+.folder-front-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 16px;
+  color: rgba(34, 181, 226, 0.92);
+  transform: translate(-50%, -50%);
+  animation: folder-arrow-pulse 2400ms ease-in-out 900ms infinite;
+  filter: drop-shadow(0 1px 4px rgba(0, 116, 160, 0.2));
+}
+
+.folder-front-arrow::before,
+.folder-front-arrow::after {
+  position: absolute;
+  content: "";
+  background: currentColor;
+}
+
+.folder-front-arrow::before {
+  top: 9px;
+  right: 0;
+  width: 24px;
+  height: 2px;
+  border-radius: 999px;
+}
+
+.folder-front-arrow::after {
+  top: 3px;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  background: transparent;
+  transform: rotate(45deg);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card {
+  opacity: 1;
+  pointer-events: auto;
+  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.14);
+  transform: translate(calc(-50% + var(--open-x)), calc(var(--open-y) + var(--cards-open-drop) + var(--card-hover-y, 0px))) rotate(var(--open-r)) scale(var(--card-hover-scale, var(--open-scale, 1)));
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card-stack {
+  pointer-events: auto;
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card:hover,
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-card:focus-visible {
+  --card-hover-y: -10px;
+  --card-hover-scale: calc(var(--open-scale, 1) + 0.05);
+  z-index: 9;
+  filter: saturate(1.08) brightness(1.03);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
+  transition-delay: 0ms;
+}
+
+.folder-card:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 5px;
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-back {
+  opacity: 0.96;
+  transform: var(--folder-back-open);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-front {
+  opacity: 0.8;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -18px 34px rgba(255, 255, 255, 0.12),
+    inset 0 0 24px rgba(255, 255, 255, 0.06),
+    0 18px 32px rgba(16, 161, 215, 0.14);
+  transform: var(--folder-front-open);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-sticker {
+  opacity: 1;
+  filter:
+    drop-shadow(1.5px 0 0 #ffffff)
+    drop-shadow(-1.5px 0 0 #ffffff)
+    drop-shadow(0 1.5px 0 #ffffff)
+    drop-shadow(0 -1.5px 0 #ffffff)
+    drop-shadow(1px 1px 0 #ffffff)
+    drop-shadow(-1px 1px 0 #ffffff)
+    drop-shadow(1px -1px 0 #ffffff)
+    drop-shadow(-1px -1px 0 #ffffff)
+    drop-shadow(2px 3px 0 rgba(15, 23, 42, 0.1));
+  transform: translateY(2px) rotate(var(--sticker-rotate)) scale(0.98);
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within) .folder-eye-sticker {
+  filter: none;
+}
+
+.portfolio-folder:is(.is-open, :hover, :focus-within)::after {
+  animation: none;
+  opacity: 0.82;
+  transform: translateY(18px) scaleX(1.28);
+}
+
+@keyframes folder-shell-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0, -12px, 0) scale(1.018);
+  }
+}
+
+@keyframes folder-shadow-float {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translateY(0) scaleX(1.12);
+  }
+
+  50% {
+    opacity: 0.44;
+    transform: translateY(13px) scaleX(0.64);
+  }
+}
+
+@keyframes folder-front-preview {
+  0%,
+  100% {
+    transform: var(--folder-front-rest);
+  }
+
+  24%,
+  52% {
+    transform: var(--folder-front-open);
+  }
+}
+
+@keyframes folder-back-preview {
+  0%,
+  100% {
+    transform: var(--folder-back-rest);
+  }
+
+  24%,
+  52% {
+    transform: var(--folder-back-open);
+  }
+}
+
+@keyframes folder-card-preview {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, 24px, -36px) rotate(0deg) scale(0.72);
+  }
+
+  24%,
+  52% {
+    opacity: 0.72;
+    transform: translate3d(calc(-50% + var(--peek-x)), var(--peek-y), -8px) rotate(var(--peek-r)) scale(0.84);
+  }
+}
+
+@keyframes folder-arrow-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) translateX(-2px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(3px);
+  }
+}
+
+@media (max-width: 1180px) {
+  
+
+  .folder-home-page {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .folder-stage {
+    width: calc(100vw - 56px);
+    min-height: 520px;
+  }
+
+  .portfolio-folder {
+    transform: translateY(var(--folder-shift-y)) scale(0.88);
+  }
+}
+
+@media (max-width: 760px) {
+  .folder-home-page {
+    min-height: 100svh;
+  }
+
+  .folder-stage {
+    min-height: 500px;
+  }
+
+  .portfolio-folder {
+    transform: translateY(48px) scale(0.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder-card,
+  .folder-back,
+  .folder-shell,
+  .folder-front,
+  .folder-sticker,
+  .folder-front-arrow {
+    animation: none;
+  }
+
+  .portfolio-folder::after {
+    animation: none;
+  }
+}
+
+
+/* ===== base ===== */
+
+/* base override (responsive single page) */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#111;background:#fff}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{color:#fff;background:#111}
+/* folder title: handwritten bilingual name (overrides default sans) */
+.folder-title{font-family:"Ma Shan Zheng","STKaiti","KaiTi","楷体","Kaiti SC","Yuanti SC","STXingkai","华文行楷",cursive;font-weight:400;font-size:34px;line-height:1.04;display:grid;gap:1px}
+.folder-title small{display:block;font-family:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:18px;font-weight:600;line-height:1;letter-spacing:.02em;opacity:.96;margin-top:1px}
+
+
+</style>
+</head>
+<body style="overflow: hidden;">
+
+<!-- ===== Folder Home Section ===== -->
+<div id="folder-root">
+  <section id="intro" class="folder-home-page" aria-label="作品集文件夹首页">
+    <img class="folder-background-word" src="assets/folder/folder-background-word.png" alt="" aria-hidden="true">
+    <div class="folder-stage">
+      <div class="portfolio-folder" role="group" aria-label="作品集文件夹" aria-expanded="false" tabindex="0">
+        <div class="folder-shell">
+          <div class="folder-back" aria-hidden="true"></div>
+          <div class="folder-card-stack">
+            <span class="folder-card" data-panel="3" style="--open-x: -236px; --open-y: 64px; --open-r: -15deg; --open-scale: 1.05; --card-w: 150px; --card-h: 190px; --card-color: #3188df; --card-delay: 0ms; --card-z: 1; --peek-x: -58px; --peek-y: -56px; --peek-r: -7deg; cursor: pointer;">
+              <span class="folder-card-surface">
+                <img id="fc-school" src="assets/folder/card-school.png" alt="学校经历">
+              </span>
+            </span>
+            <span class="folder-card" data-panel="4" style="--open-x: -118px; --open-y: 14px; --open-r: -7deg; --open-scale: 1.07; --card-w: 150px; --card-h: 190px; --card-color: #12b8ad; --card-delay: 45ms; --card-z: 3; --peek-x: -28px; --peek-y: -76px; --peek-r: -3deg; cursor: pointer;">
+              <span class="folder-card-surface">
+                <img id="fc-intern" src="assets/folder/card-intern.jpg" alt="实习经历">
+              </span>
+            </span>
+            <span class="folder-card" data-panel="0" style="--open-x: 0px; --open-y: -10px; --open-r: 0deg; --open-scale: 1.09; --card-w: 150px; --card-h: 190px; --card-color: #20bfeb; --card-delay: 90ms; --card-z: 6; --peek-x: 0px; --peek-y: -84px; --peek-r: 0deg; cursor: pointer;">
+              <span class="folder-card-surface">
+                <img id="fc-intro" src="assets/folder/card-intro.jpg" alt="个人介绍">
+              </span>
+            </span>
+            <span class="folder-card" data-panel="1" style="--open-x: 118px; --open-y: 14px; --open-r: 7deg; --open-scale: 1.07; --card-w: 150px; --card-h: 190px; --card-color: #a6dc39; --card-delay: 135ms; --card-z: 3; --peek-x: 28px; --peek-y: -76px; --peek-r: 3deg; cursor: pointer;">
+              <span class="folder-card-surface">
+                <img id="fc-project" src="assets/folder/card-project.jpg" alt="项目经历">
+              </span>
+            </span>
+            <span class="folder-card" data-panel="2" style="--open-x: 236px; --open-y: 64px; --open-r: 15deg; --open-scale: 1.05; --card-w: 150px; --card-h: 190px; --card-color: #7946e8; --card-delay: 180ms; --card-z: 1; --peek-x: 58px; --peek-y: -56px; --peek-r: 7deg; cursor: pointer;">
+              <span class="folder-card-surface">
+                <img id="fc-ai" src="assets/folder/card-ai.jpg" alt="AI作品">
+              </span>
+            </span>
+          </div>
+          <div class="folder-front" aria-hidden="true">
+            <span class="folder-title">董子珊<small>Dongzishan</small></span>
+            <span class="folder-sticker folder-sticker-eye folder-eye-sticker" style="--eye-x: 0px; --eye-y: 0px;">
+              <img class="folder-eye-art" src="assets/folder/folder-eye-art.png" alt="">
+              <span class="folder-googly-eye folder-googly-eye-left"><span class="folder-googly-pupil"></span></span>
+              <span class="folder-googly-eye folder-googly-eye-right"><span class="folder-googly-pupil"></span></span>
+            </span>
+            <img class="folder-sticker folder-sticker-idea" src="assets/folder/folder-sticker-idea.png" alt="" aria-hidden="true">
+            <span class="folder-action-bubble"><span class="folder-front-arrow"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:12px;color:rgba(93,64,55,0.4);font-family:'Caveat',cursive;letter-spacing:1px;animation:scrollHint 2s ease-in-out infinite;">↓ 向下滚动查看更多 ↓</div>
+  </section>
+</div>
+
+<style>
+@keyframes scrollHint {
+  0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 0.7; }
+}
+</style>
+
+<div class="app" style="height:100vh;overflow:hidden;position:relative;">
+  <!-- Floating feathers -->
+  <div class="bg-decorations" id="bgDecorations"><div class="feather" style="width: 16.1671px; height: 24.2507px; left: 20.1438%; animation-name: featherFall; animation-duration: 17.364s; animation-delay: 11.2037s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 17.2212px; height: 25.8318px; left: 11.3699%; animation-name: featherFall; animation-duration: 17.6897s; animation-delay: 14.836s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 19.8706px; height: 29.8059px; left: 11.6668%; animation-name: featherFall; animation-duration: 19.2945s; animation-delay: 5.03145s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 27.4087px; height: 41.113px; left: 91.8605%; animation-name: featherFall; animation-duration: 21.6904s; animation-delay: 16.3049s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 29.1605px; height: 43.7408px; left: 16.5239%; animation-name: featherFall; animation-duration: 16.1454s; animation-delay: 1.05679s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 21.8743px; height: 32.8115px; left: 55.1012%; animation-name: featherFall; animation-duration: 15.762s; animation-delay: 3.55393s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 13.1354px; height: 19.7031px; left: 89.5473%; animation-name: featherFall; animation-duration: 16.5144s; animation-delay: 19.6876s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 14.8687px; height: 22.303px; left: 35.1498%; animation-name: featherFall; animation-duration: 12.7499s; animation-delay: 2.30226s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 26.2464px; height: 39.3696px; left: 23.1788%; animation-name: featherFall; animation-duration: 16.0072s; animation-delay: 3.51224s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 16.8595px; height: 25.2893px; left: 32.2766%; animation-name: featherFall; animation-duration: 18.2943s; animation-delay: 10.4499s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 20.2437px; height: 30.3656px; left: 58.6911%; animation-name: featherFall; animation-duration: 13.9384s; animation-delay: 12.2783s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 27.0079px; height: 40.5119px; left: 94.4908%; animation-name: featherFall; animation-duration: 23.5193s; animation-delay: 6.18671s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 13.5258px; height: 20.2887px; left: 48.3637%; animation-name: featherFall; animation-duration: 19.5752s; animation-delay: 16.2459s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 18.1703px; height: 27.2554px; left: 42.145%; animation-name: featherFall; animation-duration: 16.6094s; animation-delay: 18.4045s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 20.6524px; height: 30.9786px; left: 50.9901%; animation-name: featherFall; animation-duration: 23.387s; animation-delay: 9.40545s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 18.3427px; height: 27.5141px; left: 32.0205%; animation-name: featherFall; animation-duration: 22.6846s; animation-delay: 9.84123s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 27.1248px; height: 40.6872px; left: 30.4476%; animation-name: featherFall; animation-duration: 23.2283s; animation-delay: 10.6349s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 19.2287px; height: 28.8431px; left: 10.8197%; animation-name: featherFall; animation-duration: 18.9594s; animation-delay: 18.033s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 15.679px; height: 23.5186px; left: 14.0006%; animation-name: featherFall; animation-duration: 17.961s; animation-delay: 10.5432s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 14.8573px; height: 22.286px; left: 21.4203%; animation-name: featherFall; animation-duration: 12.1022s; animation-delay: 15.2207s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 26.3703px; height: 39.5554px; left: 11.8494%; animation-name: featherFall; animation-duration: 18.3324s; animation-delay: 3.22435s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 13.3695px; height: 20.0543px; left: 11.2241%; animation-name: featherFall; animation-duration: 19.2703s; animation-delay: 8.11142s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 19.0269px; height: 28.5403px; left: 39.3949%; animation-name: featherFall; animation-duration: 13.0317s; animation-delay: 9.37113s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 12.9653px; height: 19.4479px; left: 76.5515%; animation-name: featherFall; animation-duration: 12.0568s; animation-delay: 19.6896s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 26.1235px; height: 39.1852px; left: 60.2782%; animation-name: featherFall; animation-duration: 13.1475s; animation-delay: 5.16616s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 29.452px; height: 44.178px; left: 36.171%; animation-name: featherFall; animation-duration: 23.548s; animation-delay: 17.3895s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 27.2055px; height: 40.8082px; left: 63.087%; animation-name: featherFall; animation-duration: 22.9145s; animation-delay: 13.559s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div><div class="feather" style="width: 22.1856px; height: 33.2784px; left: 7.15622%; animation-name: featherFall; animation-duration: 22.8359s; animation-delay: 14.4671s; animation-iteration-count: infinite; animation-timing-function: linear;"><svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"></path><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"></line></svg></div></div>
+
+  <!-- Top bar -->
+  <header class="top-bar">
+    <a href="#folder-root" style="text-decoration:none;display:flex;align-items:center;gap:6px;" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <div class="brand">ZI&nbsp; SHAN PORTFOLIO</div>
+    </a>
+    <div class="panel-name" id="panelName">学校经历</div>
+    <div class="panel-counter"><span id="currentNum">04</span> / 05</div>
+  </header>
+
+  <!-- Nav arrows -->
+  <button class="nav-arrow nav-prev" id="navPrev" aria-label="上一个">‹</button>
+  <button class="nav-arrow nav-next" id="navNext" aria-label="下一个">›</button>
+
+  <!-- 3D Carousel -->
+  <div class="carousel-stage" id="carouselStage">
+    <div class="carousel-orbit" id="carouselOrbit">
+      <div class="carousel-card" data-index="0" data-detail="intro" data-active="false" style="transform: translateX(-150%) translateZ(-600px); opacity: 0; z-index: 60; pointer-events: none;">
+        <div class="card-bg" style="background-image:url('assets/cards/card-1-intro.jpg')"></div>
+        <div class="card-glow"></div>
+        <div class="card-label">自我介绍 / INTRO</div>
+        <div class="card-hover-hint"><span>点击查看详情</span></div>
+      </div>
+      <div class="carousel-card" data-index="1" data-detail="project" data-active="false" style="transform: translateX(-329.09px) translateZ(-190px) rotateY(60deg) scale(0.7); opacity: 0.44; z-index: 60; pointer-events: auto;">
+        <div class="card-bg" style="background-image:url('assets/cards/card-2-project.jpg')"></div>
+        <div class="card-glow"></div>
+        <div class="card-label">项目经历 / PROJECT</div>
+        <div class="card-hover-hint"><span>点击查看详情</span></div>
+      </div>
+      <div class="carousel-card" data-index="2" data-detail="ai" data-active="false" style="transform: translateX(-190px) translateZ(-50.9103px) rotateY(30deg) scale(0.85); opacity: 0.72; z-index: 80; pointer-events: auto;">
+        <div class="card-bg" style="background-image:url('assets/cards/card-3-ai.jpg')"></div>
+        <div class="card-glow"></div>
+        <div class="card-label">AI 作品 / AI WORKS</div>
+        <div class="card-hover-hint"><span>点击查看详情</span></div>
+      </div>
+      <div class="carousel-card" data-index="3" data-detail="school" data-active="true" style="opacity: 1; pointer-events: auto; transform: translateX(0px) translateZ(0px) rotateY(0deg) scale(1); z-index: 100;">
+        <div class="card-bg" style="background-image:url('assets/cards/card-4-school.jpg')"></div>
+        <div class="card-glow"></div>
+        <div class="card-label">学校经历 / SCHOOL</div>
+        <div class="card-hover-hint"><span>点击查看详情</span></div>
+      </div>
+      <div class="carousel-card" data-index="4" data-detail="internship" data-active="false" style="opacity: 0.72; pointer-events: auto; transform: translateX(190px) translateZ(-50.9103px) rotateY(-30deg) scale(0.85); z-index: 80;">
+        <div class="card-bg" style="background-image:url('assets/cards/card-5-internship.jpg')"></div>
+        <div class="card-glow"></div>
+        <div class="card-label">实习经历 / INTERNSHIP</div>
+        <div class="card-hover-hint"><span>点击查看详情</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <footer class="bottom-bar">
+    <div class="nav-dots" id="navDots">
+      <button class="nav-dot" data-index="0" aria-label="第1页"></button>
+      <button class="nav-dot" data-index="1" aria-label="第2页"></button>
+      <button class="nav-dot" data-index="2" aria-label="第3页"></button>
+      <button class="nav-dot active" data-index="3" aria-label="第4页"></button>
+      <button class="nav-dot" data-index="4" aria-label="第5页"></button>
+    </div>
+    <div class="bottom-hint">
+      <span>拖动旋转</span><span class="sep">·</span>
+      <span>点击卡片</span><span class="sep">·</span>
+      <span>了解详情</span>
+    </div>
+  </footer>
+
+  <!-- Drawer -->
+  <div class="drawer-overlay open" id="drawerOverlay"></div>
+  <aside class="drawer open" id="drawer">
+    <button class="drawer-close" id="drawerClose" aria-label="关闭">×</button>
+    <div class="drawer-body" id="drawerBody">
+
+      <!-- ===== Detail: 自我介绍 (Paginated) ===== -->
+      <div class="detail-section detail-intro" data-detail="intro">
+        <h2>自我介绍</h2>
+        <div class="sub-title">About Me</div>
+        <div class="intro-pages">
+          <!-- Page 1: 教育背景 + 个人介绍 -->
+          <div class="intro-page active" data-ipage="0">
+            <div class="intro-card-section">
+              <h3>教育背景</h3>
+              <div class="edu-item">
+                <div class="edu-school">北京师范大学（985）</div>
+                <div class="edu-meta"><span class="edu-tag">社会工作</span><span class="edu-tag">硕士</span><span class="edu-time">2025.09 - 2027.06</span></div>
+              </div>
+              <div class="edu-item">
+                <div class="edu-school">广东金融学院</div>
+                <div class="edu-meta"><span class="edu-tag">国际经济与贸易</span><span class="edu-tag">本科</span><span class="edu-time">2021.09 - 2025.06</span></div>
+              </div>
+            </div>
+            <div class="rope-divider"></div>
+            <div class="intro-card-section">
+              <h3>个人介绍</h3>
+              <p class="intro-personal-text">hiii你好，我是<strong>子珊</strong>，一名正在成长的<strong>运营新人</strong>，也是天生好奇的 <strong>ENFP</strong>！<br><br>从<strong>国贸本科</strong>的商业逻辑打底，到<strong>北师大社会工作研究生</strong>的质性和定量训练，我习惯先站在用户的视角读懂需求，再用业务思维把洞察落地成结果。我从主办2年校园赛事中出发，在硬件、医药、快消、美妆等多个领域的运营实习里，一步步熟悉运营的不同切面——从<strong>用户分层、社群促活到流失召回</strong>，从<strong>流程提效、成本管控到跨部门协同、数据推动</strong>，从<strong>线上内容运营到线上线下联动的活动全案</strong>。<br><br>我热情，积极探索，这是我做运营的<strong>内驱力</strong>。我喜欢在真实业务里找问题、试解法，用<strong>共情</strong>拉近和用户的距离，用<strong>创意</strong>给运营添点新鲜感；同时我也相信数据的力量，用 <strong>SQL、Tableau</strong> 可视化数据，让每一次尝试都有清晰的反馈~<br><br>作为应届生，我或许还不是最资深的运营，但我拥有<strong>快速适配新场景的学习力</strong>，和<strong>把每一件小事做扎实的执行力</strong>。我期待在更广阔的运营场景里，把洞察变成行动，把业务想法变成结果~୧(´▽`★)୭!!</p>
+            </div>
+            <div class="intro-bottom-knot"></div>
+          </div>
+          <!-- Page 2: 证书技能 + 荣获奖项 -->
+          <div class="intro-page hidden" data-ipage="1">
+            <div class="intro-card-section">
+              <h3>证书技能</h3>
+              <div class="skill-group">
+                <div class="skill-label" data-cat="lang">语言类</div>
+                <div class="skill-items">CET-4、CET-6、剑桥商务英语高级证书（BEC Higher）</div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-label" data-cat="cert">其它证书</div>
+                <div class="skill-items">计算机二级、初级会计、普通话二甲、大模型数据工程师</div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-label" data-cat="data">数据分析</div>
+                <div class="skill-items">熟练使用 Excel、SPSS、Stata、NVivo、Tableau、SQL</div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-label" data-cat="visual">视觉传达</div>
+                <div class="skill-items">PPT 制作、剪映、必剪、PS、秀米、Canva</div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-label" data-cat="ai">AI 能力</div>
+                <div class="skill-items">AI-agent 搭建、Skill 编写、Vibe coding</div>
+              </div>
+            </div>
+            <div class="rope-divider"></div>
+            <div class="intro-card-section">
+              <h3>荣获奖项</h3>
+              <ul class="intro-awards">
+                <li>国家级奖项 <strong>×2</strong></li>
+                <li>外研社省级奖项 <strong>×2</strong></li>
+                <li>校级奖项 <strong>×3</strong></li>
+                <li>校级奖学金等</li>
+              </ul>
+            </div>
+            <div class="intro-bottom-knot"></div>
+          </div>
+        </div>
+        <div class="intro-nav">
+          <button class="book-nav-btn" id="introPrev" disabled="">‹ 上一页</button>
+          <span class="book-indicator" id="introIndicator">1 / 2</span>
+          <button class="book-nav-btn" id="introNext">下一页 ›</button>
+        </div>
+      </div>
+
+      <!-- ===== Detail: 项目经历 ===== -->
+      <div class="detail-section detail-project" data-detail="project">
+        <h2>项目经历</h2>
+        <div class="sub-title">Project Experience</div>
+        <div class="book-container" id="bookContainer">
+          <div class="book-page active" data-page="0">
+            <h3>谷雨私域用户运营与线下精准引流项目</h3>
+            <div class="book-meta">
+              <div class="book-meta-item"><span class="book-meta-label">角色</span><span class="book-meta-value">运营负责人</span></div>
+              <div class="book-meta-item"><span class="book-meta-label">时间</span><span class="book-meta-value">2026.01 - 2026.03</span></div>
+            </div>
+            <div class="book-section-title">业务背景</div>
+            <p class="book-text">国货美妆私域竞争加剧，谷雨主打"敏肌美白"功效，但私域用户画像不够精细、社群内容同质化、互动率偏低，且线上社群与线下场景未打通。项目需通过精细化运营提升社群活跃与用户信任，并借助线下快闪实现精准引流，扩大私域用户池。</p>
+            <div class="book-section-title">项目过程</div>
+            <div class="book-sub-title">1. 用户分层与策略制定</div>
+            <p class="book-text">横向拆解 20 个头部美妆社群案例，提炼敏肌美白痛点标签，细分客群画像；建立动态用户需求反馈库，通过 13 场深度访谈制定个性化沟通策略，精准对标竞品私域服务打法。</p>
+            <div class="book-sub-title">2. 社群内容与促活</div>
+            <p class="book-text">围绕核心功效痛点设计 12 套社群干货与答疑内容日历，把控图文视觉排版，沉淀高互动打卡脚本，提升社群活跃度与内容传播力。</p>
+            <div class="book-sub-title">3. 线上线下导流闭环</div>
+            <p class="book-text">主导线上社群互动与线下快闪体验联动方案，统筹准备 15 套宣发物料并跟进现场客流引导，推动"线上种草—线下体验—私域沉淀"闭环落地。</p>
+            <div class="book-section-title">项目结果</div>
+            <ul class="book-list">
+              <li>社媒及社群图文累计曝光 8000 次</li>
+              <li>活动前宣沉淀高意向咨询约 18 条</li>
+              <li>线下精准引流 200 人次，并沉淀至私域</li>
+              <li>输出全案复盘报告，验证私域导流模型有效性</li>
+            </ul>
+            <div class="book-keywords">
+              <span class="book-keyword">案例拆解</span><span class="book-keyword">互动脚本</span><span class="book-keyword">深度访谈</span>
+            </div>
+          </div>
+          <div class="book-page hidden" data-page="1">
+            <h3>"学业轻舟"高校拖延行为干预与社群运营项目</h3>
+            <div class="book-meta">
+              <div class="book-meta-item"><span class="book-meta-label">角色</span><span class="book-meta-value">项目负责人</span></div>
+              <div class="book-meta-item"><span class="book-meta-label">时间</span><span class="book-meta-value">2025.09 - 2025.12</span></div>
+            </div>
+            <div class="book-section-title">业务背景</div>
+            <p class="book-text">目标用户（高校研究生）普遍存在学业拖延、任务完成率低的问题，导致学习效率下降，存在明确的行为改善需求。作为项目发起人，从 0 到 1 设计并落地一款以"改善拖延、提升自律"为核心的线上+线下干预项目，通过数据驱动与精细化社群运营，探索用户行为改变与留存提升的可复制路径。</p>
+            <div class="book-section-title">项目过程</div>
+            <div class="book-sub-title">1. 用户画像与分层建模</div>
+            <p class="book-text">回收 343 份用户行为问卷与 12 场深度访谈，结合任务完成频次、断点等学习过程数据，提取关键标签，构建用户分层画像体系，精准识别不同拖延程度与流失风险的用户群体，为分层运营提供数据依据。</p>
+            <div class="book-sub-title">2. 运营机制搭建与迭代</div>
+            <p class="book-text">搭建"识别—匹配—干预—反馈"的用户运营闭环，设计阶梯式任务打卡与即时正向激励机制，提升用户参与度；针对关键节点及潜在流失用户，开展 100 余次 1v1 深度触达，结合用户反馈持续迭代沟通话术，降低流失率。</p>
+            <div class="book-sub-title">3. 全生命周期留存策略</div>
+            <p class="book-text">制定分阶段陪伴式运营策略，覆盖入营激活、日常促活到结营交付的全流程，通过打卡任务设计和即时反馈，持续驱动用户活跃与行为改善。</p>
+            <div class="book-section-title">项目结果</div>
+            <ul class="book-list">
+              <li>训练营结营留存率达 96%，远超同类线上训练营平均水平</li>
+              <li>用户拖延行为测评得分平均降低 20 分，核心行为指标显著改善</li>
+              <li>沉淀标准化社群运营 SOP，形成可复用的用户行为干预与留存方法论</li>
+            </ul>
+            <div class="book-section-title">业务落地</div>
+            <p class="book-text">输出一套完整的用户运营体系，包括：用户分层画像模型、阶梯式激励任务体系、1v1 深度触达话术库及全流程社群运营 SOP。该模型可复用于学习打卡、自我提升类产品的用户运营与留存增长场景。</p>
+            <div class="book-keywords">
+              <span class="book-keyword">SPSS 分析</span><span class="book-keyword">问卷调查</span><span class="book-keyword">深度访谈</span><span class="book-keyword">社群运营</span>
+            </div>
+          </div>
+        </div>
+        <div class="book-nav">
+          <button class="book-nav-btn" id="bookPrev" data-direction="-1" disabled="">‹ 上一页</button>
+          <span class="book-indicator" id="bookIndicator">1 / 2</span>
+          <button class="book-nav-btn" id="bookNext" data-direction="1">下一页 ›</button>
+        </div>
+      </div>
+
+      <!-- ===== Detail: AI 作品 ===== -->
+      <div class="detail-section detail-ai" data-detail="ai">
+        <h2>AI 作品</h2>
+        <div class="sub-title">AI Works</div>
+        <div class="ai-tabs">
+          <button class="ai-tab active" data-work="0">竞析洞察</button>
+          <button class="ai-tab" data-work="1">用户调研方案</button>
+          <button class="ai-tab" data-work="2">社群运营 SOP</button>
+        </div>
+        <div class="ai-work active" data-work="0" style="">
+          <h3>竞析洞察</h3>
+          <p class="ai-work-desc">竞析洞察，一站式 AI 竞品分析工具。通过对话即可完成全流程分析：AI 帮你理清分析目标、整理任务、输出报告大纲，确认后自动调研生成完整报告，一键输出可导出、可分享的可视化网页，无需填写表单。</p>
+          <div class="ai-work-actions">
+            <a class="ai-btn ai-btn-download" href="assets/downloads/competitive-insight.zip" download="">↓ 下载 ZIP</a>
+            <a class="ai-btn ai-btn-external" href="https://129998d7863040ddac8066a564c5a66e.app.workbuddy.link" target="_blank" rel="noopener">↗ 在线体验</a>
+            <button class="ai-btn ai-btn-preview active" data-preview="0">◉ 模拟案例演示</button>
+          </div>
+          <div class="ai-preview show">
+            <iframe src="assets/previews/meituan-to-store-competitive-analysis.html" loading="lazy" title="竞析洞察 - 作品预览"></iframe>
+          </div>
+        </div>
+        <div class="ai-work" data-work="1" style="display: none;">
+          <h3>用户调研方案设计</h3>
+          <p class="ai-work-desc">从 Why、Who、How 切入，一分钟可视化帮你拆分用户调研关键步骤。</p>
+          <div class="ai-work-actions">
+            <a class="ai-btn ai-btn-download" href="assets/downloads/user-research-guide-v3.zip" download="">↓ 下载 ZIP</a>
+            <button class="ai-btn ai-btn-preview" data-preview="1">◉ 模拟案例演示</button>
+          </div>
+          <div class="ai-preview">
+            <iframe src="assets/previews/用户调研方案_美团酒店民宿_2026-08-21.html" loading="lazy" title="用户调研方案 - 作品预览"></iframe>
+          </div>
+        </div>
+        <div class="ai-work" data-work="2" style="display: none;">
+          <h3>社群运营 SOP</h3>
+          <p class="ai-work-desc">建了群才发现没人说话、发了福利就有人领、一推产品就退群？这个 skill 帮你在动手之前先把定位想清楚 —— 通过三轮对话诊断用户画像、社群定位、社群布局，输出一份带频次表、分层运营话术和转化 SOP 的 HTML 方案，第一步就按专业打法走。</p>
+          <div class="ai-work-actions">
+            <a class="ai-btn ai-btn-download" href="assets/downloads/community-operations-skill.zip" download="">↓ 下载 ZIP</a>
+            <button class="ai-btn ai-btn-preview active" data-preview="2">◉ 模拟案例演示</button>
+          </div>
+          <div class="ai-preview show">
+            <iframe src="https://share.traecontent.cn/artifact/8ASAPP3G5MV_.V" loading="lazy" title="社群运营 SOP - 作品预览"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Detail: 学校经历 ===== -->
+      <div class="detail-section detail-school active" data-detail="school">
+        <h2>学校经历</h2>
+        <div class="sub-title">School Experience</div>
+        <div class="sticker">
+          <div class="sticker-tab warm1">2021.11 - 2023.06</div>
+          <div class="sticker-title">校心理健康与个人发展协会</div>
+          <div class="sticker-role">副会长</div>
+          <div class="sticker-chip">活动运营</div>
+          <p class="sticker-text">主导策划<span class="sticker-highlight">公益广告、短视频创意</span>等5场校级赛事，全流程把控项目进度与落地效果，累计参与人数 <span class="sticker-highlight">3000+</span>，社团获评<span class="sticker-highlight">校级优秀组织</span>称号。</p>
+          <div class="sticker-chip">内容运营</div>
+          <p class="sticker-text">联动二级学院新媒体部门搭建公众号内容矩阵，发布心理健康科普推文。</p>
+          <div class="sticker-chip">资源协同</div>
+          <p class="sticker-text">拓展校内外合作资源，通过资源置换与跨组织联动，实现活动运营成本较预期降低 <span class="sticker-highlight">40%</span>，提升项目投入产出比。</p>
+        </div>
+        <div class="sticker">
+          <div class="sticker-tab warm2">2022.10 - 2024.06</div>
+          <div class="sticker-title">校青年志愿者行动指导中心</div>
+          <div class="sticker-role">组织部干事</div>
+          <div class="sticker-chip">活动运营</div>
+          <p class="sticker-text">主导多场志愿活动全链路策划与落地，覆盖爱心早餐、美丽图书馆、有声书录制等多个项目，活动用户满意度达 <span class="sticker-highlight">91%</span>，最终募集善款 <span class="sticker-highlight">6000+ 元</span>。</p>
+          <div class="sticker-chip">内容运营</div>
+          <p class="sticker-text">参与"传承小冈香"乡村振兴三下乡项目，负责传统工艺的线上品牌宣传，通过推文策划、短视频制作搭建内容传播矩阵，为传统线香产业线上转型提供<span class="sticker-highlight">运营 SOP</span>。</p>
+        </div>
+      </div>
+
+      <!-- ===== Detail: 实习经历 ===== -->
+      <div class="detail-section detail-internship" data-detail="internship">
+        <h2>实习经历</h2>
+        <div class="sub-title">Internship Experience</div>
+        <div class="internship-card">
+          <div class="internship-header">
+            <div class="internship-company">TCL 实业控股股份有限公司</div>
+            <div class="internship-time">2025.05 - 2025.08</div>
+          </div>
+          <div class="internship-keywords">
+            <span class="internship-keyword">用户分层</span><span class="internship-keyword">机制控本</span><span class="internship-keyword">流程提效</span><span class="internship-keyword">渠道协同</span>
+          </div>
+        </div>
+        <div class="internship-card">
+          <div class="internship-header">
+            <div class="internship-company">斯凯奇（SKECHERS）</div>
+            <div class="internship-time">2025.01 - 2025.03</div>
+          </div>
+          <div class="internship-keywords">
+            <span class="internship-keyword">会员洞察</span><span class="internship-keyword">触达召回</span><span class="internship-keyword">竞品监测</span><span class="internship-keyword">节点营销</span>
+          </div>
+        </div>
+        <div class="internship-card">
+          <div class="internship-header">
+            <div class="internship-company">辉瑞投资有限公司（Pfizer）</div>
+            <div class="internship-time">2024.07 - 2024.10</div>
+          </div>
+          <div class="internship-keywords">
+            <span class="internship-keyword">用户洞察</span><span class="internship-keyword">市场营销</span><span class="internship-keyword">内容促活</span><span class="internship-keyword">复购转化</span>
+          </div>
+        </div>
+        <div class="internship-card">
+          <div class="internship-header">
+            <div class="internship-company">亨氏（中国）投资有限公司</div>
+            <div class="internship-time">2024.03 - 2024.06</div>
+          </div>
+          <div class="internship-keywords">
+            <span class="internship-keyword">体验洞察</span><span class="internship-keyword">大区协同</span><span class="internship-keyword">客诉闭环</span><span class="internship-keyword">数据监测</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ===== Config ===== */
+var PANEL_NAMES=['自我介绍','项目经历','AI 作品','学校经历','实习经历'];
+var TOTAL_CARDS=5;
+var RADIUS=380;        /* orbit radius in px */
+var ANGLE_STEP=30;     /* degrees between adjacent cards */
+var DRAG_THRESHOLD=0.15;/* swipe fraction of screen width */
+
+/* ===== State ===== */
+var state={
+  activeIndex:0,
+  isDragging:false,
+  startX:0,
+  dragOffset:0,
+  hasMoved:false,
+  drawerOpen:false,
+  bookPage:0,
+  introPage:0,
+  aiWork:0
+};
+
+/* ===== Elements ===== */
+var stage=document.getElementById('carouselStage');
+var orbit=document.getElementById('carouselOrbit');
+var cards=Array.prototype.slice.call(document.querySelectorAll('.carousel-card'));
+var drawer=document.getElementById('drawer');
+var overlay=document.getElementById('drawerOverlay');
+var drawerClose=document.getElementById('drawerClose');
+var navPrev=document.getElementById('navPrev');
+var navNext=document.getElementById('navNext');
+var panelName=document.getElementById('panelName');
+var currentNum=document.getElementById('currentNum');
+var navDots=document.getElementById('navDots');
+var bgDecor=document.getElementById('bgDecorations');
+
+/* ===== Feather SVG ===== */
+var FEATHER_SVG='<svg viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8 4 6 10 6 16c0 4 1 7 2 9-2 1-4 3-5 5l1 1c2-2 4-3 6-4 1 3 2 5 2 5s1-2 2-5c2 1 4 2 6 4l1-1c-1-2-3-4-5-5 1-2 2-5 2-9 0-6-2-12-6-16z" fill="rgba(255,255,255,0.7)"/><line x1="12" y1="2" x2="12" y2="34" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/></svg>';
+
+/* ===== Create Floating Feathers ===== */
+function createFeathers(){
+  var count=14;
+  for(var i=0;i<count;i++){
+    var f=document.createElement('div');
+    f.className='feather';
+    f.innerHTML=FEATHER_SVG;
+    var size=Math.random()*18+12;
+    f.style.width=size+'px';
+    f.style.height=(size*1.5)+'px';
+    f.style.left=Math.random()*100+'%';
+    f.style.animationName='featherFall';
+    f.style.animationDuration=(Math.random()*12+12)+'s';
+    f.style.animationDelay=(Math.random()*20)+'s';
+    f.style.animationIterationCount='infinite';
+    f.style.animationTimingFunction='linear';
+    bgDecor.appendChild(f);
+  }
+}
+
+/* ===== 3D Card Positioning ===== */
+function updateCards(){
+  for(var i=0;i<cards.length;i++){
+    var offset=i-state.activeIndex;
+    var absOffset=Math.abs(offset);
+
+    if(absOffset>2){
+      cards[i].style.opacity='0';
+      cards[i].style.pointerEvents='none';
+      cards[i].style.transform='translateX('+(offset>0?150:-150)+'%) translateZ(-600px)';
+      cards[i].setAttribute('data-active','false');
+      continue;
+    }
+
+    var angle=offset*ANGLE_STEP;
+    var rad=angle*Math.PI/180;
+    var x=Math.sin(rad)*RADIUS;
+    var z=(Math.cos(rad)-1)*RADIUS;
+    var ry=-angle;
+    var scale=1-absOffset*0.15;
+    var opacity=1-absOffset*0.28;
+
+    cards[i].style.transform=
+      'translateX('+x+'px) translateZ('+z+'px) rotateY('+ry+'deg) scale('+scale+')';
+    cards[i].style.opacity=opacity;
+    cards[i].style.zIndex=100-absOffset*20;
+    cards[i].style.pointerEvents='auto';
+    cards[i].setAttribute('data-active', offset===0?'true':'false');
+  }
+}
+
+/* ===== Navigation ===== */
+function goTo(index){
+  index=Math.max(0,Math.min(TOTAL_CARDS-1,index));
+  if(index===state.activeIndex)return;
+  state.activeIndex=index;
+  orbit.classList.remove('dragging');
+  updateCards();
+  updateNavUI();
+}
+
+function updateNavUI(){
+  var dots=navDots.querySelectorAll('.nav-dot');
+  for(var i=0;i<dots.length;i++){
+    dots[i].classList.toggle('active',i===state.activeIndex);
+  }
+  panelName.textContent=PANEL_NAMES[state.activeIndex];
+  currentNum.textContent=String(state.activeIndex+1).padStart(2,'0');
+  navPrev.disabled=state.activeIndex===0;
+  navNext.disabled=state.activeIndex===TOTAL_CARDS-1;
+}
+
+/* ===== Drag / Swipe ===== */
+function getX(e){
+  return e.touches?e.touches[0].clientX:e.clientX;
+}
+
+function onDragStart(e){
+  if(state.drawerOpen)return;
+  state.isDragging=true;
+  state.hasMoved=false;
+  state.startX=getX(e);
+  state.dragOffset=0;
+  orbit.classList.add('dragging');
+  stage.classList.add('dragging');
+}
+
+function onDragMove(e){
+  if(!state.isDragging)return;
+  var x=getX(e);
+  state.dragOffset=x-state.startX;
+  if(Math.abs(state.dragOffset)>5)state.hasMoved=true;
+  /* Only preventDefault for touch events with actual movement, to allow simple click/tap */
+  if(e.touches&&e.cancelable&&state.hasMoved)e.preventDefault();
+
+  /* Convert drag to rotation offset */
+  var vw=window.innerWidth;
+  var dragRatio=state.dragOffset/vw;
+  var angleOffset=dragRatio*90;
+  var baseAngle=-state.activeIndex*ANGLE_STEP;
+
+  for(var i=0;i<cards.length;i++){
+    var offset=i-state.activeIndex;
+    var absOffset=Math.abs(offset);
+    if(absOffset>2)continue;
+    var angle=(offset*ANGLE_STEP)+angleOffset;
+    var rad=angle*Math.PI/180;
+    var x2=Math.sin(rad)*RADIUS;
+    var z2=(Math.cos(rad)-1)*RADIUS;
+    var ry=-angle;
+    var scale=1-absOffset*0.15;
+    var opacity=1-absOffset*0.28;
+    cards[i].style.transform=
+      'translateX('+x2+'px) translateZ('+z2+'px) rotateY('+ry+'deg) scale('+scale+')';
+    cards[i].style.opacity=opacity;
+    cards[i].style.zIndex=100-absOffset*20;
+  }
+}
+
+function onDragEnd(){
+  if(!state.isDragging)return;
+  state.isDragging=false;
+  orbit.classList.remove('dragging');
+  stage.classList.remove('dragging');
+  var vw=window.innerWidth;
+  var threshold=vw*DRAG_THRESHOLD;
+  var switched=false;
+  if(state.dragOffset<-threshold){
+    goTo(state.activeIndex+1);
+    switched=true;
+  }else if(state.dragOffset>threshold){
+    goTo(state.activeIndex-1);
+    switched=true;
+  }else{
+    updateCards();
+  }
+  state.dragOffset=0;
+  /* Reset hasMoved immediately for simple clicks; block only after actual card switch */
+  state.hasMoved=false;
+  if(switched){
+    state.hasMoved=true;
+    setTimeout(function(){state.hasMoved=false;},350);
+  }
+}
+
+/* ===== Drawer ===== */
+function openDrawer(detailType){
+  state.drawerOpen=true;
+  var sections=document.querySelectorAll('.detail-section');
+  for(var i=0;i<sections.length;i++){
+    sections[i].classList.remove('active');
+  }
+  var target=document.querySelector('.detail-section[data-detail="'+detailType+'"]');
+  if(target){
+    target.classList.add('active');
+    target.parentElement.scrollTop=0;
+  }
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  if(detailType==='project'){
+    state.bookPage=0;
+    updateBookUI();
+  }
+  if(detailType==='intro'){
+    state.introPage=0;
+    updateIntroUI();
+  }
+  if(detailType==='ai'){
+    state.aiWork=0;
+    updateAIUI();
+  }
+}
+
+function closeDrawer(){
+  state.drawerOpen=false;
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ===== Book Flip ===== */
+function flipBook(dir){
+  var pages=document.querySelectorAll('.book-page');
+  var newPage=(state.bookPage+dir+pages.length)%pages.length;
+  pages[state.bookPage].classList.add('hidden');
+  pages[state.bookPage].classList.remove('active');
+  pages[newPage].classList.remove('hidden');
+  pages[newPage].classList.add('active');
+  state.bookPage=newPage;
+  updateBookUI();
+}
+
+function updateBookUI(){
+  var indicator=document.getElementById('bookIndicator');
+  if(indicator)indicator.textContent=(state.bookPage+1)+' / '+document.querySelectorAll('.book-page').length;
+  var prev=document.getElementById('bookPrev');
+  var next=document.getElementById('bookNext');
+  if(prev)prev.disabled=state.bookPage===0;
+  if(next)next.disabled=state.bookPage===document.querySelectorAll('.book-page').length-1;
+}
+
+/* ===== Intro Flip ===== */
+function flipIntro(dir){
+  var pages=document.querySelectorAll('.intro-page');
+  var newPage=(state.introPage+dir+pages.length)%pages.length;
+  pages[state.introPage].classList.add('hidden');
+  pages[state.introPage].classList.remove('active');
+  pages[newPage].classList.remove('hidden');
+  pages[newPage].classList.add('active');
+  state.introPage=newPage;
+  updateIntroUI();
+}
+
+function updateIntroUI(){
+  var pages=document.querySelectorAll('.intro-page');
+  var indicator=document.getElementById('introIndicator');
+  if(indicator)indicator.textContent=(state.introPage+1)+' / '+pages.length;
+  var prev=document.getElementById('introPrev');
+  var next=document.getElementById('introNext');
+  if(prev)prev.disabled=state.introPage===0;
+  if(next)next.disabled=state.introPage===pages.length-1;
+}
+
+/* ===== AI Works Tabs ===== */
+function switchAIWork(index){
+  state.aiWork=index;
+  updateAIUI();
+}
+
+function updateAIUI(){
+  var tabs=document.querySelectorAll('.ai-tab');
+  var works=document.querySelectorAll('.ai-work');
+  for(var i=0;i<tabs.length;i++){
+    tabs[i].classList.toggle('active',i===state.aiWork);
+  }
+  for(var j=0;j<works.length;j++){
+    if(j===state.aiWork){
+      works[j].classList.add('active');
+      works[j].style.display='';
+    }else{
+      works[j].classList.remove('active');
+      works[j].style.display='none';
+    }
+  }
+}
+
+/* ===== Keyboard ===== */
+function onKeyDown(e){
+  if(e.key==='Escape'){
+    if(state.drawerOpen)closeDrawer();
+  }else if(!state.drawerOpen){
+    if(e.key==='ArrowLeft')goTo(state.activeIndex-1);
+    if(e.key==='ArrowRight')goTo(state.activeIndex+1);
+  }
+}
+
+/* ===== Init ===== */
+function init(){
+  createFeathers();
+  updateCards();
+  updateNavUI();
+
+  /* Card clicks */
+  for(var i=0;i<cards.length;i++){
+    (function(card){
+      card.addEventListener('click',function(){
+        if(state.hasMoved)return;
+        var idx=parseInt(card.getAttribute('data-index'),10);
+        if(idx===state.activeIndex){
+          openDrawer(card.getAttribute('data-detail'));
+        }else{
+          goTo(idx);
+        }
+      });
+    })(cards[i]);
+  }
+
+  /* Drawer close */
+  drawerClose.addEventListener('click',closeDrawer);
+  overlay.addEventListener('click',closeDrawer);
+
+  /* Nav dots */
+  var dots=navDots.querySelectorAll('.nav-dot');
+  for(var d=0;d<dots.length;d++){
+    (function(dot){
+      dot.addEventListener('click',function(){
+        goTo(parseInt(dot.getAttribute('data-index'),10));
+      });
+    })(dots[d]);
+  }
+
+  /* Nav arrows */
+  navPrev.addEventListener('click',function(){goTo(state.activeIndex-1);});
+  navNext.addEventListener('click',function(){goTo(state.activeIndex+1);});
+
+  /* Touch events on stage */
+  stage.addEventListener('touchstart',onDragStart,{passive:true});
+  stage.addEventListener('touchmove',onDragMove,{passive:false});
+  stage.addEventListener('touchend',onDragEnd);
+
+  /* Mouse events on stage — delayed activation to avoid interfering with clicks */
+  var mouseDownPos=null;
+  stage.addEventListener('mousedown',function(e){
+    mouseDownPos={x:getX(e),y:e.clientY};
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!mouseDownPos)return;
+    var dx=getX(e)-mouseDownPos.x;
+    if(!state.isDragging&&Math.abs(dx)>5){
+      onDragStart({clientX:mouseDownPos.x,clientY:mouseDownPos.y});
+      state.dragOffset=dx;
+    }
+    if(state.isDragging)onDragMove(e);
+  });
+  window.addEventListener('mouseup',function(){
+    mouseDownPos=null;
+    if(state.isDragging)onDragEnd();
+  });
+
+  /* Prevent image drag */
+  for(var c=0;c<cards.length;c++){
+    var bg=cards[c].querySelector('.card-bg');
+    if(bg)bg.addEventListener('dragstart',function(e){e.preventDefault();});
+  }
+
+  /* Book flip */
+  var bookPrev=document.getElementById('bookPrev');
+  var bookNext=document.getElementById('bookNext');
+  if(bookPrev)bookPrev.addEventListener('click',function(){flipBook(-1);});
+  if(bookNext)bookNext.addEventListener('click',function(){flipBook(1);});
+
+  /* Intro flip */
+  var introPrev=document.getElementById('introPrev');
+  var introNext=document.getElementById('introNext');
+  if(introPrev)introPrev.addEventListener('click',function(){flipIntro(-1);});
+  if(introNext)introNext.addEventListener('click',function(){flipIntro(1);});
+
+  /* AI tabs */
+  var aiTabs=document.querySelectorAll('.ai-tab');
+  for(var a=0;a<aiTabs.length;a++){
+    (function(tab){
+      tab.addEventListener('click',function(){
+        switchAIWork(parseInt(tab.getAttribute('data-work'),10));
+      });
+    })(aiTabs[a]);
+  }
+
+  /* Preview toggle buttons (模拟案例演示) */
+  var previewBtns=document.querySelectorAll('.ai-btn-preview');
+  for(var p=0;p<previewBtns.length;p++){
+    (function(btn){
+      btn.addEventListener('click',function(e){
+        e.preventDefault();
+        var workIdx=parseInt(btn.getAttribute('data-preview'),10);
+        var works=document.querySelectorAll('.ai-work');
+        var work=works[workIdx];
+        if(!work)return;
+        var preview=work.querySelector('.ai-preview');
+        var previewLink=work.querySelector('.ai-preview-link');
+        var isActive=btn.classList.contains('active');
+        if(isActive){
+          btn.classList.remove('active');
+          if(preview)preview.classList.remove('show');
+          if(previewLink)previewLink.classList.remove('show');
+        }else{
+          btn.classList.add('active');
+          if(preview)preview.classList.add('show');
+          if(previewLink)previewLink.classList.add('show');
+        }
+      });
+    })(previewBtns[p]);
+  }
+
+  /* Keyboard */
+  window.addEventListener('keydown',onKeyDown);
+
+  /* Resize */
+  window.addEventListener('resize',function(){
+    updateCards();
+  });
+}
+
+/* Expose for folder cards */
+window.setActiveByIndex = function(idx) {
+  if (typeof goTo === 'function') goTo(idx);
+};
+window.openDetail = function(idx) {
+  var cards = document.querySelectorAll('.carousel-card');
+  if (cards[idx]) {
+    var detailName = cards[idx].getAttribute('data-detail');
+    if (detailName) openDrawer(detailName);
+  }
+};
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
+}
+})();
+
+
+/* ===== Folder Home Interaction ===== */
+(function() {
+  var folder = document.querySelector('.portfolio-folder');
+  var section = document.getElementById('intro');
+  var eye = document.querySelector('.folder-eye-sticker');
+  var open = false;
+
+  if (!folder) return;
+
+  function setFolder(v) {
+    if (v === open) return;
+    open = v;
+    folder.classList.toggle('is-open', v);
+    folder.setAttribute('aria-expanded', v ? 'true' : 'false');
+  }
+
+  folder.addEventListener('pointerenter', function() { setFolder(true); });
+  folder.addEventListener('pointerleave', function() { setFolder(false); });
+  folder.addEventListener('mouseenter', function() { setFolder(true); });
+  folder.addEventListener('mouseleave', function() { setFolder(false); });
+  folder.addEventListener('focus', function() { setFolder(true); });
+  folder.addEventListener('blur', function(e) {
+    if (!folder.contains(e.relatedTarget)) setFolder(false);
+  });
+
+  function updateEye(e) {
+    if (!eye) return;
+    var rect = eye.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    var dx = e.clientX - cx;
+    var dy = e.clientY - cy;
+    var dist = Math.hypot(dx, dy) || 1;
+    var max = rect.width * 0.055;
+    eye.style.setProperty('--eye-x', (dx / dist * max).toFixed(2) + 'px');
+    eye.style.setProperty('--eye-y', (dy / dist * max).toFixed(2) + 'px');
+  }
+  function resetEye() {
+    if (!eye) return;
+    eye.style.setProperty('--eye-x', '0px');
+    eye.style.setProperty('--eye-y', '0px');
+  }
+  section.addEventListener('pointermove', updateEye);
+  section.addEventListener('pointerleave', resetEye);
+
+  /* Click folder cards to directly open detail panels */
+  document.querySelectorAll('.folder-card').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var panelIdx = parseInt(card.getAttribute('data-panel'));
+      if (isNaN(panelIdx)) return;
+
+      /* Silently sync the carousel position (no scroll) */
+      if (typeof window.setActiveByIndex === 'function') {
+        window.setActiveByIndex(panelIdx);
+      }
+
+      /* Directly open the detail drawer */
+      if (typeof window.openDetail === 'function') {
+        window.openDetail(panelIdx);
+      }
+    });
+
+    card.style.cursor = 'pointer';
+  });
+})();
+
+</script>
+
+
+<iframe class="html2canvas-container" width="1218" height="1018.7875366210938" scrolling="no" data-html2canvas-ignore="true" style="visibility: hidden; position: fixed; left: -10000px; top: 0px; border: 0px;"></iframe>
+</body></html>

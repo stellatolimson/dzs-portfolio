@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>美团到店本地生活 竞品分析报告</title>
+<style>
+:root {
+  --bg: #eef3f8;
+  --paper: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #dbe5ef;
+  --navy: #0f2f5f;
+  --blue: #1d4ed8;
+  --teal: #0f9f8f;
+  --orange: #f97316;
+  --red: #dc2626;
+  --shadow: 0 18px 48px rgba(15, 23, 42, 0.10);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f7fbff 0%, var(--bg) 44%, #f8fafc 100%);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.66;
+}
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.shell { display: grid; grid-template-columns: 292px minmax(0, 1fr); min-height: 100vh; }
+.toc {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  padding: 26px 18px 30px;
+  color: #d9e8ff;
+  background: linear-gradient(180deg, #0f2f5f 0%, #0b2348 100%);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.toc-title { margin: 0 0 18px; color: #fff; font-size: 18px; font-weight: 900; }
+.toc a {
+  display: block;
+  color: #d7e7ff;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  padding: 8px 10px 8px 12px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.42;
+}
+.toc a:hover { background: rgba(255, 255, 255, 0.10); border-left-color: #60a5fa; color: #fff; }
+.toc-l3 { margin-left: 12px; color: #b9cff0 !important; }
+.report {
+  width: min(1280px, calc(100vw - 332px));
+  margin: 0 auto;
+  padding: 30px 34px 90px;
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 36px 30px;
+  border: 1px solid rgba(29, 78, 216, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 95% 12%, rgba(15,159,143,0.12), transparent 28%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 54%, #eef7ff 100%);
+  box-shadow: var(--shadow);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -80px -120px auto;
+  width: 360px;
+  height: 260px;
+  background: repeating-linear-gradient(135deg, rgba(29,78,216,0.10), rgba(29,78,216,0.10) 1px, transparent 1px, transparent 12px);
+  transform: rotate(-8deg);
+}
+.hero-top { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.kicker { margin: 0 0 10px; color: var(--teal); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+h1 {
+  margin: 0;
+  max-width: 880px;
+  color: var(--navy);
+  font-size: clamp(34px, 4.8vw, 64px);
+  line-height: 1.05;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+.subtitle { margin: 14px 0 0; color: #40516a; font-size: 18px; }
+.date-chip {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 4px;
+  min-width: 150px;
+  padding: 14px 16px;
+  color: var(--navy);
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.date-chip span { color: var(--muted); font-size: 12px; }
+.date-chip strong { font-size: 16px; }
+.hero-stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 30px;
+}
+.hero-stat {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.88);
+}
+.hero-stat span { display: block; color: var(--muted); font-size: 12px; font-weight: 800; }
+.hero-stat strong { display: block; margin-top: 4px; color: var(--blue); font-size: 34px; line-height: 1; }
+.hero-stat small { display: block; margin-top: 6px; color: #74839a; }
+h2 {
+  margin: 44px 0 14px;
+  padding-top: 16px;
+  border-top: 2px solid var(--line);
+  color: var(--navy);
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+h3 { margin: 28px 0 10px; color: #123c72; font-size: 19px; line-height: 1.35; }
+p { margin: 10px 0 16px; color: #26364d; max-width: 960px; }
+ul, ol { margin: 10px 0 18px; padding-left: 24px; }
+li { margin: 5px 0; }
+strong { color: #102a56; }
+code {
+  background: #eef6ff;
+  color: #1d4ed8;
+  border: 1px solid #c7dbff;
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.92em;
+}
+pre {
+  overflow: auto;
+  padding: 18px;
+  background: #0f172a;
+  color: #e5eefb;
+  border-radius: 12px;
+  border: 1px solid #0b1220;
+}
+pre code { background: transparent; color: inherit; border: 0; padding: 0; }
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 30px;
+}
+.insight-card {
+  min-height: 132px;
+  padding: 18px;
+  border: 1px solid rgba(29,78,216,.16);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 10px 28px rgba(15,23,42,.06);
+}
+.insight-card span { color: var(--orange); font-weight: 950; font-size: 13px; }
+.insight-card p { margin: 8px 0 0; color: #172033; font-weight: 650; }
+.visual-panel, .flow-panel, .priority-board {
+  margin: 24px 0 28px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 14px 36px rgba(15,23,42,.08);
+}
+.visual-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin-bottom: 14px; }
+.visual-head h3 { margin: 2px 0 0; font-size: 22px; color: var(--navy); }
+.visual-head p { margin: 0; max-width: 520px; color: var(--muted); font-size: 13px; }
+.eyebrow, .section-kicker { display: block; color: var(--teal); font-size: 11px; font-weight: 950; letter-spacing: .14em; text-transform: uppercase; }
+.visual-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr) minmax(240px, .85fr);
+  gap: 14px;
+}
+.chart-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #dfe8f2;
+  border-radius: 15px;
+  background: #fbfdff;
+}
+.chart-title { margin-bottom: 10px; color: var(--navy); font-weight: 900; }
+.chart-card svg { width: 100%; height: auto; display: block; }
+.radar-ring { fill: none; stroke: #d6e0ec; stroke-width: 1; }
+.radar-axis { stroke: #d6e0ec; stroke-width: 1; }
+.radar-series { fill-opacity: .13; stroke-width: 2.5; }
+.radar-label, .axis-title, .axis-note { fill: #334155; font-size: 12px; font-weight: 700; }
+.quad-index { fill: #fff; font-size: 10px; font-weight: 950; pointer-events: none; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; color: var(--muted); font-size: 12px; }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 999px; margin-right: 5px; vertical-align: -1px; }
+.quad-box { fill: #fff; stroke: #d6e0ec; stroke-width: 1.2; }
+.quad-mid { stroke: #b8c7d9; stroke-dasharray: 5 5; }
+.quad-dot { opacity: .86; stroke: #fff; stroke-width: 2; }
+.quad-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.quad-legend span { min-width: 0; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 6px; align-items: center; color: #26364d; font-size: 12px; font-weight: 800; }
+.quad-legend i { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #fff; font-style: normal; font-size: 11px; font-weight: 950; }
+.quad-legend small { grid-column: 2; margin-top: -4px; color: var(--muted); font-size: 11px; font-weight: 650; overflow-wrap: anywhere; }
+.rank-row { display: grid; grid-template-columns: 88px minmax(80px, 1fr) 42px; gap: 10px; align-items: center; margin: 10px 0; }
+.rank-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #24334a; font-weight: 700; font-size: 13px; }
+.rank-bar { height: 10px; border-radius: 999px; background: #e8eef6; overflow: hidden; }
+.rank-bar i { display: block; height: 100%; border-radius: inherit; }
+.rank-row strong { text-align: right; color: var(--navy); }
+.table-wrap {
+  margin: 18px 0 28px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 12px 32px rgba(15,23,42,.07);
+}
+table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 14px; table-layout: auto; }
+th, td { padding: 12px 13px; border-bottom: 1px solid #e7edf4; vertical-align: top; overflow-wrap: anywhere; word-break: normal; }
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #102a56;
+  color: #fff;
+  font-weight: 900;
+  text-align: left;
+  white-space: normal;
+}
+tr:nth-child(even) td { background: #f9fbfd; }
+td:first-child, th:first-child { font-weight: 850; }
+.score-matrix table { min-width: 760px; }
+.score-matrix td:first-child, .score-matrix th:first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1px 0 0 #e7edf4; }
+.score-matrix th:first-child { background: #102a56; }
+.align-right { text-align: right; }
+.heat { text-align: center; font-weight: 950; color: #111827; }
+.heat-1 { background: #fee2e2 !important; }
+.heat-2 { background: #fed7aa !important; }
+.heat-3 { background: #fef3c7 !important; }
+.heat-4 { background: #dcfce7 !important; }
+.heat-5 { background: #bbf7d0 !important; }
+.badge { display: inline-flex; align-items: center; justify-content: center; padding: 3px 8px; border-radius: 999px; font-size: 12px; font-weight: 900; white-space: nowrap; }
+.badge-must { color: #991b1b; background: #fee2e2; }
+.badge-should { color: #9a3412; background: #ffedd5; }
+.badge-could { color: #1d4ed8; background: #dbeafe; }
+.badge-direct { color: #075985; background: #e0f2fe; }
+.badge-indirect { color: #166534; background: #dcfce7; }
+.badge-substitute { color: #92400e; background: #fef3c7; }
+.badge-potential { color: #6d28d9; background: #ede9fe; }
+.flow-panel h2, .priority-board h2 { margin-top: 4px; padding-top: 0; border-top: 0; }
+.flow-track { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.flow-step {
+  min-height: 112px;
+  padding: 16px;
+  border: 1px solid #dbe5ef;
+  border-radius: 15px;
+  background: #fbfdff;
+}
+.flow-step span { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #fff; background: var(--blue); font-weight: 950; }
+.flow-step strong { display: block; margin-top: 12px; line-height: 1.35; }
+.path-breakdown {
+  margin: 12px 0 22px;
+  padding: 14px;
+  border: 1px solid #dbe5ef;
+  border-radius: 16px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 10px 26px rgba(15,23,42,.06);
+}
+.path-subject {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #0f2f5f;
+  background: #eaf3ff;
+  font-size: 13px;
+  font-weight: 950;
+}
+.path-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.path-field { min-width: 0; padding: 12px; border: 1px solid #e0e8f2; border-radius: 12px; background: #fbfdff; }
+.path-field h4 { margin: 0 0 8px; color: #123c72; font-size: 14px; }
+.path-field p { margin: 0; max-width: none; font-size: 13px; }
+.path-field ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.path-field li { margin: 4px 0; }
+.step-chain-mini { display: flex; flex-wrap: wrap; gap: 7px; }
+.step-chain-mini span { position: relative; padding: 5px 9px; border-radius: 999px; background: #eef6ff; color: #123c72; font-size: 12px; font-weight: 800; }
+.path-list {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.path-list .structured-li {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #dbe5ef;
+  border-radius: 14px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 8px 22px rgba(15,23,42,.05);
+}
+.li-label { color: #123c72; font-size: 13px; font-weight: 950; }
+.li-body { min-width: 0; }
+.li-body p { margin: 0; max-width: none; font-size: 13px; }
+.li-body ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.priority-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.priority-col { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.priority-col h3 { margin: 0; padding: 14px 16px; color: #fff; font-size: 16px; }
+.priority-col h3 span { margin-right: 8px; font-size: 18px; }
+.priority-col ol { margin: 0; padding: 14px 18px 16px 34px; }
+.priority-col li { padding: 7px 0; }
+.board-must h3 { background: linear-gradient(90deg, #dc2626, #ef4444); }
+.board-should h3 { background: linear-gradient(90deg, #f97316, #f59e0b); }
+.board-could h3 { background: linear-gradient(90deg, #1d4ed8, #2563eb); }
+.source-list {
+  margin: 26px 0 32px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 14px 36px rgba(15,23,42,.08);
+}
+.source-list-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  list-style: none;
+}
+.source-list-inline li { margin: 0; }
+.source-list h2 { margin-top: 4px; padding-top: 0; border-top: 0; }
+.source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.source-card { min-width: 0; padding: 13px; border: 1px solid #dfe8f2; border-radius: 14px; background: #fbfdff; }
+.source-card-head { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 10px; align-items: start; }
+.source-index { display: inline-grid; place-items: center; min-width: 36px; height: 26px; padding: 0 7px; border-radius: 999px; color: #fff; background: var(--navy); font-size: 12px; font-weight: 950; }
+.source-card h3 { margin: 1px 0 8px; color: #123c72; font-size: 14px; line-height: 1.4; }
+.source-link { display: inline-block; max-width: 100%; margin: 2px 0 8px 52px; color: var(--blue); font-size: 12px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top; }
+.source-empty { color: var(--muted); }
+.source-meta { display: grid; gap: 5px; margin-left: 52px; }
+.source-meta-item { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px; color: #334155; font-size: 12px; line-height: 1.45; }
+.source-meta-label { color: var(--muted); font-weight: 900; }
+.source-meta-value { min-width: 0; overflow-wrap: anywhere; }
+.backtop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 1180px) {
+  .visual-grid { grid-template-columns: 1fr; }
+  .quad-legend { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .insight-grid, .hero-stats, .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  .shell { display: block; }
+  .toc { position: relative; height: auto; max-height: 42vh; border-right: 0; }
+  .report { width: 100%; padding: 22px 14px 74px; }
+  .hero { padding: 26px 20px; border-radius: 14px; }
+  .hero-top { display: block; }
+  .date-chip { margin-top: 18px; }
+  .hero-stats, .insight-grid, .priority-grid { grid-template-columns: 1fr; }
+  .score-matrix table { min-width: 720px; }
+  .quad-legend, .source-grid, .path-grid { grid-template-columns: 1fr; }
+  .path-list .structured-li { grid-template-columns: 1fr; }
+  .source-link, .source-meta { margin-left: 0; }
+}
+@media print {
+  body { background: #fff; }
+  .shell { display: block; }
+  .toc, .backtop { display: none; }
+  .report { width: 100%; padding: 0; }
+  .hero, .visual-panel, .flow-panel, .priority-board, .table-wrap, .insight-card, .source-list, .path-breakdown { box-shadow: none; break-inside: avoid; }
+  a { color: #111; }
+}
+</style>
+</head>
+<body>
+<div class="shell" id="top">
+<nav class="toc" aria-label="报告目录"><div class="toc-title">报告目录</div><a class="toc-l2" href="#section-2">摘要结论</a><a class="toc-l2" href="#section-3">分析任务卡</a><a class="toc-l2" href="#section-4">竞品选择与分类</a><a class="toc-l2" href="#section-5">市场概况</a><a class="toc-l2" href="#section-6">用户与场景分析</a><a class="toc-l3" href="#section-7">用户画像</a><a class="toc-l3" href="#section-8">核心场景</a><a class="toc-l3" href="#section-9">替代行为</a><a class="toc-l2" href="#section-10">核心功能矩阵</a><a class="toc-l2" href="#section-11">关键任务路径对比</a><a class="toc-l3" href="#section-12">路径一：发现餐厅（"今天吃什么"）</a><a class="toc-l3" href="#section-13">路径二：团购决策（"买哪个套餐"）</a><a class="toc-l3" href="#section-14">路径三：到店核销（"到店使用券码"）</a><a class="toc-l3" href="#section-15">路径四：评价分享（"吃完后写评价"）</a><a class="toc-l3" href="#section-16">路径五：AI辅助决策（"帮我选一家店"）</a><a class="toc-l2" href="#section-17">体验问题清单</a><a class="toc-l3" href="#section-18">美团到店体验问题</a><a class="toc-l3" href="#section-19">竞品体验亮点可借鉴</a><a class="toc-l3" href="#section-20">应规避的体验问题</a><a class="toc-l2" href="#section-21">AI能力对比</a><a class="toc-l2" href="#section-22">差异化功能总结</a><a class="toc-l3" href="#section-23">美团独有能力</a><a class="toc-l3" href="#section-24">竞品差异化方向</a><a class="toc-l2" href="#section-25">优先级建议</a><a class="toc-l2" href="#section-26">评分口径</a><a class="toc-l2" href="#section-27">未查证项</a><a class="toc-l2" href="#section-28">来源列表</a></nav>
+<main class="report">
+<header class="hero">
+  <div class="hero-top">
+    <div>
+      <p class="kicker">COMPETITIVE ANALYSIS</p>
+      <h1>美团到店本地生活 竞品分析报告</h1>
+      <p class="subtitle">Product Benchmarking · UX Analysis · Strategy Recommendations</p>
+    </div>
+    <div class="date-chip">
+      <span>报告日期</span>
+      <strong>2026-08-20</strong>
+    </div>
+  </div>
+  <div class="hero-stats"><article class="hero-stat"><span>章节</span><strong>27</strong><small>分析结构</small></article><article class="hero-stat"><span>表格</span><strong>13</strong><small>对比材料</small></article><article class="hero-stat"><span>评分项</span><strong>78</strong><small>热力矩阵</small></article><article class="hero-stat"><span>来源</span><strong>18</strong><small>证据线索</small></article></div>
+</header>
+<section class="insight-grid" aria-label="摘要结论"><article class="insight-card"><span>01</span><p>美团到店仍以约60%市占率保持领先，但抖音凭借内容流量优势三年内将到店GMV从770亿飙至8500亿，6:4双寡头格局已成形，美团增量份额被持续蚕食</p></article><article class="insight-card"><span>02</span><p>美团核心护城河是"搜索心智+1100万商户供给密度+85%+核销率+大众点评真实评价体系"，这是内容型平台短期内无法复制的交易基础设施</p></article><article class="insight-card"><span>03</span><p>抖音以"货找人"模式创造增量需求，在网红餐厅、特色民宿、景区等重视觉发现的品类上转化效率反超美团，但核销率仅50-60%，商家服务能力弱</p></article><article class="insight-card"><span>04</span><p>美团AI布局加速：推出"小美"AI Agent（搭载LongCat大模型，覆盖吃住行游娱购医全链路）、"袋鼠参谋"商家AI决策工具、"鸭觅"个性化口味匹配社区，AI已成为差异化竞争关键变量</p></article><article class="insight-card"><span>05</span><p>高德"扫街榜"以真实导航行为数据构建信用体系，承诺"永不商业化"，对大众点评主观评价体系构成根本性挑战，是体验设计上值得重点关注的创新</p></article><article class="insight-card"><span>06</span><p>小红书"种草+团购"闭环已建成但商业化艰难，"小红卡"百日叫停暴露内容基因与交易基因的根本矛盾，当前仍以"锦上添花"角色为主</p></article></section><h2 id="section-2">摘要结论</h2>
+<ul>
+<li>美团到店仍以约60%市占率保持领先，但抖音凭借内容流量优势三年内将到店GMV从770亿飙至8500亿，6:4双寡头格局已成形，美团增量份额被持续蚕食</li>
+<li>美团核心护城河是"搜索心智+1100万商户供给密度+85%+核销率+大众点评真实评价体系"，这是内容型平台短期内无法复制的交易基础设施</li>
+<li>抖音以"货找人"模式创造增量需求，在网红餐厅、特色民宿、景区等重视觉发现的品类上转化效率反超美团，但核销率仅50-60%，商家服务能力弱</li>
+<li>美团AI布局加速：推出"小美"AI Agent（搭载LongCat大模型，覆盖吃住行游娱购医全链路）、"袋鼠参谋"商家AI决策工具、"鸭觅"个性化口味匹配社区，AI已成为差异化竞争关键变量</li>
+<li>高德"扫街榜"以真实导航行为数据构建信用体系，承诺"永不商业化"，对大众点评主观评价体系构成根本性挑战，是体验设计上值得重点关注的创新</li>
+<li>小红书"种草+团购"闭环已建成但商业化艰难，"小红卡"百日叫停暴露内容基因与交易基因的根本矛盾，当前仍以"锦上添花"角色为主</li>
+<li>建议：美团到店体验优化应聚焦AI个性化推荐、评价可信度修复、内容化转型三条主线，守住搜索交易基本盘同时补齐"发现型"消费场景</li>
+</ul>
+<h2 id="section-3">分析任务卡</h2>
+<div class="table-wrap"><table><thead><tr><th class="align-left">项目</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">分析对象</td><td class="align-left">美团到店本地生活业务（到店餐饮、休闲/娱乐、丽人、医美等）</td></tr><tr><td class="align-left">分析目标</td><td class="align-left">优化体验 — 找出关键任务路径上的阻塞点、认知成本、转化摩擦和体验机会</td></tr><tr><td class="align-left">阅读对象</td><td class="align-left">Stella 个人研究 / 求职面试准备（前端·全栈方向）</td></tr><tr><td class="align-left">竞品名单</td><td class="align-left">直接3 + 间接3 + 替代1 + 潜在3 = 10个</td></tr><tr><td class="align-left">重点维度</td><td class="align-left">用户与场景 · 功能对比 · 用户体验/关键路径 · AI能力</td></tr><tr><td class="align-left">输出形式</td><td class="align-left">HTML 可视化报告</td></tr><tr><td class="align-left">篇幅要求</td><td class="align-left">深度版长报告</td></tr><tr><td class="align-left">排版风格</td><td class="align-left">产品经理工作文档风</td></tr><tr><td class="align-left">资料口径</td><td class="align-left">默认联网查证最新公开资料；无法确认信息标记为未查证</td></tr></tbody></table></div>
+<h2 id="section-4">竞品选择与分类</h2>
+<div class="table-wrap"><table><thead><tr><th class="align-left">#</th><th class="align-left">竞品</th><th class="align-left">类型</th><th class="align-left">选择理由</th></tr></thead><tbody><tr><td class="align-left">1</td><td class="align-left">抖音本地生活</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">字节系最大竞争者，短视频+直播驱动到店团购，2025年GMV超8500亿，同比+59%</td></tr><tr><td class="align-left">2</td><td class="align-left">大众点评</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">美团旗下独立App，定位"发现和评价"，与美团App的"交易"形成互补+内部竞争关系</td></tr><tr><td class="align-left">3</td><td class="align-left">小红书</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">种草探店社区，用户决策路径上游拦截，"搜索→种草→到店"对美团"搜索→下单"构成路径竞争</td></tr><tr><td class="align-left">4</td><td class="align-left">高德地图</td><td class="align-left"><span class="badge badge-indirect">间接竞品</span></td><td class="align-left">位置服务延伸到本地生活，"扫街榜"以真实导航行为挑战传统评价体系，阿里系流量入口</td></tr><tr><td class="align-left">5</td><td class="align-left">携程玩乐</td><td class="align-left"><span class="badge badge-indirect">间接竞品</span></td><td class="align-left">酒旅场景延伸到城市玩乐和到店，高价值用户重合</td></tr><tr><td class="align-left">6</td><td class="align-left">支付宝/口碑</td><td class="align-left"><span class="badge badge-indirect">间接竞品</span></td><td class="align-left">阿里本地生活入口，聚合页流量渠道，淘宝闪购联合饿了么启动到店团购</td></tr><tr><td class="align-left">7</td><td class="align-left">微信小程序生态</td><td class="align-left"><span class="badge badge-substitute">替代方案</span></td><td class="align-left">商家自营到店，去平台化路径，代表"不依赖超级App"的替代解法</td></tr><tr><td class="align-left">8</td><td class="align-left">快手本地生活</td><td class="align-left"><span class="badge badge-potential">潜在竞品</span></td><td class="align-left">下沉市场用户基数大，GMV同比+200%，到店综合品类GMV+725%，AI工具赋能商家</td></tr><tr><td class="align-left">9</td><td class="align-left">微信视频号</td><td class="align-left"><span class="badge badge-potential">潜在竞品</span></td><td class="align-left">微信生态内视频号+小程序+支付闭环，技术服务费仅0.6%，处于探索期但潜在威胁大</td></tr><tr><td class="align-left">10</td><td class="align-left">淘宝同城</td><td class="align-left"><span class="badge badge-potential">潜在竞品</span></td><td class="align-left">阿里电商生态向同城延伸，联合饿了么到店团购已在淘宝/支付宝/高德三端同步上线</td></tr></tbody></table></div>
+<h2 id="section-5">市场概况</h2>
+<p>2025年中国本地生活服务市场规模预计达35.3万亿元，年复合增长率12.6%，其中到店服务占比过半，线上渗透率预计提升至30.8%。QuestMobile数据显示，截至2025年10月，本地生活综合服务行业活跃渗透率仅46.25%，庞大线下存量意味着到店业务仍有巨大挖掘潜力。</p>
+<p>到店业务因高利润率（美团到店经营利润率约25-30%）、无需承担配送履约成本，成为巨头必争之地。当前竞争格局已从美团"独角戏"演变为"双人舞"：美团到店GTV约1.2万亿，市占率约59.8%（同比下降）；抖音到店GTV约8500亿（核销前），市占率约40.2%（同比上升），6:4双寡头格局形成。</p>
+<p>同时，高德推出"扫街榜"并投入10亿元补贴、小红书全国开放团购、快手GMV同比+200%、淘宝闪购联合饿了么启动到店团购，多方围剿态势加剧。</p>
+<h2 id="section-6">用户与场景分析</h2>
+<h3 id="section-7">用户画像</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">美团核心用户</th><th class="align-left">抖音本地生活用户</th><th class="align-left">小红书用户</th><th class="align-left">快手用户</th></tr></thead><tbody><tr><td class="align-left">年龄</td><td class="align-left">全年龄段</td><td class="align-left">18-35岁为主</td><td class="align-left">18-30岁，女性偏多</td><td class="align-left">25-45岁，下沉市场</td></tr><tr><td class="align-left">城市</td><td class="align-left">全城市覆盖</td><td class="align-left">一二线为主</td><td class="align-left">一二线为主</td><td class="align-left">三线及以下为主</td></tr><tr><td class="align-left">消费动机</td><td class="align-left">计划性消费，找优惠</td><td class="align-left">冲动型消费，被种草</td><td class="align-left">品质消费，避免踩雷</td><td class="align-left">性价比消费，信任驱动</td></tr><tr><td class="align-left">决策路径</td><td class="align-left">搜索→比价→下单</td><td class="align-left">刷内容→种草→下单</td><td class="align-left">搜索笔记→种草→下单</td><td class="align-left">看直播→信任→下单</td></tr></tbody></table></div>
+<h3 id="section-8">核心场景</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">场景</th><th class="align-left">核心需求</th><th class="align-left">失败成本</th><th class="align-left">当前最佳平台</th></tr></thead><tbody><tr><td class="align-left">工作日午餐</td><td class="align-left">快速决策、附近、便宜</td><td class="align-left">低（试错成本低）</td><td class="align-left">美团</td></tr><tr><td class="align-left">周末聚餐</td><td class="align-left">多人协调、品质保证</td><td class="align-left">中（社交压力）</td><td class="align-left">大众点评/美团</td></tr><tr><td class="align-left">探店发现</td><td class="align-left">新奇体验、出片</td><td class="align-left">高（时间投入大）</td><td class="align-left">小红书/抖音</td></tr><tr><td class="align-left">连锁品牌优惠</td><td class="align-left">低价、确定性</td><td class="align-left">低</td><td class="align-left">抖音/美团</td></tr><tr><td class="align-left">商务宴请</td><td class="align-left">品质、面子、预订</td><td class="align-left">高（商务关系）</td><td class="align-left">大众点评</td></tr><tr><td class="align-left">下沉市场消费</td><td class="align-left">性价比、信任</td><td class="align-left">中</td><td class="align-left">快手</td></tr></tbody></table></div>
+<h3 id="section-9">替代行为</h3>
+<p>用户不使用任何平台时的替代方案：直接到店（线下自然客流）、朋友推荐（社交口碑）、商场导购（现场引导）。这些路径信息效率低、试错成本高，是平台存在的基础价值。</p>
+<h2 id="section-10">核心功能矩阵</h2>
+<p>以下为美团及核心竞品在到店本地生活关键能力上的评分矩阵（1-5分）。</p>
+<p>评分口径：5=原生支持且能力深，能形成完整任务闭环；4=原生支持且成熟，部分环节依赖组合或配置；3=可用，但体验、深度或闭环弱于头部；2=间接支持，主要依赖评论、表格、第三方或手工流程；1=基本不覆盖该场景。</p>
+<p>权重说明：基于"优化体验"目标，搜索发现(15%)、团购交易闭环(15%)、评价体系(15%)、内容种草(10%)、到店核销(10%)、商家供给(10%)、AI辅助(15%)、个性化推荐(10%)。</p>
+<section class="visual-panel"><div class="visual-head"><div><span class="eyebrow">AUTO VISUAL</span><h3>核心功能矩阵</h3></div><p>基于下方 1-5 分评分矩阵自动生成，帮助快速观察能力分布和相对优势。</p></div><div class="visual-grid"><article class="chart-card radar-card"><div class="chart-title">竞品能力雷达图</div><svg viewBox="0 0 360 300" role="img" aria-label="竞品能力雷达图"><polygon points="180.0,139.6 195.9,148.8 195.9,167.2 180.0,176.4 164.1,167.2 164.1,148.8" class="radar-ring"/><polygon points="180.0,121.2 211.9,139.6 211.9,176.4 180.0,194.8 148.1,176.4 148.1,139.6" class="radar-ring"/><polygon points="180.0,102.8 227.8,130.4 227.8,185.6 180.0,213.2 132.2,185.6 132.2,130.4" class="radar-ring"/><polygon points="180.0,84.4 243.7,121.2 243.7,194.8 180.0,231.6 116.3,194.8 116.3,121.2" class="radar-ring"/><polygon points="180.0,66.0 259.7,112.0 259.7,204.0 180.0,250.0 100.3,204.0 100.3,112.0" class="radar-ring"/><line x1="180.0" y1="158.0" x2="180.0" y2="66.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="259.7" y2="112.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="259.7" y2="204.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="180.0" y2="250.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="100.3" y2="204.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="100.3" y2="112.0" class="radar-axis"/><polygon points="180.0,66.0 259.7,112.0 243.7,194.8 180.0,194.8 100.3,204.0 100.3,112.0" fill="#1d4ed8" stroke="#1d4ed8" class="radar-series"/><polygon points="180.0,102.8 243.7,121.2 211.9,176.4 180.0,250.0 132.2,185.6 132.2,130.4" fill="#0f9f8f" stroke="#0f9f8f" class="radar-series"/><polygon points="180.0,84.4 211.9,139.6 227.8,185.6 180.0,250.0 148.1,176.4 148.1,139.6" fill="#f97316" stroke="#f97316" class="radar-series"/><polygon points="180.0,66.0 227.8,130.4 259.7,204.0 180.0,213.2 116.3,194.8 100.3,112.0" fill="#7c3aed" stroke="#7c3aed" class="radar-series"/><text x="180.0" y="42.0" text-anchor="middle" class="radar-label">搜索发现能力</text><text x="280.5" y="100.0" text-anchor="middle" class="radar-label">团购交易闭环</text><text x="280.5" y="216.0" text-anchor="middle" class="radar-label">评价体系可信度</text><text x="180.0" y="274.0" text-anchor="middle" class="radar-label">内容种草能力</text><text x="79.5" y="216.0" text-anchor="middle" class="radar-label">到店核销效率</text><text x="79.5" y="100.0" text-anchor="middle" class="radar-label">商家供给密度</text></svg><div class="chart-legend"><span><i style="background:#1d4ed8"></i>美团</span><span><i style="background:#0f9f8f"></i>抖音</span><span><i style="background:#f97316"></i>小红书</span><span><i style="background:#7c3aed"></i>大众点评</span></div></article><article class="chart-card quadrant-card"><div class="chart-title">定位四象限</div><svg viewBox="0 0 360 300" role="img" aria-label="定位四象限"><line x1="54" y1="139.0" x2="304" y2="139.0" class="quad-mid"/><line x1="179.0" y1="34" x2="179.0" y2="244" class="quad-mid"/><rect x="54" y="34" width="250" height="210" class="quad-box"/><text x="179.0" y="282" text-anchor="middle" class="axis-title">搜索发现能力</text><text x="18" y="139.0" text-anchor="middle" class="axis-title axis-y" transform="rotate(-90 18 139.0)">团购交易闭环</text><text x="54" y="264" class="axis-note">低</text><text x="296" y="264" class="axis-note">高</text><text x="34" y="238" class="axis-note">低</text><text x="34" y="42" class="axis-note">高</text><circle cx="290.0" cy="48.0" r="13.6" fill="#1d4ed8" class="quad-dot"/><text x="290.0" y="52.0" text-anchor="middle" class="quad-index">1</text><circle cx="179.0" cy="86.5" r="12.4" fill="#0f9f8f" class="quad-dot"/><text x="179.0" y="90.5" text-anchor="middle" class="quad-index">2</text><circle cx="241.5" cy="191.5" r="11.8" fill="#f97316" class="quad-dot"/><text x="241.5" y="195.5" text-anchor="middle" class="quad-index">3</text><circle cx="290.0" cy="139.0" r="13.2" fill="#7c3aed" class="quad-dot"/><text x="290.0" y="143.0" text-anchor="middle" class="quad-index">4</text><circle cx="241.5" cy="191.5" r="11.8" fill="#64748b" class="quad-dot"/><text x="241.5" y="195.5" text-anchor="middle" class="quad-index">5</text><circle cx="179.0" cy="139.0" r="11.6" fill="#dc2626" class="quad-dot"/><text x="179.0" y="143.0" text-anchor="middle" class="quad-index">6</text></svg><div class="quad-legend"><span><i style="background:#1d4ed8">1</i>美团<small>搜索发现能力 5 / 团购交易闭环 5</small></span><span><i style="background:#0f9f8f">2</i>抖音<small>搜索发现能力 3 / 团购交易闭环 4</small></span><span><i style="background:#f97316">3</i>小红书<small>搜索发现能力 4 / 团购交易闭环 2</small></span><span><i style="background:#7c3aed">4</i>大众点评<small>搜索发现能力 5 / 团购交易闭环 3</small></span><span><i style="background:#64748b">5</i>高德<small>搜索发现能力 4 / 团购交易闭环 2</small></span><span><i style="background:#dc2626">6</i>快手<small>搜索发现能力 3 / 团购交易闭环 3</small></span></div></article><article class="chart-card rank-card"><div class="chart-title">综合评分排行</div><div class="rank-row"><span class="rank-name">美团</span><span class="rank-bar"><i style="width:82%;background:#1d4ed8"></i></span><strong>4.1</strong></div><div class="rank-row"><span class="rank-name">大众点评</span><span class="rank-bar"><i style="width:78%;background:#0f9f8f"></i></span><strong>3.9</strong></div><div class="rank-row"><span class="rank-name">抖音</span><span class="rank-bar"><i style="width:68%;background:#f97316"></i></span><strong>3.4</strong></div><div class="rank-row"><span class="rank-name">小红书</span><span class="rank-bar"><i style="width:60%;background:#7c3aed"></i></span><strong>3.0</strong></div><div class="rank-row"><span class="rank-name">高德</span><span class="rank-bar"><i style="width:60%;background:#64748b"></i></span><strong>3.0</strong></div><div class="rank-row"><span class="rank-name">快手</span><span class="rank-bar"><i style="width:57%;background:#dc2626"></i></span><strong>2.9</strong></div></article></div></section><div class="table-wrap score-matrix"><table><thead><tr><th class="align-left">维度</th><th class="align-left">美团</th><th class="align-left">抖音</th><th class="align-left">小红书</th><th class="align-left">大众点评</th><th class="align-left">高德</th><th class="align-left">快手</th></tr></thead><tbody><tr><td class="align-left">搜索发现能力</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">团购交易闭环</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">评价体系可信度</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td></tr><tr><td class="align-left">内容种草能力</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-1">1</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">到店核销效率</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">商家供给密度</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td></tr><tr><td class="align-left">AI辅助决策</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">个性化推荐</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-3">3</td></tr></tbody></table></div>
+<p>怎么解读：美团在交易闭环、核销效率、商家供给上全面领先（5分），这是交易型平台的护城河；抖音和小红书在内容种草上占优（5分），但交易闭环和核销能力弱；大众点评在评价体系上最强（5分），但交易闭环弱于美团；高德在AI和搜索发现上有特色，但交易闭环尚未建成。</p>
+<h2 id="section-11">关键任务路径对比</h2>
+<h3 id="section-12">路径一：发现餐厅（"今天吃什么"）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">美团</td><td class="align-left">打开App → 搜索/浏览附近 → 看评分和评价 → 选店</td><td class="align-left">搜索心智强，评分体系成熟，但列表式信息密度高，选择压力大</td><td class="align-left">可借鉴内容化推荐降低决策成本</td></tr><tr><td class="align-left">抖音</td><td class="align-left">刷信息流 → 看到探店视频 → 被种草 → 点击团购链接</td><td class="align-left">"货找人"模式，被动发现，视觉冲击强</td><td class="align-left">被动发现体验优于主动搜索，适合增量场景</td></tr><tr><td class="align-left">小红书</td><td class="align-left">搜索关键词 → 看笔记/榜单 → 被种草 → 点击团购链接</td><td class="align-left">图文种草质量高，但交易链路长，跳转多</td><td class="align-left">种草质量高但转化链路需缩短</td></tr><tr><td class="align-left">高德</td><td class="align-left">导航/搜索 → 看扫街榜 → 选店 → 导航前往</td><td class="align-left">真实行为数据背书，"专程前往榜"独特</td><td class="align-left">行为数据信用体系值得借鉴</td></tr><tr><td class="align-left">大众点评</td><td class="align-left">打开App → 搜索/看榜单 → 看评价 → 选店</td><td class="align-left">评价质量最高，必吃榜有公信力</td><td class="align-left">评价可信度是核心壁垒，需持续维护</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>打开App</span><span>搜索/浏览</span><span>看评价/内容</span><span>选店</span><span>下单团购</span></div></div></div></section>
+<h3 id="section-13">路径二：团购决策（"买哪个套餐"）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">美团</td><td class="align-left">选店 → 看团购套餐 → 比价 → 下单支付</td><td class="align-left">套餐丰富度最高，价格对比清晰，支付闭环完整</td><td class="align-left">套餐设计和比价体验是交易转化关键</td></tr><tr><td class="align-left">抖音</td><td class="align-left">看视频/直播 → 点击团购链接 → 下单支付</td><td class="align-left">冲动消费驱动，低价套餐吸引力强，但比价能力弱</td><td class="align-left">低价策略有效但核销率低（50-60%）</td></tr><tr><td class="align-left">小红书</td><td class="align-left">看笔记 → 点击团购链接 → 跳转下单</td><td class="align-left">链路长，转化率低，"小红卡"已叫停</td><td class="align-left">交易基础设施不足，需长期建设</td></tr><tr><td class="align-left">快手</td><td class="align-left">看直播 → 信任主播 → 下单团购</td><td class="align-left">信任经济驱动，复购率高</td><td class="align-left">下沉市场信任型消费模式有效</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>选店</span><span>看团购套餐</span><span>比价/被种草</span><span>下单支付</span><span>获券码</span></div></div></div></section>
+<h3 id="section-14">路径三：到店核销（"到店使用券码"）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">美团</td><td class="align-left">到店 → 出示券码 → 商家核销 → 消费</td><td class="align-left">核销率80-90%，商家POS系统完善，流程最顺</td><td class="align-left">核销效率是交易型平台核心壁垒</td></tr><tr><td class="align-left">抖音</td><td class="align-left">到店 → 出示券码 → 商家核销</td><td class="align-left">核销率50-60%，部分商家未接入核销系统</td><td class="align-left">核销率提升是抖音到店的关键短板</td></tr><tr><td class="align-left">高德</td><td class="align-left">导航到店 → 到店消费 → 评价</td><td class="align-left">无团购交易闭环，以导流为主</td><td class="align-left">缺少交易闭环限制变现能力</td></tr><tr><td class="align-left">抖音买单</td><td class="align-left">到店 → 扫码支付 → 自动核销+领券+关注</td><td class="align-left">2025年12月试点，支付+核销+涨粉一体化</td><td class="align-left">支付即核销的创新设计值得关注</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>到店</span><span>出示券码/扫码</span><span>商家核销</span><span>消费</span><span>可评价</span></div></div></div></section>
+<h3 id="section-15">路径四：评价分享（"吃完后写评价"）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">大众点评</td><td class="align-left">消费后 → 写评价（图文） → 获积分/等级 → 影响排名</td><td class="align-left">橙V评价权重高，评价生态最成熟</td><td class="align-left">评价生态是内容壁垒，需持续维护公信力</td></tr><tr><td class="align-left">美团</td><td class="align-left">消费后 → 写评价 → 影响商家评分</td><td class="align-left">与大众点评共享评价体系，但用户写评价动机弱于点评</td><td class="align-left">可通过"鸭觅"补强评价内容化</td></tr><tr><td class="align-left">小红书</td><td class="align-left">消费后 → 发笔记 → 获赞/收藏 → 影响搜索</td><td class="align-left">内容质量最高，但与消费场景脱节</td><td class="align-left">种草-消费-分享闭环待完善</td></tr><tr><td class="align-left">高德扫街榜</td><td class="align-left">消费后 → 评价 → 芝麻信用加权 → 影响排名</td><td class="align-left">真实行为+信用加权，"无法刷分"</td><td class="align-left">信用加权评价体系是创新方向</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>消费后</span><span>写评价/发笔记</span><span>获反馈</span><span>影响排名/推荐</span></div></div></div></section>
+<h3 id="section-16">路径五：AI辅助决策（"帮我选一家店"）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">美团小美</td><td class="align-left">语音/文字输入需求 → AI推荐方案 → 一句话下单</td><td class="align-left">LongCat大模型，覆盖吃住行游娱购医，交易闭环完整</td><td class="align-left">AI Agent是未来流量入口的卡位战</td></tr><tr><td class="align-left">抖音</td><td class="align-left">搜索关键词 → 算法推荐内容 → 被种草</td><td class="align-left">算法推荐强，但无独立AI Agent</td><td class="align-left">推荐算法是优势，Agent化是短板</td></tr><tr><td class="align-left">高德小高老师</td><td class="align-left">语音问路/推荐 → AI推荐榜单 → 一键导航</td><td class="align-left">AI出行助手+扫街榜，导航闭环完整</td><td class="align-left">出行场景AI体验领先</td></tr><tr><td class="align-left">快手</td><td class="align-left">AI智能选品 → AI内容生成 → AI精准推荐</td><td class="align-left">AI赋能商家侧，C端AI体验弱</td><td class="align-left">AI工具化是差异化方向</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>语音/文字输入</span><span>AI理解需求</span><span>推荐方案</span><span>一键下单/导航</span></div></div></div></section>
+<h2 id="section-17">体验问题清单</h2>
+<h3 id="section-18">美团到店体验问题</h3>
+<ol>
+<li><strong>信息过载与选择困难</strong>：美团App首页功能密集，团购、外卖、酒店、打车等混合展示，到店餐饮入口被稀释，用户需多次跳转才能到达目标功能页</li>
+<li><strong>评价公信力下滑</strong>：大众点评综合评分机制被质疑"高分不一定好吃"，刷评/营销内容混入，用户决策成本上升</li>
+<li><strong>内容化短板</strong>：缺乏原生短视频和达人探店内容流，在"发现型"消费场景（如"周末去哪吃"）中被抖音和小红书截流</li>
+<li><strong>个性化推荐深度不足</strong>：搜索结果仍以热度/距离排序为主，"口味基因"级个性化推荐尚未在主App落地（鸭觅App在试水）</li>
+<li><strong>团购套餐信息对比摩擦</strong>：同一商家多个套餐，用户需逐个点开比较，缺乏横向对比视图和智能推荐最优套餐</li>
+<li><strong>跨场景跳转断裂</strong>：从"看评价"到"下单团购"到"导航到店"的链路中，评价（大众点评）、交易（美团）、导航（需跳转地图App）分散在不同入口</li>
+</ol>
+<h3 id="section-19">竞品体验亮点可借鉴</h3>
+<ol>
+<li><strong>抖音"货找人"被动发现</strong>：短视频信息流降低用户主动搜索的认知成本，适合"不知道吃什么"的模糊需求场景</li>
+<li><strong>高德"扫街榜"真实行为信用</strong>：以导航/到店/回头客等真实行为数据替代主观评价，"轮胎磨损榜""回头客榜"等创意分类降低信息噪音</li>
+<li><strong>小红书图文种草质量</strong>：精美图文+真实体验描述，在"出片""氛围感"等感性维度上信息密度高于评分数字</li>
+<li><strong>抖音"抖音买单"支付即核销</strong>：到店扫码支付自动完成核销+领券+关注，一步到位缩短交易链路</li>
+<li><strong>快手信任经济直播</strong>：主播人设+老铁社区信任，复购率和核销意愿高于纯优惠驱动</li>
+<li><strong>高德AI出行助手"小高老师"</strong>：导航过程中实时获取榜单推荐，"寻找→抵达"无缝衔接</li>
+</ol>
+<h3 id="section-20">应规避的体验问题</h3>
+<ol>
+<li><strong>小红书"小红卡"叫停教训</strong>：内容社区强推GMV导向的付费会员制，与社区调性冲突，百日即叫停，证明"重内容轻交易"基因难以快速逆转</li>
+<li><strong>抖音核销率短板</strong>：冲动消费导致核销率仅50-60%，大量团购券过期未使用，损害商家ROI和用户信任</li>
+<li><strong>综合评分"水分"问题</strong>：多维度加权平均的综合评分抹平个体差异，用户"高分店不好吃"的体验损害平台公信力</li>
+</ol>
+<h2 id="section-21">AI能力对比</h2>
+<section class="visual-panel"><div class="visual-head"><div><span class="eyebrow">AUTO VISUAL</span><h3>AI能力对比</h3></div><p>基于下方 1-5 分评分矩阵自动生成，帮助快速观察能力分布和相对优势。</p></div><div class="visual-grid"><article class="chart-card radar-card"><div class="chart-title">竞品能力雷达图</div><svg viewBox="0 0 360 300" role="img" aria-label="竞品能力雷达图"><polygon points="180.0,139.6 195.9,148.8 195.9,167.2 180.0,176.4 164.1,167.2 164.1,148.8" class="radar-ring"/><polygon points="180.0,121.2 211.9,139.6 211.9,176.4 180.0,194.8 148.1,176.4 148.1,139.6" class="radar-ring"/><polygon points="180.0,102.8 227.8,130.4 227.8,185.6 180.0,213.2 132.2,185.6 132.2,130.4" class="radar-ring"/><polygon points="180.0,84.4 243.7,121.2 243.7,194.8 180.0,231.6 116.3,194.8 116.3,121.2" class="radar-ring"/><polygon points="180.0,66.0 259.7,112.0 259.7,204.0 180.0,250.0 100.3,204.0 100.3,112.0" class="radar-ring"/><line x1="180.0" y1="158.0" x2="180.0" y2="66.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="259.7" y2="112.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="259.7" y2="204.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="180.0" y2="250.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="100.3" y2="204.0" class="radar-axis"/><line x1="180.0" y1="158.0" x2="100.3" y2="112.0" class="radar-axis"/><polygon points="180.0,66.0 259.7,112.0 227.8,185.6 180.0,250.0 100.3,204.0 132.2,130.4" fill="#1d4ed8" stroke="#1d4ed8" class="radar-series"/><polygon points="180.0,84.4 211.9,139.6 259.7,204.0 180.0,213.2 132.2,185.6 116.3,121.2" fill="#0f9f8f" stroke="#0f9f8f" class="radar-series"/><polygon points="180.0,121.2 195.9,148.8 243.7,194.8 180.0,176.4 164.1,167.2 148.1,139.6" fill="#f97316" stroke="#f97316" class="radar-series"/><polygon points="180.0,84.4 243.7,121.2 227.8,185.6 180.0,194.8 132.2,185.6 132.2,130.4" fill="#7c3aed" stroke="#7c3aed" class="radar-series"/><text x="180.0" y="42.0" text-anchor="middle" class="radar-label">大模型能力</text><text x="280.5" y="100.0" text-anchor="middle" class="radar-label">AI Agent产品</text><text x="280.5" y="216.0" text-anchor="middle" class="radar-label">智能推荐算法</text><text x="180.0" y="274.0" text-anchor="middle" class="radar-label">商家AI工具</text><text x="79.5" y="216.0" text-anchor="middle" class="radar-label">交易闭环AI化</text><text x="79.5" y="100.0" text-anchor="middle" class="radar-label">多模态交互</text></svg><div class="chart-legend"><span><i style="background:#1d4ed8"></i>美团</span><span><i style="background:#0f9f8f"></i>抖音</span><span><i style="background:#f97316"></i>小红书</span><span><i style="background:#7c3aed"></i>高德</span></div></article><article class="chart-card quadrant-card"><div class="chart-title">定位四象限</div><svg viewBox="0 0 360 300" role="img" aria-label="定位四象限"><line x1="54" y1="139.0" x2="304" y2="139.0" class="quad-mid"/><line x1="179.0" y1="34" x2="179.0" y2="244" class="quad-mid"/><rect x="54" y="34" width="250" height="210" class="quad-box"/><text x="179.0" y="282" text-anchor="middle" class="axis-title">大模型能力</text><text x="18" y="139.0" text-anchor="middle" class="axis-title axis-y" transform="rotate(-90 18 139.0)">AI Agent产品</text><text x="54" y="264" class="axis-note">低</text><text x="296" y="264" class="axis-note">高</text><text x="34" y="238" class="axis-note">低</text><text x="34" y="42" class="axis-note">高</text><circle cx="290.0" cy="48.0" r="13.9" fill="#1d4ed8" class="quad-dot"/><text x="290.0" y="52.0" text-anchor="middle" class="quad-index">1</text><circle cx="241.5" cy="191.5" r="12.6" fill="#0f9f8f" class="quad-dot"/><text x="241.5" y="195.5" text-anchor="middle" class="quad-index">2</text><circle cx="116.5" cy="230.0" r="9.9" fill="#f97316" class="quad-dot"/><text x="116.5" y="234.0" text-anchor="middle" class="quad-index">3</text><circle cx="241.5" cy="86.5" r="12.1" fill="#7c3aed" class="quad-dot"/><text x="241.5" y="90.5" text-anchor="middle" class="quad-index">4</text><circle cx="179.0" cy="191.5" r="11.3" fill="#64748b" class="quad-dot"/><text x="179.0" y="195.5" text-anchor="middle" class="quad-index">5</text></svg><div class="quad-legend"><span><i style="background:#1d4ed8">1</i>美团<small>大模型能力 5 / AI Agent产品 5</small></span><span><i style="background:#0f9f8f">2</i>抖音<small>大模型能力 4 / AI Agent产品 2</small></span><span><i style="background:#f97316">3</i>小红书<small>大模型能力 2 / AI Agent产品 1</small></span><span><i style="background:#7c3aed">4</i>高德<small>大模型能力 4 / AI Agent产品 4</small></span><span><i style="background:#64748b">5</i>快手<small>大模型能力 3 / AI Agent产品 2</small></span></div></article><article class="chart-card rank-card"><div class="chart-title">综合评分排行</div><div class="rank-row"><span class="rank-name">美团</span><span class="rank-bar"><i style="width:87%;background:#1d4ed8"></i></span><strong>4.3</strong></div><div class="rank-row"><span class="rank-name">抖音</span><span class="rank-bar"><i style="width:70%;background:#0f9f8f"></i></span><strong>3.5</strong></div><div class="rank-row"><span class="rank-name">高德</span><span class="rank-bar"><i style="width:63%;background:#f97316"></i></span><strong>3.2</strong></div><div class="rank-row"><span class="rank-name">快手</span><span class="rank-bar"><i style="width:53%;background:#7c3aed"></i></span><strong>2.7</strong></div><div class="rank-row"><span class="rank-name">小红书</span><span class="rank-bar"><i style="width:37%;background:#64748b"></i></span><strong>1.8</strong></div></article></div></section><div class="table-wrap score-matrix"><table><thead><tr><th class="align-left">维度</th><th class="align-left">美团</th><th class="align-left">抖音</th><th class="align-left">小红书</th><th class="align-left">高德</th><th class="align-left">快手</th></tr></thead><tbody><tr><td class="align-left">大模型能力</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">AI Agent产品</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-1">1</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td></tr><tr><td class="align-left">智能推荐算法</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">商家AI工具</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-1">1</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">交易闭环AI化</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-1">1</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td></tr><tr><td class="align-left">多模态交互</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-2">2</td></tr></tbody></table></div>
+<p>怎么解读：美团在AI Agent产品（小美）、商家AI工具（袋鼠参谋）和交易闭环AI化上领先，这是交易数据优势带来的差异化；抖音在智能推荐算法上最强（"货找人"），但缺乏独立AI Agent；高德在出行场景AI（小高老师）上有特色；快手AI工具赋能商家侧成效初显。</p>
+<p><strong>美团AI布局要点</strong>：</p>
+<ul class="path-list">
+<li><strong>小美AI Agent</strong>（2025年9月公测）：搭载自研LongCat-Flash-Chat大模型（5600亿参数，混合专家架构，已开源），"总调度+执行专家"双模块架构，覆盖"吃住行游娱购医"全链路，核心流程端内完成，交易转化率提升40%。2026年Q1与腾讯元宝深度合作，用户在元宝中提交本地服务需求可无缝连接美团生态</li>
+<li class="structured-li"><strong class="li-label">袋鼠参谋（2025年10月发布）</strong><div class="li-body"><p>面向餐饮商家的AI决策工具，覆盖赛道分析、开店选址、菜品研发、财务分析等经营全流程，已免费开放</p></div></li>
+<li><strong>鸭觅App</strong>（2025年1月内测，8月2.0上线）：美食社区产品，"口味基因"个性化匹配、金勺子评级（前1%好店）、组队找店功能、场景专辑，定位"不恰饭的小众点评"</li>
+</ul>
+<h2 id="section-22">差异化功能总结</h2>
+<h3 id="section-23">美团独有能力</h3>
+<ol>
+<li><strong>全场景交易闭环</strong>：到店+外卖+酒旅+买菜+打车，一站式消费场景覆盖，交易数据积累形成推荐优化飞轮</li>
+<li><strong>1100万+商户供给密度</strong>：长尾覆盖无人能比，商家服务体系的BD团队和运营工具链成熟</li>
+<li><strong>85%+核销率</strong>：高核销率意味着高商家ROI和低用户浪费，是交易型平台的核心信任壁垒</li>
+<li><strong>小美AI Agent</strong>：行业首个覆盖全生活场景的C端AI Agent，交易闭环能力是通用AI助手无法替代的</li>
+</ol>
+<h3 id="section-24">竞品差异化方向</h3>
+<ol>
+<li><strong>抖音</strong>："货找人"内容推荐+低价团购+直播带货，增量需求创造能力是核心差异</li>
+<li><strong>大众点评</strong>：真实用户评价生态+必吃榜/黑珍珠榜单，决策参考公信力最强</li>
+<li><strong>小红书</strong>：高质量图文种草+社区氛围，在"出片""氛围感"等感性维度上不可替代</li>
+<li><strong>高德</strong>：真实导航行为信用体系+出行场景天然入口，"永不商业化"承诺形成信任差异</li>
+<li><strong>快手</strong>：下沉市场老铁经济+信任型直播+AI数字人无人直播，新线城市增量市场</li>
+</ol>
+<h2 id="section-25">优先级建议</h2>
+<p>Must:</p>
+<ul>
+<li>评价可信度修复：大众点评升级星级评分体系+异常评价拦截功能（已帮228万家商户拦截641万条异常评价），持续打击刷评/营销内容混入，维护评价生态公信力</li>
+<li>AI个性化推荐落地主App：将鸭觅"口味基因"匹配能力接入美团主App搜索和推荐流，从热度/距离排序升级为个性化口味推荐，降低用户选择成本</li>
+<li>内容化转型加速：将直播/短视频纳入到店核心入口，补齐"发现型"消费场景的内容供给，防止增量流量被抖音/小红书截流</li>
+</ul>
+<p>Should:</p>
+<ul>
+<li>团购套餐智能对比：引入AI辅助比价功能，同一商家多套餐横向对比视图+智能推荐最优套餐</li>
+<li>评价多模态化：支持短视频评价，丰富评价信息维度，对抗小红书种草内容的质量优势</li>
+<li>跨场景链路打通：从"看评价"到"下单团购"到"导航到店"的一站式链路，减少App跳转</li>
+<li>AI Agent场景拓展：小美AI Agent从外卖扩展到到店团购、预订排队、菜单推荐等深度场景</li>
+</ul>
+<p>Could:</p>
+<ul>
+<li>组队找店社交功能：借鉴鸭觅组队找店，在主App支持多人聚餐的口味协调和餐厅推荐</li>
+<li>场景化榜单：推出更多场景化榜单（如"加班不踩雷""团建能开票"），降低特定场景决策成本</li>
+<li>行为数据信用体系探索：借鉴高德扫街榜，将用户真实到店行为数据纳入评价权重，提升评价可信度</li>
+</ul>
+<h2 id="section-26">评分口径</h2>
+<p>本报告评分矩阵采用1-5分制，评分维度基于"优化体验"目标设定权重：</p>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">权重</th><th class="align-left">评分依据</th></tr></thead><tbody><tr><td class="align-left">搜索发现能力</td><td class="align-left">15%</td><td class="align-left">搜索心智、结果相关性、发现新店能力</td></tr><tr><td class="align-left">团购交易闭环</td><td class="align-left">15%</td><td class="align-left">套餐丰富度、支付便捷度、订单管理</td></tr><tr><td class="align-left">评价体系可信度</td><td class="align-left">15%</td><td class="align-left">评价真实性、维度完整性、公信力</td></tr><tr><td class="align-left">内容种草能力</td><td class="align-left">10%</td><td class="align-left">短视频/图文内容、达人生态、种草质量</td></tr><tr><td class="align-left">到店核销效率</td><td class="align-left">10%</td><td class="align-left">核销率、核销方式便捷度、商家覆盖</td></tr><tr><td class="align-left">商家供给密度</td><td class="align-left">10%</td><td class="align-left">商户数量、品类覆盖、长尾覆盖</td></tr><tr><td class="align-left">AI辅助决策</td><td class="align-left">15%</td><td class="align-left">AI Agent能力、推荐算法、商家AI工具</td></tr><tr><td class="align-left">个性化推荐</td><td class="align-left">10%</td><td class="align-left">推荐精准度、口味/偏好建模、场景化推荐</td></tr></tbody></table></div>
+<p>综合评分排行基于各维度加权平均计算，权重反映"优化体验"目标下的优先级判断。评分来源基于公开资料、产品功能对比和行业报告，非实测数据。</p>
+<h2 id="section-27">未查证项</h2>
+<ul>
+<li>美团"小美"AI Agent的实际推荐准确率和用户留存数据（仅有官方/媒体报道口径，未实测）</li>
+<li>抖音"抖省省"独立App的具体功能体验（有媒体报道但产品仍在迭代中）</li>
+<li>高德"扫街榜"覆盖300个城市的实际数据质量和用户使用频次</li>
+<li>小红书团购全国开放后的实际GMV和核销率数据（官方未披露）</li>
+<li>快手本地生活AI工具的实际商家使用率和ROI提升数据</li>
+<li>微信视频号本地生活的具体功能设计和GMV数据（处于探索期，公开信息有限）</li>
+<li>携程玩乐到店业务的最新功能体验和市场份额数据</li>
+<li>各平台2026年最新季度数据（部分基于2025年全年数据推算）</li>
+</ul>
+<h2 id="section-28">来源列表</h2>
+<section class="source-list" aria-label="来源列表"><div class="section-kicker">SOURCES</div><div class="source-grid"><article class="source-card"><div class="source-card-head"><span class="source-index">S1</span><h3>雪球：美团到店领域分析</h3></div><a class="source-link" href="https://xueqiu.com/5842658502/395737856" target="_blank" rel="noopener">xueqiu.com/5842658502...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">美团vs抖音到店GTV/市占率/核销率对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S2</span><h3>雪球：美团战略再定位</h3></div><a class="source-link" href="https://xueqiu.com/8223138566/389672383" target="_blank" rel="noopener">xueqiu.com/8223138566...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">美团2025年财务数据和竞争格局</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S3</span><h3>新浪财经：抖音本地生活8000亿</h3></div><a class="source-link" href="https://finance.sina.com.cn/roll/2026-02-22/doc-inhntmcw3433810.shtml" target="_blank" rel="noopener">finance.sina.com.cn/roll...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">抖音到店业务数据和策略</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S4</span><h3>腾讯新闻：抖省省独立App</h3></div><a class="source-link" href="https://new.qq.com/rain/a/20260211A04QPT00" target="_blank" rel="noopener">new.qq.com/rain...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">抖音团购业务拆分和AI规划</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S5</span><h3>腾讯新闻：小红书加码本地生活</h3></div><a class="source-link" href="https://news.qq.com/rain/a/20251205A062JI00" target="_blank" rel="noopener">news.qq.com/rain...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">小红书本地生活发展历程和小红卡</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S6</span><h3>电商派：小红书团购大调整</h3></div><a class="source-link" href="https://www.pai.com.cn/p/01kc3v7s2yqqkgb33wxtaqnxwh" target="_blank" rel="noopener">www.pai.com.cn/p...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">小红卡叫停和团购业务调整</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S7</span><h3>今日头条：高德扫街榜发布</h3></div><a class="source-link" href="https://www.toutiao.com/article/7548467058229428778" target="_blank" rel="noopener">www.toutiao.com/article...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">高德扫街榜功能和10亿补贴</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S8</span><h3>中华网：高德十亿补贴本地生活</h3></div><a class="source-link" href="https://3g.china.com/act/news/10000169/20250910/48811502.html" target="_blank" rel="noopener">3g.china.com/act...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">高德扫街榜信用体系和覆盖数据</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S9</span><h3>科技日报：美团小美AI Agent公测</h3></div><a class="source-link" href="https://www.stdaily.com/web/gdxw/2025-09/12/content_399908.html" target="_blank" rel="noopener">www.stdaily.com/web...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">小美AI Agent功能和技术架构</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S10</span><h3>中国金融信息网：小美公测</h3></div><a class="source-link" href="https://m.cnfin.com/wx/share?url=..." target="_blank" rel="noopener">m.cnfin.com/wx...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">小美使用体验和行业对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S11</span><h3>快懂百科：小美</h3></div><a class="source-link" href="https://www.baike.com/wikiid/7646777285848203291" target="_blank" rel="noopener">www.baike.com/wikiid...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">小美发展沿革和与腾讯元宝合作</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S12</span><h3>腾讯新闻：美团鸭觅App</h3></div><a class="source-link" href="https://new.qq.com/rain/a/20250905A022RI00" target="_blank" rel="noopener">new.qq.com/rain...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">鸭觅产品设计和推荐官机制</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S13</span><h3>网易：大众点评高分店不好吃</h3></div><a class="source-link" href="https://www.163.com/dy/article/KP25JK710511BE1V.html" target="_blank" rel="noopener">www.163.com/dy...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">鸭觅口味基因和组队找店功能</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S14</span><h3>美团餐饮产业大会</h3></div><a class="source-link" href="https://hshi.meituan.com/news/NN251017149001531" target="_blank" rel="noopener">hshi.meituan.com/news...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">美团繁盛计划、袋鼠参谋、必吃榜升级</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S15</span><h3>人人都是产品经理：快手本地生活</h3></div><a class="source-link" href="https://www.woshipm.com/ai/6208749.html" target="_blank" rel="noopener">www.woshipm.com/ai...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">快手到店综合GMV增长和差异化策略</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S16</span><h3>财经头条：快手AI赋能</h3></div><a class="source-link" href="https://t.cj.sina.cn/articles/view/7986487113/1dc081f4900101plj8" target="_blank" rel="noopener">t.cj.sina.cn/articles...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">快手AI工具和新线市场战略</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S17</span><h3>齐鲁晚报：巨头围猎到店团购</h3></div><a class="source-link" href="https://m.qlwb.com.cn/detail/26664107.html" target="_blank" rel="noopener">m.qlwb.com.cn/detail...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">多平台到店竞争格局和动作对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S18</span><h3>搜狐：抖音生活服务心价比报告</h3></div><a class="source-link" href="https://www.sohu.com/a/995492542_114778" target="_blank" rel="noopener">www.sohu.com/a...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">抖音GMV增长和用户行为数据</span></div></div></article></div></section>
+</main>
+</div>
+<a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+</body>
+</html>
