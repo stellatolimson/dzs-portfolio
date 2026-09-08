@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Agent办公赛道竞品商业化分析报告</title>
+<style>
+:root {
+  --bg: #f2f7f0;
+  --paper: #fbfcf8;
+  --ink: #1a2e1a;
+  --muted: #5a7a5a;
+  --line: #d4e8d4;
+  --navy: #1a4d2e;
+  --blue: #2e7d32;
+  --teal: #1b873f;
+  --orange: #f97316;
+  --red: #dc2626;
+  --shadow: 0 18px 48px rgba(15, 23, 42, 0.10);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f5faf3 0%, var(--bg) 44%, #f8fbf6 100%);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.66;
+}
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.shell { display: grid; grid-template-columns: 292px minmax(0, 1fr); min-height: 100vh; }
+.toc {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  padding: 26px 18px 30px;
+  color: #d4ead4;
+  background: linear-gradient(180deg, #1a4d2e 0%, #0f3a1f 100%);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.toc-title { margin: 0 0 18px; color: #fff; font-size: 18px; font-weight: 900; }
+.toc a {
+  display: block;
+  color: #d4ead4;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  padding: 8px 10px 8px 12px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.42;
+}
+.toc a:hover { background: rgba(255, 255, 255, 0.10); border-left-color: #66bb6a; color: #fff; }
+.toc-l3 { margin-left: 12px; color: #a5d6a7 !important; }
+.report {
+  width: min(1280px, calc(100vw - 332px));
+  margin: 0 auto;
+  padding: 30px 34px 90px;
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 36px 30px;
+  border: 1px solid rgba(46, 125, 50, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 95% 12%, rgba(27,135,63,0.12), transparent 28%),
+    linear-gradient(135deg, #fbfcf8 0%, #f5faf3 54%, #eaf5e8 100%);
+  box-shadow: var(--shadow);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -80px -120px auto;
+  width: 360px;
+  height: 260px;
+  background: repeating-linear-gradient(135deg, rgba(46,125,50,0.10), rgba(46,125,50,0.10) 1px, transparent 1px, transparent 12px);
+  transform: rotate(-8deg);
+}
+.hero-top { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.kicker { margin: 0 0 10px; color: var(--teal); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+h1 {
+  margin: 0;
+  max-width: 880px;
+  color: var(--navy);
+  font-size: clamp(34px, 4.8vw, 64px);
+  line-height: 1.05;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+.subtitle { margin: 14px 0 0; color: #3a5a3a; font-size: 18px; }
+.date-chip {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 4px;
+  min-width: 150px;
+  padding: 14px 16px;
+  color: var(--navy);
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.date-chip span { color: var(--muted); font-size: 12px; }
+.date-chip strong { font-size: 16px; }
+.hero-stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 30px;
+}
+.hero-stat {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.88);
+}
+.hero-stat span { display: block; color: var(--muted); font-size: 12px; font-weight: 800; }
+.hero-stat strong { display: block; margin-top: 4px; color: var(--blue); font-size: 34px; line-height: 1; }
+.hero-stat small { display: block; margin-top: 6px; color: #6a8a6a; }
+h2 {
+  margin: 44px 0 14px;
+  padding-top: 16px;
+  border-top: 2px solid var(--line);
+  color: var(--navy);
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+h3 { margin: 28px 0 10px; color: #2a5d2a; font-size: 19px; line-height: 1.35; }
+p { margin: 10px 0 16px; color: #2a3d2a; max-width: 960px; }
+ul, ol { margin: 10px 0 18px; padding-left: 24px; }
+li { margin: 5px 0; }
+strong { color: #1a4d2e; }
+code {
+  background: #eaf5ea;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.92em;
+}
+pre {
+  overflow: auto;
+  padding: 18px;
+  background: #0f172a;
+  color: #e5eefb;
+  border-radius: 12px;
+  border: 1px solid #0b1220;
+}
+pre code { background: transparent; color: inherit; border: 0; padding: 0; }
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 30px;
+}
+.insight-card {
+  min-height: 132px;
+  padding: 18px;
+  border: 1px solid rgba(46,125,50,.16);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 10px 28px rgba(15,23,42,.06);
+}
+.insight-card span { color: var(--orange); font-weight: 950; font-size: 13px; }
+.insight-card p { margin: 8px 0 0; color: #1a2e1a; font-weight: 650; }
+.visual-panel, .flow-panel, .priority-board {
+  margin: 24px 0 28px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 14px 36px rgba(15,23,42,.08);
+}
+.visual-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin-bottom: 14px; }
+.visual-head h3 { margin: 2px 0 0; font-size: 22px; color: var(--navy); }
+.visual-head p { margin: 0; max-width: 520px; color: var(--muted); font-size: 13px; }
+.eyebrow, .section-kicker { display: block; color: var(--teal); font-size: 11px; font-weight: 950; letter-spacing: .14em; text-transform: uppercase; }
+.visual-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr) minmax(240px, .85fr);
+  gap: 14px;
+}
+.chart-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #d0e8d0;
+  border-radius: 15px;
+  background: #f9fcf6;
+}
+.chart-title { margin-bottom: 10px; color: var(--navy); font-weight: 900; }
+.chart-card svg { width: 100%; height: auto; display: block; }
+.radar-ring { fill: none; stroke: #c8e0c8; stroke-width: 1; }
+.radar-axis { stroke: #c8e0c8; stroke-width: 1; }
+.radar-series { fill-opacity: .13; stroke-width: 2.5; }
+.radar-label, .axis-title, .axis-note { fill: #334155; font-size: 12px; font-weight: 700; }
+.quad-index { fill: #fff; font-size: 10px; font-weight: 950; pointer-events: none; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; color: var(--muted); font-size: 12px; }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 999px; margin-right: 5px; vertical-align: -1px; }
+.quad-box { fill: #fff; stroke: #c8e0c8; stroke-width: 1.2; }
+.quad-mid { stroke: #a8c8a8; stroke-dasharray: 5 5; }
+.quad-dot { opacity: .86; stroke: #fff; stroke-width: 2; }
+.quad-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.quad-legend span { min-width: 0; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 6px; align-items: center; color: #2a3d2a; font-size: 12px; font-weight: 800; }
+.quad-legend i { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #fff; font-style: normal; font-size: 11px; font-weight: 950; }
+.quad-legend small { grid-column: 2; margin-top: -4px; color: var(--muted); font-size: 11px; font-weight: 650; overflow-wrap: anywhere; }
+.rank-row { display: grid; grid-template-columns: 88px minmax(80px, 1fr) 42px; gap: 10px; align-items: center; margin: 10px 0; }
+.rank-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #2a3d2a; font-weight: 700; font-size: 13px; }
+.rank-bar { height: 10px; border-radius: 999px; background: #e0eee0; overflow: hidden; }
+.rank-bar i { display: block; height: 100%; border-radius: inherit; }
+.rank-row strong { text-align: right; color: var(--navy); }
+.table-wrap {
+  margin: 18px 0 28px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 12px 32px rgba(15,23,42,.07);
+}
+table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 14px; table-layout: auto; }
+th, td { padding: 12px 13px; border-bottom: 1px solid #d4e8d4; vertical-align: top; overflow-wrap: anywhere; word-break: normal; }
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #1a4d2e;
+  color: #fff;
+  font-weight: 900;
+  text-align: left;
+  white-space: normal;
+}
+tr:nth-child(even) td { background: #f5f9f2; }
+td:first-child, th:first-child { font-weight: 850; }
+.score-matrix table { min-width: 760px; }
+.score-matrix td:first-child, .score-matrix th:first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1px 0 0 #d4e8d4; }
+.score-matrix th:first-child { background: #1a4d2e; }
+.align-right { text-align: right; }
+.heat { text-align: center; font-weight: 950; color: #111827; }
+.heat-1 { background: #f5e8e8 !important; }
+.heat-2 { background: #f0e8d8 !important; }
+.heat-3 { background: #eef5e0 !important; }
+.heat-4 { background: #c8e6c9 !important; }
+.heat-5 { background: #a5d6a7 !important; }
+.badge { display: inline-flex; align-items: center; justify-content: center; padding: 3px 8px; border-radius: 999px; font-size: 12px; font-weight: 900; white-space: nowrap; }
+.badge-must { color: #991b1b; background: #fee2e2; }
+.badge-should { color: #9a3412; background: #ffedd5; }
+.badge-could { color: #1b5e20; background: #c8e6c9; }
+.badge-direct { color: #075985; background: #e0f2fe; }
+.badge-indirect { color: #166534; background: #dcfce7; }
+.badge-substitute { color: #92400e; background: #fef3c7; }
+.badge-potential { color: #6d28d9; background: #ede9fe; }
+.flow-panel h2, .priority-board h2 { margin-top: 4px; padding-top: 0; border-top: 0; }
+.flow-track { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.flow-step {
+  min-height: 112px;
+  padding: 16px;
+  border: 1px solid #d4e8d4;
+  border-radius: 15px;
+  background: #f9fcf6;
+}
+.flow-step span { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #fff; background: var(--blue); font-weight: 950; }
+.flow-step strong { display: block; margin-top: 12px; line-height: 1.35; }
+.path-breakdown {
+  margin: 12px 0 22px;
+  padding: 14px;
+  border: 1px solid #d4e8d4;
+  border-radius: 16px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 10px 26px rgba(15,23,42,.06);
+}
+.path-subject {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #1a4d2e;
+  background: #e8f5e8;
+  font-size: 13px;
+  font-weight: 950;
+}
+.path-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.path-field { min-width: 0; padding: 12px; border: 1px solid #d0e8d0; border-radius: 12px; background: #f9fcf6; }
+.path-field h4 { margin: 0 0 8px; color: #2a5d2a; font-size: 14px; }
+.path-field p { margin: 0; max-width: none; font-size: 13px; }
+.path-field ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.path-field li { margin: 4px 0; }
+.step-chain-mini { display: flex; flex-wrap: wrap; gap: 7px; }
+.step-chain-mini span { position: relative; padding: 5px 9px; border-radius: 999px; background: #eaf5ea; color: #2a5d2a; font-size: 12px; font-weight: 800; }
+.path-list {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.path-list .structured-li {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #d4e8d4;
+  border-radius: 14px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 8px 22px rgba(15,23,42,.05);
+}
+.li-label { color: #2a5d2a; font-size: 13px; font-weight: 950; }
+.li-body { min-width: 0; }
+.li-body p { margin: 0; max-width: none; font-size: 13px; }
+.li-body ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.priority-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.priority-col { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.priority-col h3 { margin: 0; padding: 14px 16px; color: #fff; font-size: 16px; }
+.priority-col h3 span { margin-right: 8px; font-size: 18px; }
+.priority-col ol { margin: 0; padding: 14px 18px 16px 34px; }
+.priority-col li { padding: 7px 0; }
+.board-must h3 { background: linear-gradient(90deg, #dc2626, #ef4444); }
+.board-should h3 { background: linear-gradient(90deg, #f97316, #f59e0b); }
+.board-could h3 { background: linear-gradient(90deg, #2e7d32, #43a047); }
+.source-list {
+  margin: 26px 0 32px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 14px 36px rgba(15,23,42,.08);
+}
+.source-list-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  list-style: none;
+}
+.source-list-inline li { margin: 0; }
+.source-list h2 { margin-top: 4px; padding-top: 0; border-top: 0; }
+.source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.source-card { min-width: 0; padding: 13px; border: 1px solid #d0e8d0; border-radius: 14px; background: #f9fcf6; }
+.source-card-head { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 10px; align-items: start; }
+.source-index { display: inline-grid; place-items: center; min-width: 36px; height: 26px; padding: 0 7px; border-radius: 999px; color: #fff; background: #1a4d2e; font-size: 12px; font-weight: 950; }
+.source-card h3 { margin: 1px 0 8px; color: #2a5d2a; font-size: 14px; line-height: 1.4; }
+.source-link { display: inline-block; max-width: 100%; margin: 2px 0 8px 52px; color: var(--blue); font-size: 12px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top; }
+.source-empty { color: var(--muted); }
+.source-meta { display: grid; gap: 5px; margin-left: 52px; }
+.source-meta-item { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px; color: #334155; font-size: 12px; line-height: 1.45; }
+.source-meta-label { color: var(--muted); font-weight: 900; }
+.source-meta-value { min-width: 0; overflow-wrap: anywhere; }
+.backtop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 1180px) {
+  .visual-grid { grid-template-columns: 1fr; }
+  .quad-legend { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .insight-grid, .hero-stats, .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  .shell { display: block; }
+  .toc { position: relative; height: auto; max-height: 42vh; border-right: 0; }
+  .report { width: 100%; padding: 22px 14px 74px; }
+  .hero { padding: 26px 20px; border-radius: 14px; }
+  .hero-top { display: block; }
+  .date-chip { margin-top: 18px; }
+  .hero-stats, .insight-grid, .priority-grid { grid-template-columns: 1fr; }
+  .score-matrix table { min-width: 720px; }
+  .quad-legend, .source-grid, .path-grid { grid-template-columns: 1fr; }
+  .path-list .structured-li { grid-template-columns: 1fr; }
+  .source-link, .source-meta { margin-left: 0; }
+}
+@media print {
+  body { background: #fff; }
+  .shell { display: block; }
+  .toc, .backtop { display: none; }
+  .report { width: 100%; padding: 0; }
+  .hero, .visual-panel, .flow-panel, .priority-board, .table-wrap, .insight-card, .source-list, .path-breakdown { box-shadow: none; break-inside: avoid; }
+  a { color: #111; }
+}
+</style>
+</head>
+<body>
+<div class="shell" id="top">
+<nav class="toc" aria-label="报告目录"><div class="toc-title">报告目录</div><a class="toc-l2" href="#section-2">摘要结论</a><a class="toc-l2" href="#section-3">竞品选择与分类</a><a class="toc-l2" href="#section-4">产品定位与用户场景</a><a class="toc-l3" href="#section-5">定位对比</a><a class="toc-l3" href="#section-6">目标用户对比</a><a class="toc-l3" href="#section-7">核心使用场景重叠与差异</a><a class="toc-l2" href="#section-8">核心功能矩阵</a><a class="toc-l3" href="#section-9">功能覆盖对比</a><a class="toc-l3" href="#section-10">AI 能力对比</a><a class="toc-l3" href="#section-11">差异化功能总结</a><a class="toc-l2" href="#section-12">用户体验与关键路径对比</a><a class="toc-l3" href="#section-13">关键任务路径一：创建报告/文档</a><a class="toc-l3" href="#section-14">关键任务路径二：数据分析与可视化</a><a class="toc-l3" href="#section-15">关键任务路径三：定时任务/自动化</a><a class="toc-l3" href="#section-16">关键任务路径四：知识库与检索</a><a class="toc-l3" href="#section-17">体验问题清单</a><a class="toc-l3" href="#section-18">优秀体验做法</a><a class="toc-l2" href="#section-19">商业化策略横向对比</a><a class="toc-l3" href="#section-20">套餐与定价对比（个人版）</a><a class="toc-l3" href="#section-21">企业版定价对比</a><a class="toc-l3" href="#section-22">免费额度对比</a><a class="toc-l3" href="#section-23">计费模式对比</a><a class="toc-l3" href="#section-24">付费触发点分析</a><a class="toc-l3" href="#section-25">商业化风险与机会</a><a class="toc-l2" href="#section-26">综合评分矩阵</a><a class="toc-l3" href="#section-27">核心能力评分（1-5 分）</a><a class="toc-l3" href="#section-28">评分口径说明</a><a class="toc-l2" href="#section-29">关键洞察</a><a class="toc-l3" href="#section-30">事实发现</a><a class="toc-l3" href="#section-31">分析判断</a><a class="toc-l3" href="#section-32">未满足需求与机会缺口</a><a class="toc-l2" href="#section-33">WPS 灵犀商业优化步骤</a><a class="toc-l3" href="#section-34">计费透明度优化</a><a class="toc-l3" href="#section-35">免费额度策略优化</a><a class="toc-l3" href="#section-36">套餐定价设计优化</a><a class="toc-l3" href="#section-37">计费模式优化</a><a class="toc-l3" href="#section-38">生态集成策略优化</a><a class="toc-l3" href="#section-39">多模型策略优化</a><a class="toc-l3" href="#section-40">企业版与团队协作优化</a><a class="toc-l3" href="#section-41">移动端覆盖优化</a><a class="toc-l2" href="#section-42">行动建议与优先级</a><a class="toc-l3" href="#section-43">Must：必须做</a><a class="toc-l3" href="#section-44">Should：应该做</a><a class="toc-l3" href="#section-45">Could：可以做</a><a class="toc-l2" href="#section-46">附录</a><a class="toc-l3" href="#section-47">未查证项</a><a class="toc-l3" href="#section-48">来源列表</a></nav>
+<main class="report">
+<header class="hero">
+  <div class="hero-top">
+    <div>
+      <p class="kicker">COMPETITIVE ANALYSIS</p>
+      <h1>AI Agent办公赛道竞品商业化分析报告</h1>
+      <p class="subtitle">Product Benchmarking · UX Analysis · Strategy Recommendations</p>
+    </div>
+    <div class="date-chip">
+      <span>报告日期</span>
+      <strong>2026-09-03</strong>
+    </div>
+  </div>
+  <div class="hero-stats"><article class="hero-stat"><span>章节</span><strong>47</strong><small>分析结构</small></article><article class="hero-stat"><span>表格</span><strong>29</strong><small>对比材料</small></article><article class="hero-stat"><span>评分项</span><strong>32</strong><small>热力矩阵</small></article><article class="hero-stat"><span>来源</span><strong>20</strong><small>证据线索</small></article></div>
+</header>
+<h2 id="section-2">摘要结论</h2>
+<p>* 四款产品同属"AI Agent + 办公场景"赛道，但生态绑定策略分化明显：WPS 灵犀绑定金山 Office 生态、豆包工作绑定飞书、千问办公绑定钉钉、WorkBuddy 不绑定单一 IM 走桌面原生路线</p>
+<p>* 商业化定价差异显著：WPS 灵犀标准版 48 元/月为最低入门价，豆包工作 68 元/月起但企业版 99 元/席起含飞书 Office，千问办公个人版 78 元/月但千问 App 办公助理低至 19 元/月，WorkBuddy 标准版 70 元/月（连续包月）居中</p>
+<p>* 计费模式分两阵营：WPS 灵犀和 WorkBuddy 采用"积分/灵点"计量制（按任务消耗扣减），豆包工作和千问办公采用"月度额度池"制（按月固定额度重置），计量制对轻度用户更友好、额度池制对重度用户更可预期</p>
+<p>* 免费额度对比：WPS 灵犀 800 灵点/月、WorkBuddy 500 积分/月、豆包工作基础功能免费无限制但高级功能每日有限次数、千问办公 100 积分/天 + 新用户 2000 积分，豆包工作免费策略最激进</p>
+<p>* AI 模型策略分化：WPS 灵犀和 WorkBuddy 均接入多模型（DeepSeek、GLM、Kimi 等），豆包工作仅用自研豆包 2.1 Pro，千问办公仅用自研 Qwen 系列，多模型策略给用户更多灵活性但增加消耗不确定性</p>
+<p>* 四款产品均处于 2026 年 8 月集中发布期，市场竞争进入白热化阶段，产品迭代速度加快，当前为窗口期关键节点</p>
+<h2 id="section-3">竞品选择与分类</h2>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">厂商</th><th class="align-left">竞品类型</th><th class="align-left">选择理由</th></tr></thead><tbody><tr><td class="align-left">WPS AI 灵犀专业版</td><td class="align-left">金山办公</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">独立 AI 办公 Agent，交付可编辑 Office 文件，2026 年 7 月正式发布</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">字节跳动</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">Agent 驱动办公任务执行，绑定飞书生态，2026 年 8 月正式发布品牌</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">阿里巴巴</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">一站式 AI 生产力平台，绑定钉钉生态，2026 年 8 月公测</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">腾讯</td><td class="align-left"><span class="badge badge-direct">直接竞品</span></td><td class="align-left">桌面原生 AI 智能体，不绑定单一 IM，2026 年 3 月上线国内版</td></tr></tbody></table></div>
+<p><strong>补充说明</strong>：WorkBuddy 由腾讯云 CodeBuddy 团队打造，并非 TRAE 出品。TRAE（trae.cn）是字节跳动旗下的 AI 编程 IDE 产品，与 WorkBuddy 是两个独立产品。本报告用户原始需求中提到的"workkbuddy"即指腾讯 WorkBuddy。</p>
+<p><strong>赛道竞争逻辑</strong>：四款产品同属"AI Agent + 办公场景"赛道，但绑定策略分化为两条路线——生态绑定型（WPS 绑金山 Office、豆包绑飞书、千问绑钉钉）与桌面原生型（WorkBuddy 不绑定单一 IM）。竞争焦点已从"谁的工具更好用"转向"谁的 AI 能更快长进企业工作流"。</p>
+<h2 id="section-4">产品定位与用户场景</h2>
+<h3 id="section-5">定位对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">定位句</td><td class="align-left">专业个人办公助理</td><td class="align-left">Agent 驱动办公任务执行</td><td class="align-left">一站式 AI 生产力平台</td><td class="align-left">全场景 AI 办公工作台</td></tr><tr><td class="align-left">产品形态</td><td class="align-left">桌面客户端 + Web + 插件</td><td class="align-left">桌面客户端 + 云电脑</td><td class="align-left">Web + PC + 钉钉内嵌</td><td class="align-left">桌面独立客户端</td></tr><tr><td class="align-left">生态绑定</td><td class="align-left">金山 Office（WPS 文档/表格/PPT）</td><td class="align-left">飞书（消息/文档/日历/知识库）</td><td class="align-left">钉钉（25 项原生能力双向嵌入）</td><td class="align-left">不绑定单一 IM，接入微信/企微/飞书/钉钉/QQ</td></tr><tr><td class="align-left">核心差异</td><td class="align-left">交付可编辑原生 Office 文件，表格保留公式</td><td class="align-left">本地+云电脑双模式，200+ 技能，多 Agent 工作小队</td><td class="align-left">MCP 连接器生态，电商数据源，定时任务+Hook 安全</td><td class="align-left">桌面原生本地文件操作，100+ 领域专家，多模型灵活切换</td></tr><tr><td class="align-left">上线时间</td><td class="align-left">2026 年 7 月 15 日</td><td class="align-left">2026 年 8 月 25 日</td><td class="align-left">2026 年 8 月 3 日</td><td class="align-left">2026 年 3 月 9 日</td></tr></tbody></table></div>
+<h3 id="section-6">目标用户对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">用户维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">核心用户</td><td class="align-left">职场人士、政企/行政/文秘、财务/运营/销售</td><td class="align-left">职场白领、自媒体、中小企业、AI 从业者</td><td class="align-left">钉钉用户、电商从业者、企业团队</td><td class="align-left">个人职场人士、开发者、设计创意人员、企业团队</td></tr><tr><td class="align-left">企业用户</td><td class="align-left">适合个人办公为主，团队版推进中</td><td class="align-left">企业版打包飞书 Office 销售</td><td class="align-left">企业版 198 元/月/席，含管理后台</td><td class="align-left">企业版 198 元/人/月起，1 人起购</td></tr><tr><td class="align-left">行业侧重</td><td class="align-left">金融、法律、学术（内置专业数据源）</td><td class="align-left">通用办公场景，飞书生态用户</td><td class="align-left">电商（接入 1688/天猫/淘宝/小红书）</td><td class="align-left">跨境电商、社媒运营、软件开发、设计创意</td></tr><tr><td class="align-left">移动端</td><td class="align-left">安卓已上线，iOS 审核中</td><td class="align-left">手机远程控制电脑</td><td class="align-left">钉钉 App 内嵌</td><td class="align-left">iOS companion app</td></tr></tbody></table></div>
+<h3 id="section-7">核心使用场景重叠与差异</h3>
+<p>四款产品在文档生成、数据分析、PPT 制作、会议纪要等基础办公场景高度重叠，差异主要体现在：</p>
+<p>* <strong>WPS 灵犀</strong>：强调"交付可编辑 Office 文件"——不只是输出文本，而是生成保留公式、图表控件的原生文件，适合对文件质量要求高的场景</p>
+<p>* <strong>豆包工作</strong>：强调"云电脑 7x24 小时运行"和"多 Agent 工作小队"——适合需要长时间自动执行复杂任务的场景</p>
+<p>* <strong>千问办公</strong>：强调"电商数据源接入"和"钉钉 25 项原生能力"——适合电商从业者深度依赖钉钉的企业团队</p>
+<p>* <strong>WorkBuddy</strong>：强调"桌面原生本地文件操作"和"100+ 领域专家虚拟团队"——适合需要直接读写本地文件、跨 IM 协同的场景</p>
+<h2 id="section-8">核心功能矩阵</h2>
+<h3 id="section-9">功能覆盖对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">功能模块</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">文档生成与编辑</td><td class="align-left">原生 Office 文件，保留公式和图表控件</td><td class="align-left">内置 Office 套件，支持局部框选编辑</td><td class="align-left">PPT/Word/Excel 生成与编辑，实时编辑</td><td class="align-left">Word/Excel/PPT/Markdown 生成</td></tr><tr><td class="align-left">数据分析</td><td class="align-left">自然语言→自动公式→可视化图表</td><td class="align-left">数据整理、可视化，可拉取飞书数据</td><td class="align-left">接入 1688/天猫/淘宝/小红书数据源</td><td class="align-left">上传文件自动分析、可视化、报表</td></tr><tr><td class="align-left">PPT 生成</td><td class="align-left">主题→大纲→全页生成+AI 配图</td><td class="align-left">AI PPT（共享月度额度池）</td><td class="align-left">PPT 生成（消耗积分）</td><td class="align-left">从需求描述生成演示文稿</td></tr><tr><td class="align-left">会议纪要</td><td class="align-left">10 万字速记自动归纳，生成总结+待办</td><td class="align-left">录音纪要（免费版每日有限次数）</td><td class="align-left">钉钉 AI 听记，自动归档知识库</td><td class="align-left">支持会议纪要生成，IM 联动</td></tr><tr><td class="align-left">任务管理</td><td class="align-left">Plan 模式先规划后执行，定时任务</td><td class="align-left">云端定时任务，7x24 云电脑</td><td class="align-left">cron 式定时任务，Hook 拦截</td><td class="align-left">定时任务（每小时/每天/每周）</td></tr><tr><td class="align-left">知识库</td><td class="align-left">自动创建本地知识库，同步云端</td><td class="align-left">与飞书深度打通，继承企业上下文</td><td class="align-left">钉钉知识库集成，跨文档分析</td><td class="align-left">企业知识库+RAG 检索</td></tr><tr><td class="align-left">多模态</td><td class="align-left">Kimi K3 视觉理解，长文档分析</td><td class="align-left">图片/视频生成，AI PPT/表格</td><td class="align-left">图片/音频/视频/音乐全模态</td><td class="align-left">文生图/文生视频/3D 生成</td></tr><tr><td class="align-left">第三方集成</td><td class="align-left">MCP 连接器接入外部平台</td><td class="align-left">已打通飞书/钉钉/邮箱/财经平台</td><td class="align-left">MCP 协议，接入 Vercel/Canva/高德/企查查等</td><td class="align-left">MCP+Skills，接入 GitHub/Jira/Notion/Slack</td></tr><tr><td class="align-left">代码生成</td><td class="align-left">自定义 API Key 绑定模型</td><td class="align-left">网页应用创建部署</td><td class="align-left">全栈网页生成，带数据库</td><td class="align-left">CodeBuddy 独立编程智能体</td></tr><tr><td class="align-left">多 Agent 协同</td><td class="align-left">群聊协作，多人+AI 共同推进</td><td class="align-left">工作伙伴功能，多 Agent 工作小队</td><td class="align-left">三条 Agent 线整合（QoderWork/MuleRun/悟空）</td><td class="align-left">100+ 领域专家并行协作</td></tr><tr><td class="align-left">网页应用</td><td class="align-left">未查证</td><td class="align-left">可创建部署带后端的生产级在线应用</td><td class="align-left">免部署独立网页，支持密码和数据库</td><td class="align-left">未查证</td></tr><tr><td class="align-left">移动端</td><td class="align-left">安卓上线，iOS 审核中</td><td class="align-left">手机远程控制电脑</td><td class="align-left">钉钉 App 内嵌</td><td class="align-left">iOS companion app</td></tr><tr><td class="align-left">桌宠/创意</td><td class="align-left">内置 5 款桌宠，可导入自定义</td><td class="align-left">未查证</td><td class="align-left">未查证</td><td class="align-left">未查证</td></tr></tbody></table></div>
+<h3 id="section-10">AI 能力对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">AI 维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">模型底座</td><td class="align-left">DeepSeek V4 Pro/Flash、GLM-5.3、通义千问、Kimi K3、MiniMax-M3 等（8+ 模型）</td><td class="align-left">豆包 2.1 Turbo（免费）/ 豆包 2.1 Pro（专业版）</td><td class="align-left">Qwen3.7-Max、Qwen3.8 等（自研）</td><td class="align-left">混元 Hy4 preview（770B MoE）、DeepSeek、GLM、Kimi、MiniMax（6+ 模型）</td></tr><tr><td class="align-left">上下文长度</td><td class="align-left">Kimi K3 支持 1M</td><td class="align-left">未公开具体数值</td><td class="align-left">百万级超长上下文</td><td class="align-left">Hy4 preview 1M+，Kimi 200 万 Token</td></tr><tr><td class="align-left">多模型切换</td><td class="align-left">支持，含模型倍率参考表</td><td class="align-left">不支持，仅自研模型</td><td class="align-left">不支持，仅自研模型</td><td class="align-left">支持，多模型灵活切换</td></tr><tr><td class="align-left">自定义 API Key</td><td class="align-left">所有用户均可免费绑定</td><td class="align-left">未查证</td><td class="align-left">未查证</td><td class="align-left">支持自定义模型端点（不消耗积分）</td></tr><tr><td class="align-left">RAG</td><td class="align-left">专业数据源（同花顺/国家统计局/arXiv）+ 知识库</td><td class="align-left">飞书上下文继承（聊天/文档/纪要/日程）</td><td class="align-left">钉钉知识库+企业文档+对话上下文</td><td class="align-left">企业知识库+RAG 检索+自定义提示词</td></tr><tr><td class="align-left">Agent 编排</td><td class="align-left">Plan 模式 + 技能封装 + MCP</td><td class="align-left">多 Agent 工作小队自动分工</td><td class="align-left">三条 Agent 线整合 + 连接器+技能+定时</td><td class="align-left">多专家并行 + 项目模式 + CloudAgent</td></tr><tr><td class="align-left">表格 Agent 能力</td><td class="align-left">SpreadsheetBench 全球第一（98.25%）</td><td class="align-left">未查证</td><td class="align-left">未查证</td><td class="align-left">未查证</td></tr><tr><td class="align-left">代码能力</td><td class="align-left">自定义 API Key 绑定</td><td class="align-left">网页应用创建部署</td><td class="align-left">全栈网页生成</td><td class="align-left">CodeBuddy 独立编程智能体（覆盖腾讯 90% 工程师）</td></tr></tbody></table></div>
+<h3 id="section-11">差异化功能总结</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">独有能力</th><th class="align-left">用户强感知</th><th class="align-left">复制成本</th></tr></thead><tbody><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">交付可编辑原生 Office 文件（保留公式、图表控件）</td><td class="align-left">高——文件可直接用于正式场合</td><td class="align-left">高——需深度集成 Office 渲染引擎</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">云电脑 7x24 小时运行 + 多 Agent 工作小队</td><td class="align-left">中高——长时间自动执行任务</td><td class="align-left">高——需云基础设施支持</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">电商数据源（1688/天猫/淘宝/小红书）+ Hook 安全拦截</td><td class="align-left">高——电商从业者直接可用</td><td class="align-left">中高——需电商平台数据合作</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">桌面原生本地文件读写 + 跨 IM 远程控制</td><td class="align-left">高——直接操作本地文件</td><td class="align-left">中——需桌面端权限管理</td></tr></tbody></table></div>
+<h2 id="section-12">用户体验与关键路径对比</h2>
+<h3 id="section-13">关键任务路径一：创建报告/文档</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">路径</th><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">创建报告</td><td class="align-left">WPS AI 灵犀</td><td class="align-left">输入需求 → AI 规划 → 生成大纲 → 逐段生成 → 输出可编辑 Office 文件</td><td class="align-left">交付物为原生 Office 文件，保留公式和图表控件</td><td class="align-left">最适合对文件格式要求高的场景</td></tr><tr><td class="align-left">创建报告</td><td class="align-left">豆包工作</td><td class="align-left">输入需求 → Agent 拆解 → 调用工具执行 → 局部框选编辑 → 输出在线文档</td><td class="align-left">支持局部框选编辑，无需整体重新生成</td><td class="align-left">适合需要反复修改的场景</td></tr><tr><td class="align-left">创建报告</td><td class="align-left">千问办公</td><td class="align-left">输入需求 → Agent 拆解 → 调用钉钉/外部数据 → 输出 PPT/Word/网页</td><td class="align-left">可直接调用钉钉企业数据</td><td class="align-left">适合钉钉生态内团队</td></tr><tr><td class="align-left">创建报告</td><td class="align-left">WorkBuddy</td><td class="align-left">一句话描述 → 自动规划 → 执行 → 右侧面板展示产物 → 可继续补充</td><td class="align-left">桌面客户端直接读写本地文件</td><td class="align-left">适合需要操作本地文件的场景</td></tr></tbody></table></div>
+<section class="path-breakdown"><div class="path-grid"><div class="path-field"><h4>关键流程</h4><div class="step-chain-mini"><span>输入需求</span><span>AI 规划</span><span>生成大纲</span><span>逐段生成</span><span>输出可编辑 Office 文件</span></div></div></div></section>
+<h3 id="section-14">关键任务路径二：数据分析与可视化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">路径</th><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">数据分析</td><td class="align-left">WPS AI 灵犀</td><td class="align-left">上传表格 → 自然语言提问 → 自动公式 → 自动执行 → 可视化图表</td><td class="align-left">表格 Agent 全球第一，公式保留</td><td class="align-left">最强表格处理能力</td></tr><tr><td class="align-left">数据分析</td><td class="align-left">豆包工作</td><td class="align-left">上传数据 → Agent 整理 → 可视化分析 → 可拉取飞书数据</td><td class="align-left">可连接飞书企业数据源</td><td class="align-left">适合飞书生态用户</td></tr><tr><td class="align-left">数据分析</td><td class="align-left">千问办公</td><td class="align-left">上传数据文件 → 自动分析 → 可视化报告 → 可接入电商数据</td><td class="align-left">接入 1688/天猫/淘宝/小红书数据源</td><td class="align-left">电商场景首选</td></tr><tr><td class="align-left">数据分析</td><td class="align-left">WorkBuddy</td><td class="align-left">上传文件 → 自动分析 → 可视化 → 生成图表报告 PPT</td><td class="align-left">可直接生成分析报告 PPT</td><td class="align-left">适合需要快速汇报的场景</td></tr></tbody></table></div>
+<h3 id="section-15">关键任务路径三：定时任务/自动化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">路径</th><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">定时任务</td><td class="align-left">WPS AI 灵犀</td><td class="align-left">设置任务 → Plan 模式规划 → 定时执行 → 结果交付</td><td class="align-left">Plan 模式先规划后执行，减少跑偏</td><td class="align-left">适合复杂任务的定时执行</td></tr><tr><td class="align-left">定时任务</td><td class="align-left">豆包工作</td><td class="align-left">设置任务 → 云电脑 7x24 运行 → 自动执行 → 结果推送</td><td class="align-left">云电脑模式，不受本地电脑开关机影响</td><td class="align-left">适合需要长时间运行的场景</td></tr><tr><td class="align-left">定时任务</td><td class="align-left">千问办公</td><td class="align-left">cron 式定时 → Agent 执行 → 结果推送钉钉 → Hook 拦截危险操作</td><td class="align-left">Hook 安全机制防止误操作</td><td class="align-left">企业级安全需求首选</td></tr><tr><td class="align-left">定时任务</td><td class="align-left">WorkBuddy</td><td class="align-left">设定频率（每小时/每天/每周） → 自动执行 → 结果交付</td><td class="align-left">自动任务额度有限（体验版 3 个，旗舰版 99 个）</td><td class="align-left">额度限制需注意</td></tr></tbody></table></div>
+<h3 id="section-16">关键任务路径四：知识库与检索</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">路径</th><th class="align-left">产品</th><th class="align-left">关键流程</th><th class="align-left">竞品差异</th><th class="align-left">行动判断</th></tr></thead><tbody><tr><td class="align-left">知识库</td><td class="align-left">WPS AI 灵犀</td><td class="align-left">自动创建本地知识库 → 同步云端 → 按主题归纳 → 跨主题跳转</td><td class="align-left">内置同花顺/国家统计局/arXiv 等专业数据源</td><td class="align-left">适合金融/法律/学术场景</td></tr><tr><td class="align-left">知识库</td><td class="align-left">豆包工作</td><td class="align-left">继承飞书上下文 → 读取聊天/文档/纪要/日程 → 沉淀回飞书</td><td class="align-left">飞书生态原生继承，无需额外搭建</td><td class="align-left">适合飞书深度用户</td></tr><tr><td class="align-left">知识库</td><td class="align-left">千问办公</td><td class="align-left">钉钉知识库集成 → 跨文档分析 → 会议纪要自动归档</td><td class="align-left">钉钉 25 项原生能力全双向嵌入</td><td class="align-left">适合钉钉生态团队</td></tr><tr><td class="align-left">知识库</td><td class="align-left">WorkBuddy</td><td class="align-left">企业知识库 → RAG 检索 → 自定义提示词 → Playbook</td><td class="align-left">资料库容量按套餐分档（5GB-50GB）</td><td class="align-left">适合需要自定义的企业</td></tr></tbody></table></div>
+<h3 id="section-17">体验问题清单</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">体验问题</th><th class="align-left">严重程度</th></tr></thead><tbody><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">灵点消耗不透明，Pro/Max 模式消耗差距可达 16.7 倍，用户难以预估</td><td class="align-left">高</td></tr><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">大会员用户发现灵犀需额外付费，社区争议大（"背刺"争议）</td><td class="align-left">高</td></tr><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">部分免费灵点有有效期，过期后无法使用</td><td class="align-left">中</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">额度消耗不透明，用户需等任务跑完才知道花费</td><td class="align-left">高</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">200 元档用户试用后取消续订，性价比存疑</td><td class="align-left">中</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">搜索依赖关键词，抽象问题容易漏材料</td><td class="align-left">中</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">复杂任务积分消耗快，一场培训可能消耗 3000-4000 积分</td><td class="align-left">高</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">可选模型较少，仅自研 Qwen 系列</td><td class="align-left">中</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">赠送积分自到账起 1 个月内有效，过期清零</td><td class="align-left">中</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">支持升配不支持降配，灵活性受限</td><td class="align-left">中</td></tr></tbody></table></div>
+<h3 id="section-18">优秀体验做法</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">优秀体验</th><th class="align-left">可借鉴点</th></tr></thead><tbody><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">项目与文档空间集中管理，AI 持续理解上下文</td><td class="align-left">长期任务上下文管理设计</td></tr><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">模型倍率参考表，明示各模型消耗差异</td><td class="align-left">计量制产品的透明化设计</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">本地+云电脑双模式，手机远程控制电脑</td><td class="align-left">云端+本地混合架构</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">局部框选编辑，无需整体重新生成</td><td class="align-left">精细化编辑交互设计</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">Hook 安全拦截，防止危险操作</td><td class="align-left">企业级安全防护机制</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">钉钉 25 项原生能力全双向嵌入</td><td class="align-left">IM 生态深度集成模式</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">桌面原生，直接读写本地文件系统</td><td class="align-left">桌面端权限管理设计</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">100+ 领域专家并行协作</td><td class="align-left">多角色 Agent 编排模式</td></tr></tbody></table></div>
+<h2 id="section-19">商业化策略横向对比</h2>
+<h3 id="section-20">套餐与定价对比（个人版）</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">套餐</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">免费版</td><td class="align-left">0 元（800 灵点/月）</td><td class="align-left">0 元（基础功能免费无限制，高级功能每日有限次数）</td><td class="align-left">0 元（100 积分/天 + 新用户 2000 积分）</td><td class="align-left">0 元（500 积分/月）</td></tr><tr><td class="align-left">入门版</td><td class="align-left">48 元/月（5000 灵点）</td><td class="align-left">68 元/月（标准套餐，5 倍免费额度）</td><td class="align-left">78 元/月（个人标准版，2000 积分）</td><td class="align-left">70 元/月（标准版连续包月，4000 积分）</td></tr><tr><td class="align-left">中端版</td><td class="align-left">128 元/月（14000 灵点）</td><td class="align-left">200 元/月（加强套餐，4 倍标准额度）</td><td class="align-left">158 元/月（个人高级版，4000 积分）</td><td class="align-left">140 元/月（高级版连续包月，9000 积分）</td></tr><tr><td class="align-left">高端版</td><td class="align-left">398 元/月（48000 灵点）</td><td class="align-left">500 元/月（高级套餐，10 倍标准额度）</td><td class="align-left">—</td><td class="align-left">700 元/月（旗舰版连续包月，50000 积分）</td></tr><tr><td class="align-left">学生优惠</td><td class="align-left">未查证</td><td class="align-left">38 元/月（标准套餐，优惠 44%）</td><td class="align-left">未查证</td><td class="align-left">未查证</td></tr></tbody></table></div>
+<p><strong>价格锚点分析</strong>：WPS 灵犀入门版 48 元/月为四款产品中最低，豆包工作学生版 38 元/月为绝对最低价。WorkBuddy 旗舰版 700 元/月为个人版最高价，适合重度用户。</p>
+<h3 id="section-21">企业版定价对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">套餐</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">企业入门版</td><td class="align-left">未查证（团队版推进中）</td><td class="align-left">99 元/月/席（标准套餐，含飞书 Office）</td><td class="align-left">198 元/月/席（企业标准版）</td><td class="align-left">198 元/人/月（SaaS 企业旗舰版）</td></tr><tr><td class="align-left">企业高级版</td><td class="align-left">未查证</td><td class="align-left">207 元/月/席（加强套餐）</td><td class="align-left">咨询报价（企业旗舰版，含 VPC 部署）</td><td class="align-left">316 元/人/月（专有云专享版，100 人起）</td></tr><tr><td class="align-left">企业顶配版</td><td class="align-left">未查证</td><td class="align-left">457 元/月/席（高级套餐）</td><td class="align-left">咨询报价</td><td class="align-left">咨询报价（私有化部署）</td></tr></tbody></table></div>
+<p><strong>企业版对比判断</strong>：豆包工作企业版 99 元/席起为最低入门价，但打包了飞书 Office；千问办公和 WorkBuddy 均为 198 元/月/席。豆包工作的"AI+Office 打包"策略对已用飞书的企业最有吸引力。</p>
+<h3 id="section-22">免费额度对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">计费单位</td><td class="align-left">灵点</td><td class="align-left">次数/额度池</td><td class="align-left">积分</td><td class="align-left">Credits/积分</td></tr><tr><td class="align-left">免费额度</td><td class="align-left">800 灵点/月</td><td class="align-left">基础功能免费无限制；高级功能每日有限次数</td><td class="align-left">100 积分/天 + 新用户 2000 积分（90 天有效）</td><td class="align-left">500 积分/月</td></tr><tr><td class="align-left">首次加赠</td><td class="align-left">首次申请 8000 灵点</td><td class="align-left">—</td><td class="align-left">—</td><td class="align-left">—</td></tr><tr><td class="align-left">额度补充方式</td><td class="align-left">打卡做任务补充灵点</td><td class="align-left">次数次日重置</td><td class="align-left">每日登录赠送</td><td class="align-left">国际版每日签到 30 credits</td></tr><tr><td class="align-left">免费额度是否够用</td><td class="align-left">轻度任务够用，复杂任务一次可能耗完</td><td class="align-left">基础功能够用，高级功能每日有限</td><td class="align-left">每日 100 积分基本够基础任务</td><td class="align-left">500 积分约够 5-10 次简单任务</td></tr></tbody></table></div>
+<p><strong>免费策略判断</strong>：豆包工作免费策略最激进——基础对话、联网搜索、基础写作完全免费无次数限制；WPS 灵犀首次 8000 灵点加赠最慷慨；千问办公每日 100 积分+新用户 2000 积分的组合较温和；WorkBuddy 500 积分/月相对保守。</p>
+<h3 id="section-23">计费模式对比</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">计费模式</td><td class="align-left">灵点计量制（按任务消耗扣减）</td><td class="align-left">月度额度池制（按月固定额度，当月清零不结转）</td><td class="align-left">积分计量制（按任务消耗扣减）</td><td class="align-left">积分计量制（按任务消耗扣减）</td></tr><tr><td class="align-left">计费透明度</td><td class="align-left">有模型倍率参考表，但实际消耗以任务难度为准</td><td class="align-left">额度消耗有约 5 分钟同步延迟</td><td class="align-left">积分消耗以材料多少和工具调用为准</td><td class="align-left">由模型类型、Token 用量及任务复杂度决定</td></tr><tr><td class="align-left">超额处理</td><td class="align-left">购买加量包（约 1 元=80 灵点）</td><td class="align-left">等待次日重置或升级套餐</td><td class="align-left">购买积分包或升级套餐</td><td class="align-left">购买加量包（1000 积分=50 元）</td></tr><tr><td class="align-left">额度有效期</td><td class="align-left">部分免费灵点有有效期</td><td class="align-left">当月未用完清零不结转</td><td class="align-left">新用户赠送积分 90 天有效</td><td class="align-left">赠送积分自到账起 1 个月内有效</td></tr><tr><td class="align-left">自定义模型是否消耗额度</td><td class="align-left">不消耗（所有用户可免费绑定 API Key）</td><td class="align-left">未查证</td><td class="align-left">未查证</td><td class="align-left">不消耗积分</td></tr></tbody></table></div>
+<p><strong>计费模式判断</strong>：</p>
+<p>* 计量制（WPS 灵犀、千问办公、WorkBuddy）：对轻度用户更友好，用多少扣多少，但消耗不可预期，用户可能"不敢用"</p>
+<p>* 额度池制（豆包工作）：对重度用户更可预期，每月固定额度，但当月清零可能造成"浪费焦虑"</p>
+<p>* 两者核心矛盾相同：用户难以预估任务消耗，导致付费决策犹豫</p>
+<h3 id="section-24">付费触发点分析</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">产品</th><th class="align-left">付费触发点</th><th class="align-left">触发方式</th><th class="align-left">用户感受</th></tr></thead><tbody><tr><td class="align-left">WPS AI 灵犀</td><td class="align-left">灵点耗尽后触发付费弹窗</td><td class="align-left">弹窗提示购买加量包或升级订阅</td><td class="align-left">用户反馈"800 灵点一次复杂任务就耗完"</td></tr><tr><td class="align-left">豆包工作</td><td class="align-left">高级功能每日免费次数用完</td><td class="align-left">当日暂停，次日重置；专业版共享月度额度池</td><td class="align-left">免费用户可等次日，付费用户按月消耗</td></tr><tr><td class="align-left">千问办公</td><td class="align-left">免费积分用尽</td><td class="align-left">需升级套餐或购买积分包</td><td class="align-left">用户反馈"一场培训消耗 3000-4000 积分"</td></tr><tr><td class="align-left">WorkBuddy</td><td class="align-left">积分用完、自动任务额度用完、代码补全次数用完</td><td class="align-left">需购买加量包或升级套餐</td><td class="align-left">体验版 3 个自动任务、5000 次代码补全</td></tr></tbody></table></div>
+<h3 id="section-25">商业化风险与机会</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">风险</th><th class="align-left">机会</th></tr></thead><tbody><tr><td class="align-left">计量制产品</td><td class="align-left">用户"不敢用"导致付费转化率低</td><td class="align-left">可通过免费额度+首次加赠降低试用门槛</td></tr><tr><td class="align-left">额度池制产品</td><td class="align-left">当月清零造成"浪费焦虑"</td><td class="align-left">可推出结转机制或跨月累积提升留存</td></tr><tr><td class="align-left">生态绑定型</td><td class="align-left">封闭生态限制用户增长</td><td class="align-left">可通过 MCP 协议开放扩展，降低绑定门槛</td></tr><tr><td class="align-left">桌面原生型</td><td class="align-left">缺乏 IM 生态流量入口</td><td class="align-left">可通过跨 IM 接入扩大触达</td></tr><tr><td class="align-left">全赛道</td><td class="align-left">同质化竞争加剧，价格战风险</td><td class="align-left">差异化定价（学生优惠、企业打包）和差异化能力（专业数据源、电商数据源）是关键</td></tr></tbody></table></div>
+<h2 id="section-26">综合评分矩阵</h2>
+<h3 id="section-27">核心能力评分（1-5 分）</h3>
+<section class="visual-panel"><div class="visual-head"><div><span class="eyebrow">AUTO VISUAL</span><h3>综合评分矩阵</h3></div><p>基于下方 1-5 分评分矩阵自动生成，帮助快速观察能力分布和相对优势。</p></div><div class="visual-grid"><article class="chart-card radar-card"><div class="chart-title">竞品能力雷达图</div><svg viewBox="0 0 360 300" role="img" aria-label="竞品能力雷达图"><polygon points="180.0,139.6 195.9,148.8 195.9,167.2 180.0,176.4 164.1,167.2 164.1,148.8" class="radar-ring"></polygon><polygon points="180.0,121.2 211.9,139.6 211.9,176.4 180.0,194.8 148.1,176.4 148.1,139.6" class="radar-ring"></polygon><polygon points="180.0,102.8 227.8,130.4 227.8,185.6 180.0,213.2 132.2,185.6 132.2,130.4" class="radar-ring"></polygon><polygon points="180.0,84.4 243.7,121.2 243.7,194.8 180.0,231.6 116.3,194.8 116.3,121.2" class="radar-ring"></polygon><polygon points="180.0,66.0 259.7,112.0 259.7,204.0 180.0,250.0 100.3,204.0 100.3,112.0" class="radar-ring"></polygon><line x1="180.0" y1="158.0" x2="180.0" y2="66.0" class="radar-axis"></line><line x1="180.0" y1="158.0" x2="259.7" y2="112.0" class="radar-axis"></line><line x1="180.0" y1="158.0" x2="259.7" y2="204.0" class="radar-axis"></line><line x1="180.0" y1="158.0" x2="180.0" y2="250.0" class="radar-axis"></line><line x1="180.0" y1="158.0" x2="100.3" y2="204.0" class="radar-axis"></line><line x1="180.0" y1="158.0" x2="100.3" y2="112.0" class="radar-axis"></line><polygon points="180.0,66.0 259.7,112.0 259.7,204.0 180.0,213.2 132.2,185.6 116.3,121.2" fill="#2e7d32" stroke="#2e7d32" class="radar-series"></polygon><polygon points="180.0,84.4 227.8,130.4 211.9,176.4 180.0,231.6 116.3,194.8 100.3,112.0" fill="#0f9f8f" stroke="#0f9f8f" class="radar-series"></polygon><polygon points="180.0,84.4 243.7,121.2 211.9,176.4 180.0,231.6 116.3,194.8 100.3,112.0" fill="#f97316" stroke="#f97316" class="radar-series"></polygon><polygon points="180.0,84.4 243.7,121.2 259.7,204.0 180.0,231.6 132.2,185.6 116.3,121.2" fill="#7c3aed" stroke="#7c3aed" class="radar-series"></polygon><text x="180.0" y="42.0" text-anchor="middle" class="radar-label">文档处理</text><text x="280.5" y="100.0" text-anchor="middle" class="radar-label">数据分析</text><text x="280.5" y="216.0" text-anchor="middle" class="radar-label">AI 模型多样性</text><text x="180.0" y="274.0" text-anchor="middle" class="radar-label">用户体验流畅度</text><text x="79.5" y="216.0" text-anchor="middle" class="radar-label">商业化设计</text><text x="79.5" y="100.0" text-anchor="middle" class="radar-label">生态集成</text></svg><div class="chart-legend"><span><i style="background:#2e7d32"></i>WPS AI 灵犀</span><span><i style="background:#0f9f8f"></i>豆包工作</span><span><i style="background:#f97316"></i>千问办公</span><span><i style="background:#7c3aed"></i>WorkBuddy</span></div></article><article class="chart-card quadrant-card"><div class="chart-title">定位四象限</div><svg viewBox="0 0 360 300" role="img" aria-label="定位四象限"><line x1="54" y1="139.0" x2="304" y2="139.0" class="quad-mid"></line><line x1="179.0" y1="34" x2="179.0" y2="244" class="quad-mid"></line><rect x="54" y="34" width="250" height="210" class="quad-box"></rect><text x="179.0" y="282" text-anchor="middle" class="axis-title">文档处理</text><text x="18" y="139.0" text-anchor="middle" class="axis-title axis-y" transform="rotate(-90 18 139.0)">数据分析</text><text x="54" y="264" class="axis-note">低</text><text x="296" y="264" class="axis-note">高</text><text x="34" y="238" class="axis-note">低</text><text x="34" y="42" class="axis-note">高</text><circle cx="290.0" cy="48.0" r="13.4" fill="#2e7d32" class="quad-dot"></circle><text x="290.0" y="52.0" text-anchor="middle" class="quad-index">1</text><circle cx="241.5" cy="139.0" r="13.0" fill="#0f9f8f" class="quad-dot"></circle><text x="241.5" y="143.0" text-anchor="middle" class="quad-index">2</text><circle cx="241.5" cy="86.5" r="13.2" fill="#f97316" class="quad-dot"></circle><text x="241.5" y="90.5" text-anchor="middle" class="quad-index">3</text><circle cx="241.5" cy="86.5" r="13.2" fill="#7c3aed" class="quad-dot"></circle><text x="241.5" y="90.5" text-anchor="middle" class="quad-index">4</text></svg><div class="quad-legend"><span><i style="background:#2e7d32">1</i>WPS AI 灵犀<small>文档处理 5 / 数据分析 5</small></span><span><i style="background:#0f9f8f">2</i>豆包工作<small>文档处理 4 / 数据分析 3</small></span><span><i style="background:#f97316">3</i>千问办公<small>文档处理 4 / 数据分析 4</small></span><span><i style="background:#7c3aed">4</i>WorkBuddy<small>文档处理 4 / 数据分析 4</small></span></div></article><article class="chart-card rank-card"><div class="chart-title">综合评分排行</div><div class="rank-row"><span class="rank-name">WPS AI 灵犀</span><span class="rank-bar"><i style="width:80%;background:#2e7d32"></i></span><strong>4.0</strong></div><div class="rank-row"><span class="rank-name">千问办公</span><span class="rank-bar"><i style="width:78%;background:#0f9f8f"></i></span><strong>3.9</strong></div><div class="rank-row"><span class="rank-name">WorkBuddy</span><span class="rank-bar"><i style="width:78%;background:#f97316"></i></span><strong>3.9</strong></div><div class="rank-row"><span class="rank-name">豆包工作</span><span class="rank-bar"><i style="width:75%;background:#7c3aed"></i></span><strong>3.8</strong></div></article></div></section><div class="table-wrap score-matrix"><table><thead><tr><th class="align-left">维度</th><th class="align-left">WPS AI 灵犀</th><th class="align-left">豆包工作</th><th class="align-left">千问办公</th><th class="align-left">WorkBuddy</th></tr></thead><tbody><tr><td class="align-left">文档处理</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">数据分析</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">AI 模型多样性</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-5">5</td></tr><tr><td class="align-left">用户体验流畅度</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">商业化设计</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">生态集成</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td></tr><tr><td class="align-left">性价比</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-3">3</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-3">3</td></tr><tr><td class="align-left">企业适配</td><td class="align-left heat heat-2">2</td><td class="align-left heat heat-5">5</td><td class="align-left heat heat-4">4</td><td class="align-left heat heat-4">4</td></tr></tbody></table></div>
+<h3 id="section-28">评分口径说明</h3>
+<p>* <strong>文档处理</strong>：WPS 灵犀 5 分因其交付原生可编辑 Office 文件且表格 Agent 全球第一；豆包/千问/WorkBuddy 均 4 分因支持文档生成但非原生 Office 交付</p>
+<p>* <strong>数据分析</strong>：WPS 灵犀 5 分因 SpreadsheetBench 全球第一；豆包 3 分因数据分析能力相对基础；千问 4 分因接入电商数据源；WorkBuddy 4 分因支持上传文件分析和可视化</p>
+<p>* <strong>AI 模型多样性</strong>：WPS 灵犀和 WorkBuddy 均接入 6+ 模型给 5 分；豆包和千问仅自研模型给 2 分</p>
+<p>* <strong>用户体验流畅度</strong>：WPS 灵犀 3 分因灵点消耗不透明和大会员争议；其余 4 分因体验相对顺畅</p>
+<p>* <strong>商业化设计</strong>：豆包 4 分因免费策略激进+额度池可预期；千问 4 分因积分体系清晰+企业版完善；WorkBuddy 3 分因积分有效期短且不支持降配；WPS 灵犀 3 分因灵点消耗不透明</p>
+<p>* <strong>生态集成</strong>：豆包 5 分因飞书深度打通+200+ 技能；千问 5 分因钉钉 25 项原生能力+电商数据源；WPS 灵犀 4 分因 MCP 连接器但生态相对独立；WorkBuddy 4 分因 MCP+Skills 但不绑定单一 IM</p>
+<p>* <strong>性价比</strong>：WPS 灵犀 5 分因入门版 48 元最低+免费 8000 灵点加赠；千问 4 分因每日免费积分+企业版合理；豆包 3 分因中高端定价较高；WorkBuddy 3 分因旗舰版 700 元/月较贵</p>
+<p>* <strong>企业适配</strong>：豆包 5 分因企业版 99 元/席起含飞书 Office 最优；千问 4 分因企业版 198 元/席含管理后台；WorkBuddy 4 分因企业版 198 元/人起 1 人起购；WPS 灵犀 2 分因团队版仍在推进中</p>
+<h2 id="section-29">关键洞察</h2>
+<h3 id="section-30">事实发现</h3>
+<p>* 四款产品均在 2026 年 7-8 月集中发布或重大更新，赛道进入白热化竞争期（来源：各产品官网及发布公告）</p>
+<p>* 豆包工作月活 3.45 亿（截至 2026 年 3 月），千问办公同期月活 1.66 亿，用户基础差异显著（来源：什么值得买调研）</p>
+<p>* 2026 年 7 月 30 日字节跳动宣布飞书产品团队并入豆包，成立统一豆包产品团队，表明 AI+办公生态整合加速（来源：新浪财经）</p>
+<p>* WPS 灵犀表格 Agent 在 SpreadsheetBench 全球基准以 98.25% 夺冠，超越人类专家基线（来源：WPS 社区）</p>
+<p>* 腾讯混元 Hy4 preview 模型 770B 总参数、49B 活跃参数、MoE 架构、1M+ 上下文，2026 年 8 月 28 日发布（来源：腾讯官方）</p>
+<h3 id="section-31">分析判断</h3>
+<p>* <strong>生态绑定 vs 桌面原生是核心分化</strong>：豆包+飞书、千问+钉钉走"AI 长进企业工作流"路线，WorkBuddy 走"AI 长在操作系统桌面上"路线，WPS 灵犀走"AI 长在 Office 文件里"路线。三条路线代表三种不同的用户入口假设</p>
+<p>* <strong>计量制 vs 额度池制反映产品自信度</strong>：WPS 灵犀和 WorkBuddy 选择计量制，说明对单次任务价值有信心但担心用户"不敢用"；豆包工作选择额度池制，说明更看重月度留存而非单次转化</p>
+<p>* <strong>多模型 vs 单模型反映战略取向</strong>：WPS 灵犀和 WorkBuddy 接入多模型，给用户灵活性但增加消耗不确定性；豆包和千问仅用自研模型，控制成本但限制了用户选择</p>
+<p>* <strong>免费策略是获客关键</strong>：豆包工作基础功能免费无限制的策略最激进，可能成为用户试用的最强诱因；WPS 灵犀首次 8000 灵点加赠也很有吸引力</p>
+<h3 id="section-32">未满足需求与机会缺口</h3>
+<p>* 缺乏跨产品数据互通：用户同时使用多款产品时，无法共享上下文和知识库</p>
+<p>* 计费透明度不足：四款产品均存在"用户难以预估任务消耗"的问题，缺乏"预估消耗→确认→执行"的机制</p>
+<p>* 团队协作能力不均：WPS 灵犀团队版仍在推进中，豆包/千问/WorkBuddy 已有企业版，但跨企业协作能力均未覆盖</p>
+<p>* 移动端覆盖不均：WPS 灵犀 iOS 审核中，千问依赖钉钉 App，WorkBuddy 有 iOS companion app，豆包支持手机远程控制电脑</p>
+<h2 id="section-33">WPS 灵犀商业优化步骤</h2>
+<p>以下每个维度均遵循「竞品标杆做法 → WPS 灵犀现状痛点 → 可借鉴优化点」结构，完全承接前文横向对比发现。</p>
+<h3 id="section-34">计费透明度优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">WorkBuddy 提供模型倍率参考表并在任务前展示预估消耗；千问办公在任务执行前提示积分消耗范围；豆包工作虽不透明但月度额度池制让用户对月度总消耗有预期上限</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">灵点消耗以任务难度为准，Pro/Max 模式消耗差距达 16.7 倍，用户难以预估单次任务花费；社区反馈"800 灵点一次复杂任务就耗完"，导致用户"不敢用"</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">任务执行前增加"预估消耗→用户确认→执行"机制；参考 WorkBuddy 的模型倍率表，在任务卡片上明示预估灵点范围；复杂任务提供 Pro/Max 模式自动推荐，降低用户选错模型的风险</td></tr></tbody></table></div>
+<h3 id="section-35">免费额度策略优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作基础对话、联网搜索、基础写作完全免费无次数限制，免费策略最激进；千问办公每日 100 积分+新用户 2000 积分组合较温和；WorkBuddy 国际版每日签到 30 credits 补充</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">免费版 800 灵点/月对轻度任务够用，但复杂任务（如旅游攻略）可能消耗近 1000 灵点，一次就耗完；部分免费灵点有有效期，过期后无法使用，增加用户焦虑</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">基础功能（简单对话、文档润色）设为免费无限制，与豆包工作对齐；复杂任务（数据分析、PPT 生成）保留灵点计费但提高免费额度至至少 2000 灵点/月；取消免费灵点有效期限制，或延长至 6 个月</td></tr></tbody></table></div>
+<h3 id="section-36">套餐定价设计优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作提供学生优惠 38 元/月（优惠 44%）降低门槛；千问办公分千问 App 办公助理（19 元起）和千问办公（78 元起）两个产品线覆盖不同预算；WorkBuddy 连续包月 7 折+连续包年再 8 折的阶梯折扣</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">四档套餐（48/128/398 元）跨度较大，标准版和进阶版之间 80 元差距可能造成升级犹豫；大会员用户发现灵犀需额外付费引发"背刺"争议，影响品牌信任；缺乏学生/教育优惠</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">增加学生/教育认证优惠（参考豆包 38 元/月）；为 WPS 大会员用户提供灵犀标准版折扣或灵点加赠，化解"背刺"争议；连续包年增加折扣力度（当前仅首月加赠，缺少长期留存激励）</td></tr></tbody></table></div>
+<h3 id="section-37">计费模式优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作采用月度额度池制，当月固定额度，用户对月度总消耗有明确预期上限；WorkBuddy 支持自定义模型端点不消耗积分，给技术用户零成本使用路径</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">纯计量制（灵点按任务消耗扣减）对重度用户消耗不可预期，复杂任务可能一次消耗近 1000 灵点；虽有自定义 API Key 免费绑定，但普通用户难以自行配置</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">在计量制基础上增加"月度封顶"机制——订阅用户月度消耗超过套餐灵点后降级为基础模型而非停止服务；推广自定义 API Key 功能的使用教程，让技术用户零成本使用</td></tr></tbody></table></div>
+<h3 id="section-38">生态集成策略优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作与飞书深度打通，继承聊天记录/文档/会议纪要/日程等企业上下文；千问办公钉钉 25 项原生能力全双向嵌入+接入企业微信/飞书；WorkBuddy 不绑定单一 IM，接入微信/企微/飞书/钉钉/QQ 等</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">MCP 连接器已上线但生态相对独立，未与主流 IM（飞书/钉钉/企业微信）深度打通；知识库仅同步 WPS 云端，无法继承企业 IM 上下文；团队版仍在推进中</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">优先接入企业微信和飞书，实现 IM 消息/日程/待办的双向读取（参考千问办公 25 项原生能力模式）；通过 MCP 协议扩展第三方数据源接入，降低生态绑定门槛；加速团队版上线，补齐企业协作短板</td></tr></tbody></table></div>
+<h3 id="section-39">多模型策略优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">WorkBuddy 接入 6+ 模型（混元 Hy4/DeepSeek/GLM/Kimi/MiniMax）且支持自定义模型端点不消耗积分；WPS 灵犀自身已接入 8+ 模型并设有模型倍率参考表</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">虽已接入多模型，但 Pro/Max 任务定位不精准，简单任务和复杂任务的 Pro/Max 划分不够准确，选错模型消耗可能差 20 倍以上；用户对模型选择缺乏引导</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">增加"任务类型→推荐模型"智能匹配，根据任务复杂度自动推荐 Pro 或 Max 模式；在任务卡片上展示各模型预估消耗对比，让用户有选择依据；保留自定义 API Key 免费绑定，但增加配置引导教程</td></tr></tbody></table></div>
+<h3 id="section-40">企业版与团队协作优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作企业版 99 元/席起含飞书 Office 打包销售，性价比最高；千问办公企业版 198 元/席含管理后台+席位管理；WorkBuddy 企业版 198 元/人起 1 人起购+积分共享池</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">团队版仍在推进中，企业版定价未公开，在四款产品中企业适配评分最低（2 分）；缺乏席位管理、管理后台等企业级功能</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">参考 WorkBuddy 的"1 人起购+积分共享池"模式降低企业试用门槛；结合 WPS 企业版/政府版用户基础，推出"WPS 企业版+灵犀"打包套餐；加速上线团队项目空间、席位管理和用量统计</td></tr></tbody></table></div>
+<h3 id="section-41">移动端覆盖优化</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">维度</th><th class="align-left">内容</th></tr></thead><tbody><tr><td class="align-left">竞品标杆做法</td><td class="align-left">豆包工作支持手机远程控制电脑，跨设备协同；千问办公深度嵌入钉钉 App，移动端天然覆盖；WorkBuddy 有 iOS companion app</td></tr><tr><td class="align-left">WPS 灵犀现状痛点</td><td class="align-left">安卓版已于 2026 年 8 月 28 日上线，但 iOS 版仍在审核中，移动端覆盖不完整；远程指挥功能已上线但用户认知度低</td></tr><tr><td class="align-left">可借鉴优化点</td><td class="align-left">加速 iOS 版本审核上线；推广"手机远程指挥"功能的使用场景（如通勤时下发任务、回家后查看结果）；考虑接入企业微信/飞书 IM 作为轻量移动入口</td></tr></tbody></table></div>
+<h2 id="section-42">行动建议与优先级</h2>
+<h3 id="section-43">Must：必须做</h3>
+<p>* Must: 建立计费透明度机制——在任务执行前预估消耗并展示，用户确认后再执行，解决"不敢用"问题</p>
+<p>* Must: 确保免费额度的实际可用性——免费额度应覆盖至少 3-5 次完整核心任务，而非仅够"体验"一次</p>
+<p>* Must: 建立额度结转或累积机制——避免"当月清零"造成的浪费焦虑，提升用户留存</p>
+<h3 id="section-44">Should：应该做</h3>
+<p>* Should: 接入多模型策略——给用户模型选择权，同时明示各模型消耗差异，平衡灵活性和可控性</p>
+<p>* Should: 建设 MCP 连接器生态——通过标准协议接入第三方平台和数据源，降低生态绑定门槛</p>
+<p>* Should: 优化移动端覆盖——确保 iOS/Android 至少支持任务下发和结果查看</p>
+<p>* Should: 设计学生/教育优惠——降低学生群体试用门槛，培养长期用户</p>
+<h3 id="section-45">Could：可以做</h3>
+<p>* Could: 探索跨产品数据互通协议——在行业层面推动上下文和知识库的标准化互通</p>
+<p>* Could: 建设技能/专家市场——让用户创建、分享和安装自定义技能，形成平台生态</p>
+<p>* Could: 探索按结果付费模式——对高质量交付物按结果而非过程收费，降低用户风险感知</p>
+<h2 id="section-46">附录</h2>
+<h3 id="section-47">未查证项</h3>
+<div class="table-wrap"><table><thead><tr><th class="align-left">项目</th><th class="align-left">说明</th><th class="align-left">需后续验证</th></tr></thead><tbody><tr><td class="align-left">WPS 灵犀企业版定价</td><td class="align-left">团队版仍在推进中，企业版定价未公开</td><td class="align-left">待官方发布</td></tr><tr><td class="align-left">豆包工作上下文长度</td><td class="align-left">官方未公开具体数值</td><td class="align-left">待官方披露</td></tr><tr><td class="align-left">千问办公模型版本</td><td class="align-left">公开资料提及 Qwen3.7-Max、Qwen3.8，具体版本对应关系待确认</td><td class="align-left">待官方文档更新</td></tr><tr><td class="align-left">WorkBuddy 与 TRAE 关系</td><td class="align-left">WorkBuddy 由腾讯出品，与字节跳动 TRAE 无关，已查证确认</td><td class="align-left">已查证</td></tr><tr><td class="align-left">各产品月活数据</td><td class="align-left">豆包 3.45 亿、千问 1.66 亿为截至 2026 年 3 月数据，可能已变化</td><td class="align-left">待最新财报</td></tr><tr><td class="align-left">WPS 灵犀与豆包/千问/WorkBuddy 的积分兑换率</td><td class="align-left">各产品计费单位不同，直接比较兑换率需进一步实测</td><td class="align-left">需产品实测</td></tr></tbody></table></div>
+<h3 id="section-48">来源列表</h3>
+<section class="source-list" aria-label="附录"><div class="section-kicker">SOURCES</div><div class="source-grid"><article class="source-card"><div class="source-card-head"><span class="source-index">S1</span><h3>WPS 灵犀官网</h3></div><a class="source-link" href="https://lingxi.cn" target="_blank" rel="noopener">lingxi.cn</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">产品定位、功能</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S2</span><h3>WPS 社区-灵犀专业版发布</h3></div><a class="source-link" href="https://forum.wps.cn/topic/93940" target="_blank" rel="noopener">forum.wps.cn/topic...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">发布信息、定价</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S3</span><h3>什么值得买-WPS 灵犀单独收费</h3></div><a class="source-link" href="https://post.m.smzdm.com/p/al3xn8x8/" target="_blank" rel="noopener">post.m.smzdm.com/p...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">定价、额度消耗</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S4</span><h3>什么值得买-金山办公 AI 商业化</h3></div><a class="source-link" href="https://post.m.smzdm.com/p/aom07le7/" target="_blank" rel="noopener">post.m.smzdm.com/p...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">套餐对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S5</span><h3>WPS 社区-灵犀更新速递</h3></div><a class="source-link" href="https://bbs.wps.cn/topic/93688" target="_blank" rel="noopener">bbs.wps.cn/topic...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">功能更新</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S6</span><h3>科创板日报-金山办公半年报</h3></div><a class="source-link" href="https://m.chinastarmarket.cn/detail/2439287" target="_blank" rel="noopener">m.chinastarmarket.cn/detail...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">财务数据</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S7</span><h3>豆包专业版-什么值得买</h3></div><a class="source-link" href="https://post.m.smzdm.com/p/ae692w4m/" target="_blank" rel="noopener">post.m.smzdm.com/p...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">豆包定价、功能</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S8</span><h3>豆包工作正式发布-光明网</h3></div><a class="source-link" href="http://tech.gmw.cn/2026-08/25/content_38963147.htm" target="_blank" rel="noopener">tech.gmw.cn/2026-08...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">发布信息</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S9</span><h3>豆包工作任务模式升级-新浪财经</h3></div><a class="source-link" href="https://cj.sina.com.cn/articles/view/7880068207" target="_blank" rel="noopener">cj.sina.com.cn/articles...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">功能详情</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S10</span><h3>飞书 AI 版本权益-帮助中心</h3></div><a class="source-link" href="https://aily.feishu.cn/hc/1u7kleqg/1cnvbb55" target="_blank" rel="noopener">aily.feishu.cn/hc...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">企业版定价</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S11</span><h3>千问办公产品页-阿里云</h3></div><a class="source-link" href="https://www.aliyun.com/product/qwenwork" target="_blank" rel="noopener">www.aliyun.com/product...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">产品定位、功能</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S12</span><h3>千问办公定价页</h3></div><a class="source-link" href="https://qwenwork.cn/pricing" target="_blank" rel="noopener">qwenwork.cn/pricing...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">定价详情</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S13</span><h3>千问办公助理付费-界面新闻</h3></div><a class="source-link" href="https://www.jiemian.com/article/14902985.html" target="_blank" rel="noopener">www.jiemian.com/article...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">千问 App 办公助理定价</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S14</span><h3>千问办公深度解析-掘金</h3></div><a class="source-link" href="https://juejin.cn/post/7667103725048119302" target="_blank" rel="noopener">juejin.cn/post...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">功能详情</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S15</span><h3>WorkBuddy 官网</h3></div><a class="source-link" href="https://www.workbuddy.cn/" target="_blank" rel="noopener">www.workbuddy.cn</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">产品定位、功能</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S16</span><h3>WorkBuddy 企业计费-腾讯云</h3></div><a class="source-link" href="https://cloud.tencent.com.cn/document/product/1831/134333" target="_blank" rel="noopener">cloud.tencent.com.cn/document...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">企业版定价</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S17</span><h3>WorkBuddy Hy4 集成分析</h3></div><a class="source-link" href="https://www.progressiverobot.com/2026/08/30/workbuddy-hy4-preview-work-and-coding-tasks/" target="_blank" rel="noopener">www.progressiverobot.com/2026...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">模型能力、国际版定价</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S18</span><h3>豆包 vs WorkBuddy vs 千问办公横评-CSDN</h3></div><a class="source-link" href="https://blog.csdn.net/qq_43407325/article/details/163633866" target="_blank" rel="noopener">blog.csdn.net/qq_43407325...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">三巨头对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S19</span><h3>阿里腾讯字节 AI 办公付费对比-新浪财经</h3></div><a class="source-link" href="https://finance.sina.com.cn/stock/t/2026-08-06/doc-inimizpr0706195.shtml" target="_blank" rel="noopener">finance.sina.com.cn/stock...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">定价横向对比</span></div></div></article><article class="source-card"><div class="source-card-head"><span class="source-index">S20</span><h3>2026 AI 生产力工具全景测评-掘金</h3></div><a class="source-link" href="https://juejin.cn/post/7624757644268863515" target="_blank" rel="noopener">juejin.cn/post...</a><div class="source-meta"><div class="source-meta-item"><span class="source-meta-label">用途</span><span class="source-meta-value">行业对比</span></div></div></article></div></section><section class="priority-board"><div class="section-kicker">PRIORITY</div><h2>优先级建议看板</h2><div class="priority-grid"><article class="priority-col board-must"><h3><span>Must</span>必须做</h3><ol><li>建立计费透明度机制——在任务执行前预估消耗并展示，用户确认后再执行，解决"不敢用"问题</li><li>确保免费额度的实际可用性——免费额度应覆盖至少 3-5 次完整核心任务，而非仅够"体验"一次</li><li>建立额度结转或累积机制——避免"当月清零"造成的浪费焦虑，提升用户留存</li></ol></article><article class="priority-col board-should"><h3><span>Should</span>应该做</h3><ol><li>接入多模型策略——给用户模型选择权，同时明示各模型消耗差异，平衡灵活性和可控性</li><li>建设 MCP 连接器生态——通过标准协议接入第三方平台和数据源，降低生态绑定门槛</li><li>优化移动端覆盖——确保 iOS/Android 至少支持任务下发和结果查看</li><li>设计学生/教育优惠——降低学生群体试用门槛，培养长期用户</li></ol></article><article class="priority-col board-could"><h3><span>Could</span>可以做</h3><ol><li>探索跨产品数据互通协议——在行业层面推动上下文和知识库的标准化互通</li><li>建设技能/专家市场——让用户创建、分享和安装自定义技能，形成平台生态</li><li>探索按结果付费模式——对高质量交付物按结果而非过程收费，降低用户风险感知</li></ol></article></div></section>
+</main>
+</div>
+<a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+
+
+</body></html>
